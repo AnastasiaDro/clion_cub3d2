@@ -8,17 +8,6 @@
 #include <time.h>
 #include <stdio.h>
 
-int free_all(t_data *m_struct)
-{
-    return 0;
-}
-
-void throwException(char *msg, t_data *m_struct)
-{
-    printf("Error\n%s\n", msg);
-    free_all(m_struct);
-    exit(0);
-}
 
 
 void     cerebus_mlx_pixel_put(t_data *data, int x, int y, int color)

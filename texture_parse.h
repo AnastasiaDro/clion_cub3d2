@@ -28,10 +28,11 @@ typedef struct s_textu
 	int         endian;
 	int         height;
 	int         width;
+	char **exceptions_arr;
 }				t_textu;
 
 
-void init_textu_arr(t_textu *textu, int height, int width);
+int init_textu_arr(t_textu *textu, int height, int width);
 
 
 int textu_mlx_pixel_get(t_textu *textu, int x, int y);

@@ -67,7 +67,7 @@ int change_y_p_coords(t_data *m_struct);
 
 void     cerebus_mlx_pixel_put(t_data *data, int x, int y, int color);
 
-void throwException(char *msg, t_data *m_struct);
+//void throwException(char *msg, t_data *m_struct);
 
 int draw_voxel1(t_data *m_struct, int voxel_size, int color);
 

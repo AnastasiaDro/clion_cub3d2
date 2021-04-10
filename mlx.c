@@ -25,6 +25,7 @@
 #include "texture_parse.h"
 #include "key_hooking.h"
 #include "sprites_utils.h"
+#include "exceptions.h"
 
 // 3d
 int     render_next_frame(t_data *m_struct)
@@ -145,10 +146,10 @@ int main()
 
     //массив текстур
     t_textu textu[4];
-    textu[0].adress = NORTH_TEXTURE;
-    textu[1].adress = SOUTH_TEXTURE;
-    textu[2].adress = WEST_TEXTURE;
-    textu[3].adress = EAST_TEXTURE;
+//    textu[0].adress = NORTH_TEXTURE;
+//    textu[1].adress = SOUTH_TEXTURE;
+//    textu[2].adress = WEST_TEXTURE;
+//    textu[3].adress = EAST_TEXTURE;
 
     //спрайты
 	t_spr_info *sprite_info;
@@ -162,10 +163,29 @@ int main()
     init_sprite_info(sprite_info, 64,64, BARREL);
 	m_struct.sprite_info = sprite_info;
 
-	init_textu_arr(textu, 128, 128);
+//	init_textu_arr(textu, 128, 128);
 	m_struct.textu = textu;
 // парсинг карты
     parse_map(&m_struct);
+	printf("after parsing\n");
+	printf("north path %s\n", m_struct.params->north_texture_path);
+	printf("south path %s\n", m_struct.params->south_texture_path);
+	printf("west path %s\n", m_struct.params->west_texture_path);
+	printf("east path %s\n", m_struct.params->east_texture_path);
+
+
+	//textu[0].adress = m_struct.params->north_texture_path;
+
+	textu[0].adress =  m_struct.params->north_texture_path;
+	textu[1].adress = m_struct.params->south_texture_path;
+	textu[2].adress = m_struct.params->west_texture_path;;
+	textu[3].adress = m_struct.params->east_texture_path;
+
+	if (init_textu_arr(textu, 128, 128) == -1)
+	{
+		free_all(&m_struct);
+	}
+
 
 	m_struct.img = mlx_new_image(m_struct.mlx, m_struct.screen_width, m_struct.screen_higth);
 

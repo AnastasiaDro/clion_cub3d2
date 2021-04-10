@@ -12,7 +12,8 @@
 
 NAME	=	cub3d
 SRC		=	mlx.c get_next_line/get_next_line.c get_next_line/get_next_line_utils.c \
-            parcer.c draw_utils.c textu_cub_utils.c texture_parse.c new_cub_utils.h key_hooking.c key_hooking.h
+            parcer_new.c draw_utils.c textu_cub_utils.c texture_parse.c new_cub_utils.h key_hooking.c key_hooking.h \
+            sprites_utils.c exceptions.c
 LIBFT	= 	libft.a
 LIBMX   =   minilibx_opengl_20191021/libmlx.a
 

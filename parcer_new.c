@@ -24,13 +24,11 @@ int  is_map_start(char *line)
     return i;
 }
 
-int check_texture_path_except(char *s, char *msg, t_data *m_struct)
+int find_string_start(char *s)
 {
     int i = 2; //третий индекс в массиве
     while (s[i] && s[i] == ' ' )
         i++;
-    if (ft_strncmp(&s[i], "./", 2))
-        throwException(msg, m_struct);
     return (i); //вернем индекс символа
 }
 
@@ -39,28 +37,33 @@ int check_n_save_textures(char *s, t_data *m_struct)
 {
     int res = 0;
     int start_i = 0;
+    int  s_len = 0;
     if (!ft_strncmp(s, "NO", 2)) //если строки равны
     {
-        start_i = check_texture_path_except(s, NORTH_TEX_PATH_ERROR, m_struct);
+        start_i = find_string_start(s);
         //обработка
         m_struct->params->north_texture_path = ft_strdup(&s[start_i]);
-        return (res);
+//       s_len = ft_strlen(&s[start_i]);
+//		m_struct->params->north_texture_path = ft_calloc( s_len+ 3, sizeof (char));
+//		m_struct->params->north_texture_path[0] = '"';
+//		m_struct->params->north_texture_path[s_len + 1] = '"';
+		return (res);
     }
     if (!ft_strncmp(s, "SO", 2)) //если строки равны
     {
-       start_i =  check_texture_path_except(s, SOUTH_TEX_PATH_ERROR, m_struct);
+       start_i = find_string_start(s);
         m_struct->params->south_texture_path = ft_strdup(&s[start_i]);
         return (res);
     }
     if (!ft_strncmp(s, "WE", 2)) //если строки равны
     {
-        start_i = check_texture_path_except(s, WEST_TEX_PATH_ERROR, m_struct);
+        start_i = find_string_start(s);
         m_struct->params->west_texture_path = ft_strdup(&s[start_i]);
         return (res);
     }
     if (!ft_strncmp(s, "EA", 2)) //если строки равны
     {
-        start_i = check_texture_path_except(s, EAST_TEX_PATH_ERROR, m_struct);
+        start_i = find_string_start(s);
         m_struct->params->east_texture_path = ft_strdup(&s[start_i]);
         return (res);
     }
