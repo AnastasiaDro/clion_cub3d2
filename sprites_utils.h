@@ -38,7 +38,7 @@ typedef struct s_spr_info
 	int         endian;
 }				t_spr_info;
 
-void init_sprite_info(t_spr_info *spr_info, int sprite_h, int sprite_w, char *path);
+int init_sprite_info(t_spr_info *spr_info, int sprite_h, int sprite_w, char *path);
 
 t_sprite *sprite_lstnew(double x, double y);
 

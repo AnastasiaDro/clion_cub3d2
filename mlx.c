@@ -160,11 +160,11 @@ int main()
    }
     t_params *params = malloc(sizeof (t_params));
     m_struct.params = params;
-    init_sprite_info(sprite_info, 64,64, BARREL);
-	m_struct.sprite_info = sprite_info;
+
 
 //	init_textu_arr(textu, 128, 128);
 	m_struct.textu = textu;
+	m_struct.sprite_info = sprite_info;
 // парсинг карты
     parse_map(&m_struct);
 	printf("after parsing\n");
@@ -182,9 +182,12 @@ int main()
 	textu[3].adress = m_struct.params->east_texture_path;
 
 	if (init_textu_arr(textu, 128, 128) == -1)
-	{
 		free_all(&m_struct);
-	}
+	if(init_sprite_info(sprite_info, 64,64, m_struct.params->sprite_texture_path) == -1)
+		free_all(&m_struct);
+
+
+
 
 
 	m_struct.img = mlx_new_image(m_struct.mlx, m_struct.screen_width, m_struct.screen_higth);

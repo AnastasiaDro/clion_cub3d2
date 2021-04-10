@@ -67,6 +67,11 @@ int check_n_save_textures(char *s, t_data *m_struct)
         m_struct->params->east_texture_path = ft_strdup(&s[start_i]);
         return (res);
     }
+	if (!ft_strncmp(s, "S", 1))
+	{
+		start_i = find_string_start(s);
+		m_struct->params->sprite_texture_path = ft_strdup(&s[start_i]);
+	}
     return (-1);
 }
 

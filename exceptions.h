@@ -7,10 +7,11 @@
 
 #include "new_cub_utils.h"
 
-#define NORTH_TEX_PATH_ERROR "Invalid North Texture path"
-#define SOUTH_TEX_PATH_ERROR "Invalid South Texture path"
-#define WEST_TEX_PATH_ERROR "Invalid West Texture path"
-#define EAST_TEX_PATH_ERROR "Invalid East Texture path"
+#define NORTH_TEX_PATH_ERROR "Invalid North texture path"
+#define SOUTH_TEX_PATH_ERROR "Invalid South texture path"
+#define WEST_TEX_PATH_ERROR "Invalid West texture path"
+#define EAST_TEX_PATH_ERROR "Invalid East texture path"
+#define SPRITE_PATH_ERROR "Invalid Sprite texture path"
 
 void throwException(char *msg);
 int free_all(t_data *m_struct);

@@ -3,7 +3,7 @@ NO /Users/anastasia/CLionProjects/clion_cub3d2/textures/128caves_wall.xpm
 SO /Users/anastasia/CLionProjects/clion_cub3d2/textures/128gate.xpm
 WE /Users/anastasia/CLionProjects/clion_cub3d2/textures/128mcity_wall11.xpm
 EA /Users/anastasia/CLionProjects/clion_cub3d2/textures/128hell_nasty03.xpm
-S ./sprites/barrel.xpm
+S  /Users/anastasia/CLionProjects/clion_cub3d2/sprites/barrel.xpm
 F 220,100,0
 C 225,30,0
 

@@ -3,18 +3,26 @@
 //
 #include <expat.h>
 #include "sprites_utils.h"
+#include "exceptions.h"
 
 
-void init_sprite_info(t_spr_info *spr_info, int sprite_h, int sprite_w, char *path)
+int init_sprite_info(t_spr_info *spr_info, int sprite_h, int sprite_w, char *path)
 {
 	spr_info->sprite_path = path;
 	spr_info->num_sprites = 0;
 	(*spr_info).mlx = mlx_init();
-	(*spr_info).img = mlx_xpm_file_to_image((*spr_info).mlx, (*spr_info).sprite_path, &sprite_w, &sprite_h);
+	if(!((*spr_info).img = mlx_xpm_file_to_image((*spr_info).mlx, (*spr_info).sprite_path, &sprite_w, &sprite_h)))
+	{
+		throwException(SPRITE_PATH_ERROR);
+		return -1;
+	}
+
 	(*spr_info).addr = mlx_get_data_addr((*spr_info).img, &(spr_info->bits_per_pixel), &(spr_info->line_length),
 										 &(spr_info->endian));
 	spr_info->h = sprite_h;
 	spr_info->w = sprite_w;
+
+	return 1;
 }
 
 int sprite_mlx_pixel_get(t_spr_info *spr_info, int x, int y)
@@ -58,7 +66,7 @@ void	sprite_lstadd_front(t_sprite **lst, t_sprite *new)
     }
 }
 
-t_sprite 	*ft_lstlast(t_sprite *lst)
+t_sprite 	*sprite_lstlast(t_sprite *lst)
 {
     t_sprite *p;
 
@@ -81,7 +89,7 @@ void	sprite_lstadd_back(t_sprite **lst, t_sprite *new)
         *lst = new;
         return ;
     }
-    last = ft_lstlast(*(lst));
+    last = sprite_lstlast(*(lst));
     last->next = new;
 }
 
