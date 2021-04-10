@@ -12,6 +12,7 @@
 #define WEST_TEX_PATH_ERROR "Invalid West texture path"
 #define EAST_TEX_PATH_ERROR "Invalid East texture path"
 #define SPRITE_PATH_ERROR "Invalid Sprite texture path"
+#define INVALID_MAP "Invalid map"
 
 void throwException(char *msg);
 int free_all(t_data *m_struct);

@@ -11,5 +11,4 @@ int free_all(t_data *m_struct)
 void throwException(char *msg)
 {
 	printf("Error\n%s\n", msg);
-
 }

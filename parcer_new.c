@@ -4,6 +4,23 @@
 #include "new_cub_utils.h"
 #include "exceptions.h"
 
+#define MAP_STARTED -1
+#define ZERO_START_LINE -3
+#define MAP_ERROR -3
+
+int check_fe_line(char *s)
+{
+	int i = 0;
+	while (s[i] == ' ')
+		i++;
+	while (s[i])
+	{
+		if (s[i]!= '1' && s[i]!= '2')
+			return MAP_ERROR;
+		i++;
+	}
+	return 1;
+}
 
 int  is_map_start(char *line)
 {
@@ -16,8 +33,10 @@ int  is_map_start(char *line)
             i++;
             continue;
         }
-        if (ptr[i] == '1')
-            return -1;
+        if (ptr[i] >= '0' && ptr[i] <= '9')
+            return MAP_STARTED;
+        else if (ptr[i] == '0')
+			return ZERO_START_LINE;
         else
             return i;
     }
@@ -35,7 +54,6 @@ int find_string_start(char *s)
 //сохраняем текстуры
 int check_n_save_textures(char *s, t_data *m_struct)
 {
-    int res = 0;
     int start_i = 0;
     int  s_len = 0;
     if (!ft_strncmp(s, "NO", 2)) //если строки равны
@@ -47,59 +65,54 @@ int check_n_save_textures(char *s, t_data *m_struct)
 //		m_struct->params->north_texture_path = ft_calloc( s_len+ 3, sizeof (char));
 //		m_struct->params->north_texture_path[0] = '"';
 //		m_struct->params->north_texture_path[s_len + 1] = '"';
-		return (res);
+		return (1);
     }
     if (!ft_strncmp(s, "SO", 2)) //если строки равны
     {
        start_i = find_string_start(s);
         m_struct->params->south_texture_path = ft_strdup(&s[start_i]);
-        return (res);
+        return (1);
     }
     if (!ft_strncmp(s, "WE", 2)) //если строки равны
     {
         start_i = find_string_start(s);
         m_struct->params->west_texture_path = ft_strdup(&s[start_i]);
-        return (res);
+        return (1);
     }
     if (!ft_strncmp(s, "EA", 2)) //если строки равны
     {
         start_i = find_string_start(s);
         m_struct->params->east_texture_path = ft_strdup(&s[start_i]);
-        return (res);
+        return (1);
     }
 	if (!ft_strncmp(s, "S", 1))
 	{
 		start_i = find_string_start(s);
 		m_struct->params->sprite_texture_path = ft_strdup(&s[start_i]);
+		return (1);
 	}
-    return (-1);
+    return (0);
 }
 
 int check_n_save_params(char *s, t_data *m_struct)
 {
-    int res = 0;
     if (*s == 'R') //и что этого флага ещё не было, если был - ошибка
     {
         //нужно два атои
         //берём разрешение, нужно учесть, что после Р не должно быть других букв.
-        return (res);
+        return (1);
     }
     if (*s == 'F') //и что этого флага ещё не было, если был - ошибка
     {
         //берём , цвет пола=, что после не должно быть других букв.
-        return (res);
-    }
-    if (*s == 'F') //и что этого флага ещё не было, если был - ошибка
-    {
-        //берём , цвет пола, что после не должно быть других букв.
-        return (res);
+        return (1);
     }
     if (*s == 'C') //и что этого флага ещё не было, если был - ошибка
     {
         //берём , цвет потолка, что после не должно быть других букв.
-        return (res);
+        return (1);
     }
-    return -1;
+    return 0;
 }
 
 
@@ -188,6 +201,7 @@ void fill_map(t_list **last_elem, int elems_num, t_data *m_struct)
     while (elems_num)
     {
         map[elems_num - 1] =  (char *)elem->content;
+        elem->content = NULL;
         if (!flag_player)
         {
              if ((is_player = find_player(map[elems_num - 1], m_struct)) != -1)
@@ -214,6 +228,7 @@ void fill_map(t_list **last_elem, int elems_num, t_data *m_struct)
         elems_num++;
     }
     m_struct->map = map;
+
 }
 
 void parse_map(t_data *m_struct)
@@ -233,8 +248,13 @@ void parse_map(t_data *m_struct)
     {
         //вот тут проверяем начало карты
         index = is_map_start(line);
-        if (index == -1)
+        if (index == MAP_STARTED)
         {
+			if (check_fe_line(line) == MAP_ERROR)
+			{
+				throwException(INVALID_MAP);
+				free_all(m_struct);
+			}
             ft_lstadd_front(&last_elem, ft_lstnew(line));
             elems_num++;
             break;
@@ -242,14 +262,21 @@ void parse_map(t_data *m_struct)
         else
         {
             //сохраняю в структуру параметров текстуры
-            check_n_save_textures(&line[index], m_struct);
-            //TODO
+            //если у нас уже
+			if (line[0] == '\0')
+				continue;
+			if (!(check_n_save_textures(&line[index], m_struct)) && !(check_n_save_params(&line[index], m_struct)))
+			{
+				throwException(INVALID_MAP);
+				free_all(m_struct);
+			}
             //сохранить разрешение и другие параметры
         }
     }
    // printf("север %s\n", m_struct->params->north_texture_path);
     while (get_next_line(fd, &line))
     {
+    	int s_len = ft_strlen(line);
         ft_lstadd_front(&last_elem, ft_lstnew(line));
         elems_num++;
     }
@@ -257,11 +284,17 @@ void parse_map(t_data *m_struct)
    // free(line);
     elems_num++;
     m_struct->lst = last_elem;
+	if (check_fe_line(line) == MAP_ERROR)
+	{
+		throwException(INVALID_MAP);
+		free_all(m_struct);
+	}
+	line = NULL;
     //создадим список для спрайтов (с массивом еще париться по поводу памяти каждый раз...
     m_struct->sprite_info->sprite_list = malloc(1*sizeof (t_sprite *));
     *(m_struct->sprite_info->sprite_list) = NULL;
     fill_map(&last_elem, elems_num, m_struct);
     //сега
-  //  ft_lstclear(&last_elem, free);
+    ft_lstclear(&last_elem, free);
    	close(fd);
 }
