@@ -8,6 +8,105 @@
 #define ZERO_START_LINE -3
 #define MAP_ERROR -3
 
+
+int get_len(char *s)
+{
+    int len = 0;
+    int i = 0;
+    while (s[i])
+    {
+        if (s[i] == '1')
+        {
+            len = 1;
+            break;
+        }
+        while(s[i] != ' ' || s[i] != '\n')
+            len++;
+        i++;
+    }
+    return len;
+}
+
+int check_borders(char **map, int l_i, int i, int coef)
+{       //символ правее или левее         символ выше             //символ ниже
+
+    printf("char map[i-1][l_i] %c\n", map[i-1][l_i]);
+    if (map[i][l_i + 1*coef] == ' ' || map[i-1][l_i] == ' ' || map[i + 2][l_i] == ' ')
+        return MAP_ERROR;
+    else
+        return 1;
+}
+
+
+
+
+
+int check_map (char **map, int elems_num)
+{
+    int cur_s_len;
+    int next_s_len;
+    int i = 1; //начнем со второй строки
+    int l_i = 0; //индекс по строке
+    char *cur_s;
+    char *next_s;
+    while (i < elems_num-2)
+    {
+        l_i = 0;
+        cur_s = map[i];
+        cur_s_len = (int)ft_strlen(cur_s);
+        //слева направо
+        while(l_i < cur_s_len)
+        {
+            if (cur_s[l_i] == '0')
+                return MAP_ERROR;
+            if (cur_s[l_i] == '1')
+                break;
+            l_i++;
+        }
+        if (l_i == cur_s_len)
+        {
+            throwException(INVALID_MAP);    //ошибка карты, мы дошли до конца, единица так и не встретилась
+            return MAP_ERROR;
+        }
+
+        while(l_i < cur_s_len)
+        {
+            if (cur_s[l_i] == '0')
+                if (check_borders(map, l_i, i, 1) == MAP_ERROR)
+                    return MAP_ERROR;
+                else
+                    break;
+            l_i++;
+        }
+
+        //cправа налево
+        next_s = map[i+1];
+        next_s_len = ft_strlen(next_s);
+        int diff = 0;
+        if (cur_s_len < next_s_len)
+        {
+            diff = next_s_len - cur_s_len;
+            while(diff > 0)
+            {
+                if (next_s[next_s_len-diff-1] == '0')
+                    return MAP_ERROR;
+                diff--;
+            }
+        } else {
+            diff = cur_s_len - next_s_len;
+            while(diff > 0)
+            {
+                if (cur_s[cur_s_len-diff-1] == '0')
+                    return MAP_ERROR;
+                diff--;
+            }
+        }
+        i++;
+    }
+    return 1;
+}
+
+
 int check_fe_line(char *s)
 {
 	int i = 0;
@@ -15,12 +114,14 @@ int check_fe_line(char *s)
 		i++;
 	while (s[i])
 	{
-		if (s[i]!= '1' && s[i]!= '2')
+		if (s[i]!= '1' && s[i]!= ' ')
 			return MAP_ERROR;
 		i++;
 	}
 	return 1;
 }
+
+
 
 int  is_map_start(char *line)
 {
@@ -308,4 +409,11 @@ void parse_map(t_data *m_struct)
     //сега
     ft_lstclear(&last_elem, free);
    	close(fd);
+
+   	//проверим карту
+    if (check_map(m_struct->map, elems_num) == MAP_ERROR)
+    {
+        throwException(INVALID_MAP);
+        free_all(m_struct);
+    }
 }
