@@ -228,6 +228,11 @@ void fill_map(t_list **last_elem, int elems_num, t_data *m_struct)
         elem = elem->next;
         elems_num--;
     }
+    if (flag_player == 0)
+    {
+        throwException(NO_PLAYER);
+        free_all(m_struct);
+    }
     //выведем карту
     while (map[elems_num])
     {
