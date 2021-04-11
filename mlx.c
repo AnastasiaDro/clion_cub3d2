@@ -90,7 +90,6 @@ int key_hook(int keycode, t_data *m_struct)
 	{
     	mlx_destroy_window(m_struct->mlx, m_struct->mlx_win);
     	mlx_destroy_image(m_struct->mlx, m_struct->img);
-		ft_lstclear(&m_struct->lst, free);
 		free(m_struct->map);
 		exit(0);
 	}

@@ -237,9 +237,9 @@ void parse_map(t_data *m_struct)
     write(1, "PARSE_MAP\n", 10);
 
 //школа
-  // int fd = open("/Users/cerebus/Documents/clion_cub3d/real_map.cub", O_RDONLY);
+   int fd = open("/Users/cerebus/projects/clion_cub3d2/real_map1.cub", O_RDONLY);
   //ДОМ
-  int fd = open("/Users/anastasia/CLionProjects/clion_cub3d2/real_map.cub", O_RDONLY);
+  //int fd = open("/Users/anastasia/CLionProjects/clion_cub3d2/real_map.cub", O_RDONLY);
     char *line;
     t_list *last_elem = NULL;
     int elems_num = 0;
