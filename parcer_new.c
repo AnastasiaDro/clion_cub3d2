@@ -202,9 +202,6 @@ void fill_map(t_list **last_elem, int elems_num, t_data *m_struct)
     {
         map[elems_num - 1] =  (char *)elem->content;
         elem->content = NULL;
-//        if (!flag_player)
-//        {
-
         if (flag_player == 1 && ((is_player = find_player(map[elems_num - 1], m_struct)) != -1))
         {
             throwException(MORE_PLAYERS);
@@ -263,11 +260,11 @@ void parse_map(t_data *m_struct)
         index = is_map_start(line);
         if (index == MAP_STARTED)
         {
-//			if (check_fe_line(line) == MAP_ERROR)
-//			{
-//				throwException(INVALID_MAP);
-//				free_all(m_struct);
-//			}
+			if (check_fe_line(line) == MAP_ERROR)
+			{
+				throwException(INVALID_MAP);
+				free_all(m_struct);
+			}
             ft_lstadd_front(&last_elem, ft_lstnew(line));
             elems_num++;
             break;
@@ -297,11 +294,11 @@ void parse_map(t_data *m_struct)
    // free(line);
     elems_num++;
     m_struct->lst = last_elem;
-//	if (check_fe_line(line) == MAP_ERROR)
-//	{
-//		throwException(INVALID_MAP);
-//		free_all(m_struct);
-//	}
+	if (check_fe_line(line) == MAP_ERROR)
+	{
+		throwException(INVALID_MAP);
+		free_all(m_struct);
+	}
 	line = NULL;
     //создадим список для спрайтов (с массивом еще париться по поводу памяти каждый раз...
     m_struct->sprite_info->sprite_list = malloc(1*sizeof (t_sprite *));
