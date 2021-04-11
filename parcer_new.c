@@ -75,6 +75,7 @@ int check_map (char **map, int elems_num)
                 if (check_borders(map, l_i, i, 1) == MAP_ERROR)
                     return MAP_ERROR;
                 else
+                    //вот тут нужно пробежаться справа налево дальше
                     break;
             l_i++;
         }
@@ -101,6 +102,10 @@ int check_map (char **map, int elems_num)
                 diff--;
             }
         }
+
+
+
+
         i++;
     }
     return 1;
