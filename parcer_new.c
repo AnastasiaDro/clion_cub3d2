@@ -38,7 +38,28 @@ int check_borders(char **map, int l_i, int i, int coef)
 }
 
 
-
+int check_space_borders(int start_i, int end_i, char **map, char *cur_s, int s_num)
+{
+    int start = start_i;
+    int end = end_i;
+    while (start < end)
+    {
+        if (cur_s[start] == '0')
+            if (cur_s[start-1] == ' ' || cur_s[start+1] == ' '
+                    || map[s_num-1][start] == ' ' || map[s_num+1][start] == ' ')
+                return (MAP_ERROR);
+//        if(cur_s[start] == ' ')
+//        {
+//            if (cur_s[start-1] == '0')
+//                return (MAP_ERROR);
+//            //проверить сверху, проверить снизу
+//            if (cur_s[start-1] == '0')
+//                return (MAP_ERROR);
+//        }
+        start++;
+    }
+    return (1);
+}
 
 
 int check_map (char **map, int elems_num)
@@ -95,7 +116,7 @@ int check_map (char **map, int elems_num)
             }
         } else {
             diff = cur_s_len - next_s_len;
-            while(diff > 0)
+            while(diff >= 0)
             {
                 if (cur_s[cur_s_len-diff-1] == '0')
                     return MAP_ERROR;
@@ -103,9 +124,12 @@ int check_map (char **map, int elems_num)
             }
         }
 
+        //проверим строку на пробелы
+        //l_i - то, откуда начались единицы
 
-
-
+                //int check_space_borders(int start_i, int end_i, char **map, char *cur_s, int s_num)
+        if (check_space_borders(l_i, cur_s_len, map, cur_s, i) == MAP_ERROR)
+            return (MAP_ERROR);
         i++;
     }
     return 1;
@@ -296,7 +320,7 @@ int check_sprites(char *s, t_data *m_struct, int elems_num)
 }
 
 
-void fill_map(t_list **last_elem, int elems_num, t_data *m_struct)
+int fill_map(t_list **last_elem, int elems_num, t_data *m_struct)
 {
     char **map;
     t_list *elem;
@@ -305,6 +329,14 @@ void fill_map(t_list **last_elem, int elems_num, t_data *m_struct)
     
     map = ft_calloc(elems_num + 1, sizeof(char *)); //количество наших сьтрочек + 1 для зануления
     elem = *last_elem;
+    char *st = (char *)elem->content;
+    while('\0' == *st)
+    {
+        elem = elem->next;
+        elems_num--;
+        st = (char *)elem->content;
+    }
+    int el_num = elems_num;
     while (elems_num)
     {
         map[elems_num - 1] =  (char *)elem->content;
@@ -345,7 +377,7 @@ void fill_map(t_list **last_elem, int elems_num, t_data *m_struct)
         elems_num++;
     }
     m_struct->map = map;
-
+    return (el_num);
 }
 
 void parse_map(t_data *m_struct)
@@ -391,7 +423,8 @@ void parse_map(t_data *m_struct)
         }
     }
    // printf("север %s\n", m_struct->params->north_texture_path);
-    while (get_next_line(fd, &line))
+   int res = 0;
+    while ((res = get_next_line(fd, &line)))
     {
     	int s_len = ft_strlen(line);
         ft_lstadd_front(&last_elem, ft_lstnew(line));
@@ -401,16 +434,17 @@ void parse_map(t_data *m_struct)
    // free(line);
     elems_num++;
     m_struct->lst = last_elem;
-	if (check_fe_line(line) == MAP_ERROR)
-	{
-		throwException(INVALID_MAP);
-		free_all(m_struct);
-	}
+
 	line = NULL;
     //создадим список для спрайтов (с массивом еще париться по поводу памяти каждый раз...
     m_struct->sprite_info->sprite_list = malloc(1*sizeof (t_sprite *));
     *(m_struct->sprite_info->sprite_list) = NULL;
-    fill_map(&last_elem, elems_num, m_struct);
+    elems_num = fill_map(&last_elem, elems_num, m_struct);
+    if (check_fe_line(m_struct->map[elems_num-1]) == MAP_ERROR)
+    {
+        throwException(INVALID_MAP);
+        free_all(m_struct);
+    }
     //сега
     ft_lstclear(&last_elem, free);
    	close(fd);
