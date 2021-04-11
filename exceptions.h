@@ -13,6 +13,8 @@
 #define EAST_TEX_PATH_ERROR "Invalid East texture path"
 #define SPRITE_PATH_ERROR "Invalid Sprite texture path"
 #define INVALID_MAP "Invalid map"
+#define NO_PLAYER "Can't find a player at the map!"
+#define MORE_PLAYERS "Too many players at the map!"
 
 void throwException(char *msg);
 int free_all(t_data *m_struct);
