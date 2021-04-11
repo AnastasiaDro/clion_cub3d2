@@ -185,10 +185,6 @@ int main()
 	if(init_sprite_info(sprite_info, 64,64, m_struct.params->sprite_texture_path) == -1)
 		free_all(&m_struct);
 
-
-
-
-
 	m_struct.img = mlx_new_image(m_struct.mlx, m_struct.screen_width, m_struct.screen_higth);
 
 	m_struct.mlx_win = mlx_new_window(m_struct.mlx, m_struct.screen_width, m_struct.screen_higth, "hello, world!");
