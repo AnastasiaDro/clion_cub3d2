@@ -138,19 +138,20 @@ int set_player_vision(char c, t_data *m_struct)
 	}
 	if (c == 'E') //270 градусов
 	{
-		m_struct->dirX = -1;
-		m_struct->dirY = 0;
-		m_struct->planeY=0.66;
-		m_struct->planeX = 0;
-		return 1;
-	}
-	if (c == 'W') //270 градусов
-	{
         m_struct->dirX =   1;
         m_struct->dirY =   0;
         m_struct->planeY= -0.66;
         m_struct->planeX = 0;
         return 1;
+	}
+	if (c == 'W') //270 градусов
+	{
+        m_struct->dirX = -1;
+        m_struct->dirY = 0;
+        m_struct->planeY=0.66;
+        m_struct->planeX = 0;
+        return 1;
+
 	}
 	return 0;
 }

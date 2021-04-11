@@ -200,7 +200,9 @@ int main()
 	m_struct.addr = mlx_get_data_addr(m_struct.img, &m_struct.bits_per_pixel, &m_struct.line_length,
 									  &m_struct.endian);
 
-   // render_next_frame(&m_struct);
+  //  render_next_frame(&m_struct);
+//    m_struct.map_player_x - 0.5;
+//    m_struct.map_player_y - 0.5;
 	mlx_loop_hook(m_struct.mlx, render_next_frame, &m_struct);
 	mlx_loop(m_struct.mlx);
 
