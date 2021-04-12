@@ -79,7 +79,7 @@ int draw_lab_dda(t_data *m_struct) {
 	//int h = m_struct->screen_higth;
 
 	//нужен первоначальный вектор направления:
-	//double dirX = m_struct->dirX;d
+	//double dirX = m_struct->dirX;d[
 	//double dirY = m_struct->dirY;
 
 	//double planeX = m_struct->planeX;
