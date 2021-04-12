@@ -70,12 +70,7 @@ int draw_lab_dda(t_data *m_struct) {
 
 
     //1D Zbuffer
-    double ZBuffer[m_struct->screen_width];
-
-//arrays used to sort the sprites
-    int spriteOrder[m_struct->screen_width];
-    double spriteDistance[m_struct->screen_width];
-
+    double ZBuffer[m_struct->params->screen_width];
 
   //  double posX = m_struct->map_player_x; // не уверенаБ что так. Т.к. нужны координаты вектора игрока
 	//double posY = m_struct->map_player_y; // у Лодева оно по карте определяется

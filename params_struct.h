@@ -6,8 +6,8 @@
 #define PARAMS_STRUCT_H
 typedef struct s_params
 {
-    int screen_height;
-    int screen_weight;
+    int screen_higth;
+    int screen_width;
 
     char *north_texture_path;
     char *south_texture_path;
