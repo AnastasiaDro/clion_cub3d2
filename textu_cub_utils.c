@@ -79,17 +79,17 @@ int draw_lab_dda(t_data *m_struct) {
 	//int h = m_struct->screen_higth;
 
 	//нужен первоначальный вектор направления:
-	//double dirX = m_struct->dirX;d[
+	//double dirX = m_struct->dirX;d
 	//double dirY = m_struct->dirY;
 
 	//double planeX = m_struct->planeX;
 	//double planeY = m_struct->planeY;
 	//цикл для иксов
 	int x = 0;
-	while (x < m_struct->screen_width) {
+	while (x < m_struct->params->screen_width) {
 		//calculate ray position and direction
 		//точка на векторе камеры, счиается за 100% ширина экрана
-		double cameraX = 2 * x / (double) m_struct->screen_width - 1; //x-coordinate in camera space cameraX
+		double cameraX = 2 * x / (double) m_struct->params->screen_width - 1; //x-coordinate in camera space cameraX
 		// is the x-coordinate on the camera plane that the current x-coordinate of the screen represents
 
 		//вектор направления луча
@@ -164,17 +164,17 @@ int draw_lab_dda(t_data *m_struct) {
 		//Calculate height of line to draw on screen
 		int lineHeight;
 		if (perpWallDist != 0)
-			lineHeight = (int) (m_struct->screen_higth / perpWallDist);
+			lineHeight = (int) (m_struct->params->screen_higth / perpWallDist);
 		else
-			lineHeight = m_struct->screen_higth;;
+			lineHeight = m_struct->params->screen_higth;;
 
 		//calculate lowest and highest pixel to fill in current stripe
-		int drawStart = -lineHeight / 2 + m_struct->screen_higth / 2;
+		int drawStart = -lineHeight / 2 + m_struct->params->screen_higth / 2;
 		if (drawStart < 0)
 			drawStart = 0;
-		int drawEnd = lineHeight / 2 + m_struct->screen_higth / 2;
-		if (drawEnd >= m_struct->screen_higth)
-			drawEnd = m_struct->screen_higth - 1;
+		int drawEnd = lineHeight / 2 + m_struct->params->screen_higth / 2;
+		if (drawEnd >= m_struct->params->screen_higth)
+			drawEnd = m_struct->params->screen_higth - 1;
 
 
 //новые вычисления для текстуры
@@ -198,7 +198,7 @@ int draw_lab_dda(t_data *m_struct) {
 
 		double step = 1.0 * tx_struct.height / lineHeight;
 		// Starting texture coordinate
-		double texPos = (drawStart - m_struct->screen_higth / 2 + lineHeight / 2) * step;
+		double texPos = (drawStart - m_struct->params->screen_higth / 2 + lineHeight / 2) * step;
 		for (int y = drawStart; y < drawEnd; y++) {
 			// Cast the texture coordinate to integer, and mask with (texHeight - 1) in case of overflow
 			int texY = (int) texPos;
@@ -239,20 +239,20 @@ int draw_lab_dda(t_data *m_struct) {
         double transformX = invDet * (m_struct->dirY * spriteX - m_struct->dirX * spriteY);
         double transformY = invDet * (-m_struct->planeY * spriteX + m_struct->planeX * spriteY); //this is actually the depth inside the screen, that what Z is in 3D
 
-        int spriteScreenX = (int)((m_struct->screen_width * 0.5) * (1 + transformX / transformY));
+        int spriteScreenX = (int)((m_struct->params->screen_width * 0.5) * (1 + transformX / transformY));
         //calculate height of the sprite on screen
-        int spriteHeight = abs((int)(m_struct->screen_higth / (transformY))); //using 'transformY' instead of the real distance prevents fisheye
+        int spriteHeight = abs((int)(m_struct->params->screen_higth / (transformY))); //using 'transformY' instead of the real distance prevents fisheye
         //calculate lowest and highest pixel to fill in current stripe
-        int drawStartY = -spriteHeight / 2 + m_struct->screen_higth  / 2;
+        int drawStartY = -spriteHeight / 2 + m_struct->params->screen_higth  / 2;
         if(drawStartY < 0) drawStartY = 0;
-        int drawEndY = spriteHeight / 2 + m_struct->screen_higth  / 2;
-        if(drawEndY >= m_struct->screen_higth ) drawEndY = m_struct->screen_higth  - 1;
+        int drawEndY = spriteHeight / 2 + m_struct->params->screen_higth  / 2;
+        if(drawEndY >= m_struct->params->screen_higth ) drawEndY = m_struct->params->screen_higth  - 1;
         //calculate width of the sprite
-        int spriteWidth = abs( (int) (m_struct->screen_higth / (transformY)));
+        int spriteWidth = abs( (int) (m_struct->params->screen_higth / (transformY)));
         int drawStartX = -spriteWidth / 2 + spriteScreenX;
         if(drawStartX < 0) drawStartX = 0;
         int drawEndX = spriteWidth / 2 + spriteScreenX;
-        if(drawEndX >= m_struct->screen_width) drawEndX = m_struct->screen_width - 1;
+        if(drawEndX >= m_struct->params->screen_width) drawEndX = m_struct->params->screen_width - 1;
 
         //loop through every vertical stripe of the sprite on screen
         for(int stripe = drawStartX; stripe < drawEndX; stripe++)
@@ -264,10 +264,10 @@ int draw_lab_dda(t_data *m_struct) {
             //2) it's on the screen (left)
             //3) it's on the screen (right)
             //4) ZBuffer, with perpendicular distance
-            if(transformY > 0 && stripe > 0 && stripe < m_struct->screen_width && transformY < ZBuffer[stripe])
+            if(transformY > 0 && stripe > 0 && stripe < m_struct->params->screen_width && transformY < ZBuffer[stripe])
                 for(int y = drawStartY; y < drawEndY; y++) //for every pixel of the current stripe
                 {
-                    int d = (y) * 256 - m_struct->screen_higth * 128 + spriteHeight * 128; //256 and 128 factors to avoid floats
+                    int d = (y) * 256 - m_struct->params->screen_higth * 128 + spriteHeight * 128; //256 and 128 factors to avoid floats
                   //  int texY = ((d * texHeight) / spriteHeight) / 256;
                     int texY = ((d * m_struct->sprite_info->h) / spriteHeight) / 256;
                     int color = sprite_mlx_pixel_get(m_struct->sprite_info, texX, texY);

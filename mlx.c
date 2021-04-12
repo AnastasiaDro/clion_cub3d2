@@ -30,7 +30,7 @@
 // 3d
 int     render_next_frame(t_data *m_struct)
 {
-    draw_floor_ceil1(m_struct, m_struct->screen_higth, m_struct->screen_width);
+    draw_floor_ceil1(m_struct, m_struct->params->screen_higth, m_struct->params->screen_width);
 	draw_lab_dda(m_struct);
 	return 1;
 }
@@ -140,8 +140,8 @@ int main()
     t_data m_struct;
 
     m_struct.mlx = mlx_init();
-    m_struct.screen_width = 512;
-    m_struct.screen_higth = 512;
+//    m_struct.screen_width = 512;
+//    m_struct.screen_higth = 512;
     m_struct.voxel_size = 32;
 
     //массив текстур
@@ -184,9 +184,9 @@ int main()
 	if(init_sprite_info(sprite_info, 64,64, m_struct.params->sprite_texture_path) == -1)
 		free_all(&m_struct);
 
-	m_struct.img = mlx_new_image(m_struct.mlx, m_struct.screen_width, m_struct.screen_higth);
+	m_struct.img = mlx_new_image(m_struct.mlx, m_struct.params->screen_width, m_struct.params->screen_higth);
 
-	m_struct.mlx_win = mlx_new_window(m_struct.mlx, m_struct.screen_width, m_struct.screen_higth, "hello, world!");
+	m_struct.mlx_win = mlx_new_window(m_struct.mlx, m_struct.params->screen_width, m_struct.params->screen_higth, "hello, world!");
 
 	mlx_hook(m_struct.mlx_win, KEY_PRESS, KEY_PESS_MASK, key_hook, &m_struct);
 	// для крестика
