@@ -118,7 +118,7 @@ int check_map (char **map, int elems_num)
             diff = cur_s_len - next_s_len;
             while(diff >= 0)
             {
-                if (cur_s[cur_s_len-diff-1] == '0')
+                if (cur_s[cur_s_len-diff-1] == '0' || next_s[next_s_len-diff-1] == '0')
                     return MAP_ERROR;
                 diff--;
             }
