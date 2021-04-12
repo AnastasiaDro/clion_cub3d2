@@ -13,6 +13,81 @@
 # define MAX_WIDTH_NUM_LENGTH 4
 # define MAX_HEIGHT_NUM_LENGTH 4
 
+void make_color_exception(char *s, t_data *m_struct)
+{
+    throwException(INVALID_FLOOR_COLOR);
+    free(s);
+    s = NULL;
+    free_all(m_struct);
+    exit(0);
+}
+
+
+
+int go_to_the_next_color(int i, char *str)
+{
+    while(str[i] >= '0' && str[i] <= '9')
+        i++;
+    //TODO
+    while (str[i] && str[i]!= ',')
+        i++;
+    i++;
+    return i;
+}
+
+
+int check_color_part(char *str)
+{
+    int i = 0;
+    int num_start = 0;
+    int num_length = 0;
+    int color = 0;
+    while(str[i] && (str[i] == ' '))
+        i++;
+    if (!(str[i] >= '0' && str[i] <='9'))
+        return (-1);
+    num_start = i;
+    while(str[i] >= '0' && str[i] <='9')
+        i++;
+    num_length = i - num_start;
+    if (num_length > 3)
+        return (-1);
+    color = ft_atoi(str);
+    if ( color < 0 || color > 255)
+        return (-1);
+    return (color);
+}
+
+int get_color(char *s, t_data *m_struct)
+{
+    int i = 0;
+    int r = 0x0;
+    int g = 0x0;
+    int b = 0x0;
+    char *str;
+    str = s+1;
+    int color = 0x000000;
+    while(str[i] == ' ')
+        i++;
+    if ((r = check_color_part(&str[i])) == -1)
+        make_color_exception(s, m_struct);
+    i = go_to_the_next_color(i, str);
+    if ((g = check_color_part(&str[i])) == -1)
+        make_color_exception(s, m_struct);
+    i = go_to_the_next_color(i, str);
+    if ((b = check_color_part(&str[i])) == -1)
+        make_color_exception(s, m_struct);
+
+//        printf("r= %x\n", r*16*16*16*16);    //0x848482
+//        printf("g= %x\n", g);
+//        printf("b= %x\n", b);
+   color = r*16*16*16*16 + g*16*16 + b;
+//    m_struct->params->floor_color +=r*16*16*16*16;
+//    m_struct->params->floor_color +=g*16*16;
+//    m_struct->params->floor_color +=b;
+    return color;
+  //  printf("m_struct->params->floor_color %x\n", m_struct->params->floor_color);
+}
 
 int check_borders(char **map, int l_i, int i, int coef)
 {       //символ правее или левее         символ выше             //символ ниже
@@ -173,10 +248,6 @@ int check_n_save_textures(char *s, t_data *m_struct)
         start_i = find_string_start(s);
         //обработка
         m_struct->params->north_texture_path = ft_strdup(&s[start_i]);
-//       s_len = ft_strlen(&s[start_i]);
-//		m_struct->params->north_texture_path = ft_calloc( s_len+ 3, sizeof (char));
-//		m_struct->params->north_texture_path[0] = '"';
-//		m_struct->params->north_texture_path[s_len + 1] = '"';
 		return (1);
     }
     if (!ft_strncmp(s, "SO", 2)) //если строки равны
@@ -227,6 +298,8 @@ int check_n_save_params(char *s, t_data *m_struct)
         {
             m_struct->params->screen_width = MAX_SCREEN_WIDTH;
             m_struct->params->screen_higth = MAX_SCREEN_HEIGHT;
+            free(s);
+            s = NULL;
             return 1;
         }
         m_struct->params->screen_width = ft_atoi(str);
@@ -240,6 +313,8 @@ int check_n_save_params(char *s, t_data *m_struct)
         {
             m_struct->params->screen_width = MAX_SCREEN_WIDTH;
             m_struct->params->screen_higth = MAX_SCREEN_HEIGHT;
+            free(s);
+            s = NULL;
             return 1;
         }
         m_struct->params->screen_higth = ft_atoi(&str[num_start]);
@@ -248,27 +323,31 @@ int check_n_save_params(char *s, t_data *m_struct)
         {
             m_struct->params->screen_width = MAX_SCREEN_WIDTH;
             m_struct->params->screen_higth = MAX_SCREEN_HEIGHT;
+            free(s);
+            s = NULL;
             return 1;
         }
         if(m_struct->params->screen_width<=0 ||  m_struct->params->screen_higth <= 0)
         {
             throwException(INVALID_RESOLUTION);
+            free(s);
+            s = NULL;
             free_all(m_struct);
             exit(0);
-            return 0;
         }
-        //нужно два атои
-        //берём разрешение, нужно учесть, что после Р не должно быть других букв.
+        free(s);
+        s = NULL;
         return (1);
     }
     if (*s == 'F') //и что этого флага ещё не было, если был - ошибка
     {
-        //берём , цвет пола=, что после не должно быть других букв.
+        m_struct->params->floor_color = get_color(s, m_struct);
         return (1);
     }
     if (*s == 'C') //и что этого флага ещё не было, если был - ошибка
     {
         //берём , цвет потолка, что после не должно быть других букв.
+        m_struct->params->ceil_color = get_color(s, m_struct);
         return (1);
     }
     return 0;
