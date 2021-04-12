@@ -348,11 +348,11 @@ int fill_map(t_list **last_elem, int elems_num, t_data *m_struct)
         }
         else if ((is_player = find_player(map[elems_num - 1], m_struct)) != -1)
         {
-             m_struct->map_player_y = (double)(elems_num - 1 + m_struct->voxel_size);
-             m_struct->map_player_x = (double)is_player;
+            // m_struct->map_player_y = (double)(elems_num - 1 + m_struct->voxel_size);
+             m_struct->map_player_x = (double)is_player + 0.5;
              m_struct->player_x = (float)is_player * (float)m_struct->voxel_size - (float)m_struct->voxel_size/2;
            // m_struct->player_x = (float)is_player * (float)m_struct->voxel_size;
-             m_struct->map_player_y = elems_num - 1;
+             m_struct->map_player_y = (double)(elems_num - 1) + 0.5;
 			 m_struct->player_y = (float)(elems_num-1) * (float)m_struct->voxel_size - (float)m_struct->voxel_size/2;
          //   m_struct->player_y = (float)(elems_num-1) * (float)m_struct->voxel_size;
 			flag_player = 1;

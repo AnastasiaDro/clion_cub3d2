@@ -47,12 +47,13 @@ int cross_hook(t_data *m_struct)
 
 int key_hook(int keycode, t_data *m_struct)
 {
-    printf("hello Nest! keycode is %d\n", keycode);
+   // printf("hello Nest! keycode is %d\n", keycode);
 //шаг вперед
 
     if (keycode == 13)
 	{
-		step_forward(m_struct, 0.1);
+		step_forward(m_struct, 0.0872665);
+        printf("m_struct->map_player_y %f\n", m_struct->map_player_y);
 		return 1;
 	}
 //шаг назад
@@ -145,10 +146,6 @@ int main()
 
     //массив текстур
     t_textu textu[4];
-//    textu[0].adress = NORTH_TEXTURE;
-//    textu[1].adress = SOUTH_TEXTURE;
-//    textu[2].adress = WEST_TEXTURE;
-//    textu[3].adress = EAST_TEXTURE;
 
     //спрайты
 	t_spr_info *sprite_info;
