@@ -204,8 +204,18 @@ int check_n_save_textures(char *s, t_data *m_struct)
 
 int check_n_save_params(char *s, t_data *m_struct)
 {
+    char *str;
+    int i = 0;
     if (*s == 'R') //и что этого флага ещё не было, если был - ошибка
     {
+        str = s+1;
+        m_struct->params->screen_weight = ft_atoi(str);
+        while(str[i] && (str[i] == ' '))
+            i++;
+        while(str[i] >= '0' && str[i] <='9')
+            i++;
+        m_struct->params->screen_height = ft_atoi(&str[i]);
+
         //нужно два атои
         //берём разрешение, нужно учесть, что после Р не должно быть других букв.
         return (1);

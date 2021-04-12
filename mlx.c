@@ -168,7 +168,8 @@ int main()
 	printf("south path %s\n", m_struct.params->south_texture_path);
 	printf("west path %s\n", m_struct.params->west_texture_path);
 	printf("east path %s\n", m_struct.params->east_texture_path);
-
+    printf("m_struct.params->screen_weight %d\n", m_struct.params->screen_weight);
+    printf("m_struct.params->screen_height %d\n", m_struct.params->screen_height);
 
 	//textu[0].adress = m_struct.params->north_texture_path;
 
