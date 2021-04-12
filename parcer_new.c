@@ -8,6 +8,10 @@
 #define ZERO_START_LINE -3
 #define MAP_ERROR -3
 
+# define MAX_SCREEN_WIDTH 2560
+# define MAX_SCREEN_HEIGHT 1440
+# define MAX_WIDTH_NUM_LENGTH 4
+# define MAX_HEIGHT_NUM_LENGTH 4
 
 
 int check_borders(char **map, int l_i, int i, int coef)
@@ -206,16 +210,53 @@ int check_n_save_params(char *s, t_data *m_struct)
 {
     char *str;
     int i = 0;
+    int num_start;
+    int num_length;
     if (*s == 'R') //и что этого флага ещё не было, если был - ошибка
     {
         str = s+1;
+        m_struct->params->screen_width = 0;
+        m_struct->params->screen_higth = 0;
+        while(str[i] && (str[i] == ' '))
+            i++;
+        num_start = i;
+        while(str[i] >= '0' && str[i] <='9')
+            i++;
+        num_length = i - num_start;
+        if (num_length > MAX_WIDTH_NUM_LENGTH)
+        {
+            m_struct->params->screen_width = MAX_SCREEN_WIDTH;
+            m_struct->params->screen_higth = MAX_SCREEN_HEIGHT;
+            return 1;
+        }
         m_struct->params->screen_width = ft_atoi(str);
         while(str[i] && (str[i] == ' '))
             i++;
+        num_start = i;
         while(str[i] >= '0' && str[i] <='9')
             i++;
-        m_struct->params->screen_higth = ft_atoi(&str[i]);
+        num_length = i - num_start;
+        if (num_length > MAX_HEIGHT_NUM_LENGTH)
+        {
+            m_struct->params->screen_width = MAX_SCREEN_WIDTH;
+            m_struct->params->screen_higth = MAX_SCREEN_HEIGHT;
+            return 1;
+        }
+        m_struct->params->screen_higth = ft_atoi(&str[num_start]);
 
+        if ( m_struct->params->screen_width > MAX_SCREEN_WIDTH || m_struct->params->screen_higth > MAX_SCREEN_HEIGHT)
+        {
+            m_struct->params->screen_width = MAX_SCREEN_WIDTH;
+            m_struct->params->screen_higth = MAX_SCREEN_HEIGHT;
+            return 1;
+        }
+        if(m_struct->params->screen_width<=0 ||  m_struct->params->screen_higth <= 0)
+        {
+            throwException(INVALID_RESOLUTION);
+            free_all(m_struct);
+            exit(0);
+            return 0;
+        }
         //нужно два атои
         //берём разрешение, нужно учесть, что после Р не должно быть других букв.
         return (1);
