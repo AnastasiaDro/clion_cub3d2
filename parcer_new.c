@@ -9,28 +9,11 @@
 #define MAP_ERROR -3
 
 
-int get_len(char *s)
-{
-    int len = 0;
-    int i = 0;
-    while (s[i])
-    {
-        if (s[i] == '1')
-        {
-            len = 1;
-            break;
-        }
-        while(s[i] != ' ' || s[i] != '\n')
-            len++;
-        i++;
-    }
-    return len;
-}
 
 int check_borders(char **map, int l_i, int i, int coef)
 {       //символ правее или левее         символ выше             //символ ниже
 
-    printf("char map[i-1][l_i] %c\n", map[i-1][l_i]);
+ // printf("char map[i-1][l_i] %c\n", map[i-1][l_i]);
     if (map[i][l_i + 1*coef] == ' ' || map[i-1][l_i] == ' ' || map[i + 2][l_i] == ' ')
         return MAP_ERROR;
     else
@@ -48,14 +31,6 @@ int check_space_borders(int start_i, int end_i, char **map, char *cur_s, int s_n
             if (cur_s[start-1] == ' ' || cur_s[start+1] == ' '
                     || map[s_num-1][start] == ' ' || map[s_num+1][start] == ' ')
                 return (MAP_ERROR);
-//        if(cur_s[start] == ' ')
-//        {
-//            if (cur_s[start-1] == '0')
-//                return (MAP_ERROR);
-//            //проверить сверху, проверить снизу
-//            if (cur_s[start-1] == '0')
-//                return (MAP_ERROR);
-//        }
         start++;
     }
     return (1);
