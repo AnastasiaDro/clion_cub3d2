@@ -7,9 +7,9 @@
 #define IS_SPACE ((str[i] >= '\t' && str[i] <= '\r') || str[i] == ' ')
 #define IS_NUM (str[i] >= '0' && str[i] <='9')
 
-#define MAP_STARTED -1
-#define ZERO_START_LINE -3
-#define MAP_ERROR -3
+#define MAP_STARTED (-1)
+#define ZERO_START_LINE (-3)
+#define MAP_ERROR (-3)
 
 # define MAX_SCREEN_WIDTH 2560
 # define MAX_SCREEN_HEIGHT 1440
@@ -619,7 +619,6 @@ void parse_map(t_data *m_struct)
             //сохранить разрешение и другие параметры
         }
     }
-   // printf("север %s\n", m_struct->params->north_texture_path);
    int res = 0;
     while ((res = get_next_line(fd, &line)))
     {
@@ -628,7 +627,6 @@ void parse_map(t_data *m_struct)
         elems_num++;
     }
     ft_lstadd_front(&last_elem, ft_lstnew(line));
-   // free(line);
     elems_num++;
     m_struct->lst = last_elem;
 
@@ -642,7 +640,6 @@ void parse_map(t_data *m_struct)
         throwException(INVALID_MAP);
         free_all(m_struct);
     }
-    //сега
     ft_lstclear(&last_elem, free);
    	close(fd);
 
