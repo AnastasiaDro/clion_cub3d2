@@ -3,6 +3,8 @@
 #include "get_next_line/get_next_line.h"
 #include "new_cub_utils.h"
 #include "exceptions.h"
+#define IS_SPACE ((str[i] >= '\t' && str[i] <= '\r') || str[i] == ' ')
+#define IS_NUM (str[i] >= '0' && str[i] <='9')
 
 #define MAP_STARTED -1
 #define ZERO_START_LINE -3
@@ -30,7 +32,14 @@ int go_to_the_next_color(int i, char *str)
         i++;
     //TODO
     while (str[i] && str[i]!= ',')
-        i++;
+	{
+		if (!IS_SPACE && !IS_NUM){
+			printf("строка s[i] = %s", &str[i]);
+			return (-1);
+		}
+
+		i++;
+	}
     i++;
     return i;
 }
@@ -38,16 +47,18 @@ int go_to_the_next_color(int i, char *str)
 
 int check_color_part(char *str)
 {
-    int i = 0;
-    int num_start = 0;
-    int num_length = 0;
-    int color = 0;
+    int i;
+    int num_start;
+    int num_length;
+    int color;
+
+	i = 0;
     while(str[i] && (str[i] == ' '))
         i++;
-    if (!(str[i] >= '0' && str[i] <='9'))
-        return (-1);
+//    if (!(str[i] >= '0' && str[i] <='9'))
+//        return (-1);
     num_start = i;
-    while(str[i] >= '0' && str[i] <='9')
+    while(IS_NUM)
         i++;
     num_length = i - num_start;
     if (num_length > 3)
@@ -72,10 +83,10 @@ int get_color(char *s, t_data *m_struct)
     if ((r = check_color_part(&str[i])) == -1)
         make_color_exception(s, m_struct);
     i = go_to_the_next_color(i, str);
-    if ((g = check_color_part(&str[i])) == -1)
+    if (i == -1 || (g = check_color_part(&str[i])) == -1)
         make_color_exception(s, m_struct);
     i = go_to_the_next_color(i, str);
-    if ((b = check_color_part(&str[i])) == -1)
+    if (i == -1 || (b = check_color_part(&str[i])) == -1)
         make_color_exception(s, m_struct);
 
 //        printf("r= %x\n", r*16*16*16*16);    //0x848482
