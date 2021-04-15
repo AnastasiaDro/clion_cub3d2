@@ -17,7 +17,6 @@
 # define MAX_HEIGHT_NUM_LENGTH 4
 # define MAP_SYMBOL "012 "
 # define PLAYER_SYMBOLS "NSWE"
-#define PLAYER_FOUND 1
 
 void make_color_exception(char *s, t_data *m_struct)
 {
