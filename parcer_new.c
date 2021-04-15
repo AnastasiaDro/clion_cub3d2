@@ -36,21 +36,15 @@ int go_to_the_next_color(int i, char *str)
     while (str[i] && str[i]!= ',')
 	{
 		if (!IS_SPACE && !IS_NUM)
-		{
-			printf("строка s[i] = %s", &str[i]);
 			return (-1);
-		}
 		i++;
 	}
     i++;
 	while (IS_SPACE)
 		i++;
 	if (!IS_NUM)
-	{
-		printf("строка s[i] = %s", &str[i]);
-		return -1;
-	}
-    return i;
+		return (-1);
+    return (i);
 }
 
 
@@ -114,12 +108,10 @@ int get_color(char *s, t_data *m_struct)
 
 int check_borders(char **map, int l_i, int i, int coef)
 {       //символ правее или левее         символ выше             //символ ниже
-
- // printf("char map[i-1][l_i] %c\n", map[i-1][l_i]);
     if (map[i][l_i + 1*coef] == ' ' || map[i-1][l_i] == ' ' || map[i + 2][l_i] == ' ')
-        return MAP_ERROR;
+        return (MAP_ERROR);
     else
-        return 1;
+        return (1);
 }
 
 
@@ -164,17 +156,20 @@ int check_map (char **map, int elems_num)
         if (l_i == cur_s_len)
         {
             throwException(INVALID_MAP);    //ошибка карты, мы дошли до конца, единица так и не встретилась
-            return MAP_ERROR;
+            return (MAP_ERROR);
         }
 
         while(l_i < cur_s_len)
         {
             if (cur_s[l_i] == '0')
-                if (check_borders(map, l_i, i, 1) == MAP_ERROR)
-                    return MAP_ERROR;
-                else
-                    //вот тут нужно пробежаться справа налево дальше
-                    break;
+			{
+				if (check_borders(map, l_i, i, 1) == MAP_ERROR)
+					return MAP_ERROR;
+				else
+					//вот тут нужно пробежаться справа налево дальше
+					break;
+			}
+
             l_i++;
         }
 
@@ -212,13 +207,15 @@ int check_map (char **map, int elems_num)
             return (MAP_ERROR);
         i++;
     }
-    return 1;
+    return (1);
 }
 
 
 int check_fe_line(char *s)
 {
-	int i = 0;
+	int i;
+
+	i = 0;
 	while (s[i] == ' ')
 		i++;
 	while (s[i])
@@ -227,7 +224,7 @@ int check_fe_line(char *s)
 			return MAP_ERROR;
 		i++;
 	}
-	return 1;
+	return (1);
 }
 
 
@@ -248,14 +245,16 @@ int  is_map_start(char *line)
         else if (ptr[i] == '0')
 			return ZERO_START_LINE;
         else
-            return i;
+            return (i);
     }
-    return i;
+    return (i);
 }
 
 int find_string_start(char *s)
 {
-    int i = 2; //третий индекс в массиве
+    int i;
+
+    i = 2; //третий индекс в массиве
     while (s[i] && s[i] == ' ' )
         i++;
     return (i); //вернем индекс символа
