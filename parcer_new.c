@@ -2,6 +2,7 @@
 #include "fcntl.h"
 #include "get_next_line/get_next_line.h"
 #include "new_cub_utils.h"
+#include "utils.h"
 #include "exceptions.h"
 #define IS_SPACE ((str[i] >= '\t' && str[i] <= '\r') || str[i] == ' ')
 #define IS_NUM (str[i] >= '0' && str[i] <='9')
@@ -14,6 +15,9 @@
 # define MAX_SCREEN_HEIGHT 1440
 # define MAX_WIDTH_NUM_LENGTH 4
 # define MAX_HEIGHT_NUM_LENGTH 4
+# define MAP_SYMBOL "012 "
+# define PLAYER_SYMBOLS "NSWE"
+#define PLAYER_FOUND 1
 
 void make_color_exception(char *s, t_data *m_struct)
 {
@@ -28,19 +32,25 @@ void make_color_exception(char *s, t_data *m_struct)
 
 int go_to_the_next_color(int i, char *str)
 {
-    while(str[i] >= '0' && str[i] <= '9')
+    while(str[i] && str[i] >= '0' && str[i] <= '9')
         i++;
-    //TODO
     while (str[i] && str[i]!= ',')
 	{
-		if (!IS_SPACE && !IS_NUM){
+		if (!IS_SPACE && !IS_NUM)
+		{
 			printf("строка s[i] = %s", &str[i]);
 			return (-1);
 		}
-
 		i++;
 	}
     i++;
+	while (IS_SPACE)
+		i++;
+	if (!IS_NUM)
+	{
+		printf("строка s[i] = %s", &str[i]);
+		return -1;
+	}
     return i;
 }
 
@@ -53,10 +63,6 @@ int check_color_part(char *str)
     int color;
 
 	i = 0;
-    while(str[i] && (str[i] == ' '))
-        i++;
-//    if (!(str[i] >= '0' && str[i] <='9'))
-//        return (-1);
     num_start = i;
     while(IS_NUM)
         i++;
@@ -64,9 +70,22 @@ int check_color_part(char *str)
     if (num_length > 3)
         return (-1);
     color = ft_atoi(str);
-    if ( color < 0 || color > 255)
+    if (color > 255)
         return (-1);
     return (color);
+}
+
+int check_color_s_end(char *str, int i)
+{
+	while (IS_NUM)
+		i++;
+	while (str[i])
+	{
+		if (!IS_SPACE)
+			return (-1);
+		i++;
+	}
+	return (1);
 }
 
 int get_color(char *s, t_data *m_struct)
@@ -88,16 +107,10 @@ int get_color(char *s, t_data *m_struct)
     i = go_to_the_next_color(i, str);
     if (i == -1 || (b = check_color_part(&str[i])) == -1)
         make_color_exception(s, m_struct);
-
-//        printf("r= %x\n", r*16*16*16*16);    //0x848482
-//        printf("g= %x\n", g);
-//        printf("b= %x\n", b);
-   color = r*16*16*16*16 + g*16*16 + b;
-//    m_struct->params->floor_color +=r*16*16*16*16;
-//    m_struct->params->floor_color +=g*16*16;
-//    m_struct->params->floor_color +=b;
+	if (check_color_s_end(str, i) == -1)
+		make_color_exception(s, m_struct);
+	color = r*16*16*16*16 + g*16*16 + b;
     return color;
-  //  printf("m_struct->params->floor_color %x\n", m_struct->params->floor_color);
 }
 
 int check_borders(char **map, int l_i, int i, int coef)
@@ -400,24 +413,85 @@ int set_player_vision(char c, t_data *m_struct)
         m_struct->planeY=0.66;
         m_struct->planeX = 0;
         return 1;
-
 	}
 	return 0;
 }
 
-int find_player(char *s, t_data *m_struct)
+//int find_player(char *s, t_data *m_struct)
+//{
+//    int i = 0;
+//    while (s[i])
+//    {
+//       if (s[i] == 'N' || s[i] == 'E' || s[i] == 'W' || s[i] == 'S') {
+//		   set_player_vision(s[i], m_struct);
+//		   return i;
+//	   }
+//        i++;
+//    }
+//    return -1;
+//}
+
+
+int is_symbol_valid(char *s, char *arr)
 {
-    int i = 0;
-    while (s[i])
-    {
-       if (s[i] == 'N' || s[i] == 'E' || s[i] == 'W' || s[i] == 'S') {
-		   set_player_vision(s[i], m_struct);
-		   return i;
-	   }
-        i++;
-    }
-    return -1;  
+	int max_index;
+
+	max_index = (int)ft_strlen(s) - 1;
+	int arr_index = 0;
+	while (max_index >= 0)
+	{
+		arr_index = ft_strchr_index(arr, s[max_index]);
+		if(arr_index == -1)
+			return (max_index);
+		max_index--;
+	}
+	return (-1);
 }
+
+
+
+int check_symbols(char *s, t_data *m_struct, int *flag_player)
+{
+	int player_i;
+
+	player_i = -1;
+
+	if ((player_i = is_symbol_valid(s, MAP_SYMBOL)) != -1)
+	{
+		if (ft_strchr(PLAYER_SYMBOLS, s[player_i]) == NULL)
+		{
+			throwException(INVALID_MAP);
+			free_all(m_struct);
+		}
+		else
+		{
+			if (*flag_player == 1) {
+				throwException(MORE_PLAYERS);
+				free_all(m_struct);
+			} else {
+				set_player_vision(s[player_i], m_struct);
+				*flag_player = 1;
+				return (player_i);
+			}
+		}
+	}
+	return (0);
+}
+
+//int find_player(char *s, t_data *m_struct)
+//{
+//    int i = 0;
+//    while (s[i])
+//    {
+//       if (s[i] == 'N' || s[i] == 'E' || s[i] == 'W' || s[i] == 'S') {
+//		   set_player_vision(s[i], m_struct);
+//		   return i;
+//	   }
+//        i++;
+//    }
+//    return -1;
+//}
+
 
 int check_sprites(char *s, t_data *m_struct, int elems_num)
 {
@@ -460,24 +534,29 @@ int fill_map(t_list **last_elem, int elems_num, t_data *m_struct)
     {
         map[elems_num - 1] =  (char *)elem->content;
         elem->content = NULL;
-        if (flag_player == 1 && ((is_player = find_player(map[elems_num - 1], m_struct)) != -1))
-        {
-            throwException(MORE_PLAYERS);
-            free_all(m_struct);
-        }
-        else if ((is_player = find_player(map[elems_num - 1], m_struct)) != -1)
-        {
-            // m_struct->map_player_y = (double)(elems_num - 1 + m_struct->voxel_size);
-             m_struct->map_player_x = (double)is_player + 0.5;
-             m_struct->player_x = (float)is_player * (float)m_struct->voxel_size - (float)m_struct->voxel_size/2;
-           // m_struct->player_x = (float)is_player * (float)m_struct->voxel_size;
-             m_struct->map_player_y = (double)(elems_num - 1) + 0.5;
-			 m_struct->player_y = (float)(elems_num-1) * (float)m_struct->voxel_size - (float)m_struct->voxel_size/2;
-         //   m_struct->player_y = (float)(elems_num-1) * (float)m_struct->voxel_size;
-			flag_player = 1;
-             map[elems_num - 1][is_player] = '0';
-        }
+//        if (flag_player == 1 && ((is_player = find_player(map[elems_num - 1], m_struct)) != -1))
+//        {
+//            throwException(MORE_PLAYERS);
+//            free_all(m_struct);
 //        }
+//        else if ((is_player = find_player(map[elems_num - 1], m_struct)) != -1)
+//        {
+//             m_struct->map_player_x = (double)is_player + 0.5;
+//             m_struct->map_player_y = (double)(elems_num - 1) + 0.5;
+//			flag_player = 1;
+//             map[elems_num - 1][is_player] = '0';
+//        }
+//        }
+		if((is_player = check_symbols(map[elems_num-1], m_struct, &flag_player)))
+		{
+			m_struct->map_player_x = (double)is_player + 0.5;
+			printf("found player at x %d\n", is_player);
+			m_struct->map_player_y = (double)(elems_num - 1) + 0.5;
+			printf("found player at y %d\n", elems_num-1);
+			map[elems_num - 1][is_player] = '0';
+		}
+
+
 //посчитаем спрайты
         check_sprites(map[elems_num - 1], m_struct, elems_num);
         elem = elem->next;
