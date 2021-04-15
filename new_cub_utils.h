@@ -26,18 +26,12 @@ typedef struct  s_data {
 
     double map_player_x;
     double map_player_y;
-	//ширина и высота экрана
-	int screen_width;
-	int screen_higth;
-
 	// параметры
 	t_params *params;
 
 	//позиция игрока
 	float player_x;
 	float player_y;
-	//угол наклона
-	float player_a;
 	//угол зрения
 	float fov;
 
@@ -57,26 +51,17 @@ typedef struct  s_data {
 	t_spr_info *sprite_info;
 //список для очистки
 	t_list *lst;
-
-	t_sprite *sprites_list;
 }               t_data;
 
-int change_x_p_coors(t_data *m_struct);
-
-int change_y_p_coords(t_data *m_struct);
 
 void     cerebus_mlx_pixel_put(t_data *data, int x, int y, int color);
 
-//void throwException(char *msg, t_data *m_struct);
-
-int draw_voxel1(t_data *m_struct, int voxel_size, int color);
 
 int draw_lab_dda(t_data *m_struct);
 
 
 int draw_floor_ceil1(t_data *m_struct, int screen_higth, int screen_width);
 
-int cerebus_mlx_pixel_get(t_data *data, int x, int y);
 
 
 #endif

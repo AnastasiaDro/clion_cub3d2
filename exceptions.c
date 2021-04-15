@@ -3,6 +3,7 @@
 
 int free_all(t_data *m_struct)
 {
+
 	exit(0);
 	return 0;
 }

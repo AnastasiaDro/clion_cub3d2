@@ -17,19 +17,6 @@ void     cerebus_mlx_pixel_put(t_data *data, int x, int y, int color)
 	*(unsigned int*)dst = color;
 }
 
-int change_x_p_coors(t_data *m_struct)
-{
-	m_struct->player_x = (float)m_struct->map_player_x * (float) m_struct->voxel_size;
-	return 1;
-}
-
-int change_y_p_coords(t_data *m_struct)
-{
-	m_struct->player_y = (float)m_struct->map_player_y * (float) m_struct->voxel_size;
-	return 1;
-}
-
-
 t_textu  set_texture(t_data *m_struct, double rayDirX, double rayDirY)
 {
 	if (m_struct->side == 1)
@@ -49,21 +36,6 @@ t_textu  set_texture(t_data *m_struct, double rayDirX, double rayDirY)
     return (m_struct->textu[0]); //просто дефолт
 }
 
-
-int draw_column(t_data *m_struct, float x, float y_start, float y_end, int color)
-{
-	while (y_start < y_end)
-	{
-		cerebus_mlx_pixel_put(m_struct, (int)x, (int)y_start, color);
-		y_start++;
-	}
-	return 1;
-}
-
-
-
-
-
 //пойти вперед или назад
 
 int draw_lab_dda(t_data *m_struct) {
@@ -71,19 +43,6 @@ int draw_lab_dda(t_data *m_struct) {
 
     //1D Zbuffer
     double ZBuffer[m_struct->params->screen_width];
-
-  //  double posX = m_struct->map_player_x; // не уверенаБ что так. Т.к. нужны координаты вектора игрока
-	//double posY = m_struct->map_player_y; // у Лодева оно по карте определяется
-
-	//int w = m_struct->screen_width;
-	//int h = m_struct->screen_higth;
-
-	//нужен первоначальный вектор направления:
-	//double dirX = m_struct->dirX;d
-	//double dirY = m_struct->dirY;
-
-	//double planeX = m_struct->planeX;
-	//double planeY = m_struct->planeY;
 	//цикл для иксов
 	int x = 0;
 	while (x < m_struct->params->screen_width) {
@@ -279,7 +238,6 @@ int draw_lab_dda(t_data *m_struct) {
 
                 }
         }
-
         sprite_lst = sprite_lst->next;
     }
     mlx_put_image_to_window(m_struct->mlx, m_struct->mlx_win, m_struct->img, 0, 0);

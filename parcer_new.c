@@ -27,8 +27,6 @@ void make_color_exception(char *s, t_data *m_struct)
     exit(0);
 }
 
-
-
 int go_to_the_next_color(int i, char *str)
 {
     while(str[i] && str[i] >= '0' && str[i] <= '9')
@@ -250,16 +248,6 @@ int  is_map_start(char *line)
     return (i);
 }
 
-int find_string_start(char *s)
-{
-    int i;
-
-    i = 2; //третий индекс в массиве
-    while (s[i] && s[i] == ' ' )
-        i++;
-    return (i); //вернем индекс символа
-}
-
 //сохраняем текстуры
 int check_n_save_textures(char *s, t_data *m_struct)
 {
@@ -415,44 +403,9 @@ int set_player_vision(char c, t_data *m_struct)
 	return 0;
 }
 
-//int find_player(char *s, t_data *m_struct)
-//{
-//    int i = 0;
-//    while (s[i])
-//    {
-//       if (s[i] == 'N' || s[i] == 'E' || s[i] == 'W' || s[i] == 'S') {
-//		   set_player_vision(s[i], m_struct);
-//		   return i;
-//	   }
-//        i++;
-//    }
-//    return -1;
-//}
-
-
-int is_symbol_valid(char *s, char *arr)
-{
-	int max_index;
-
-	max_index = (int)ft_strlen(s) - 1;
-	int arr_index = 0;
-	while (max_index >= 0)
-	{
-		arr_index = ft_strchr_index(arr, s[max_index]);
-		if(arr_index == -1)
-			return (max_index);
-		max_index--;
-	}
-	return (-1);
-}
-
-
-
 int check_symbols(char *s, t_data *m_struct, int *flag_player)
 {
 	int player_i;
-
-	player_i = -1;
 
 	if ((player_i = is_symbol_valid(s, MAP_SYMBOL)) != -1)
 	{
@@ -475,21 +428,6 @@ int check_symbols(char *s, t_data *m_struct, int *flag_player)
 	}
 	return (0);
 }
-
-//int find_player(char *s, t_data *m_struct)
-//{
-//    int i = 0;
-//    while (s[i])
-//    {
-//       if (s[i] == 'N' || s[i] == 'E' || s[i] == 'W' || s[i] == 'S') {
-//		   set_player_vision(s[i], m_struct);
-//		   return i;
-//	   }
-//        i++;
-//    }
-//    return -1;
-//}
-
 
 int check_sprites(char *s, t_data *m_struct, int elems_num)
 {
@@ -548,9 +486,7 @@ int fill_map(t_list **last_elem, int elems_num, t_data *m_struct)
 		if((is_player = check_symbols(map[elems_num-1], m_struct, &flag_player)))
 		{
 			m_struct->map_player_x = (double)is_player + 0.5;
-			printf("found player at x %d\n", is_player);
 			m_struct->map_player_y = (double)(elems_num - 1) + 0.5;
-			printf("found player at y %d\n", elems_num-1);
 			map[elems_num - 1][is_player] = '0';
 		}
 
