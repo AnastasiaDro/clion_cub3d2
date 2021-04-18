@@ -45,6 +45,7 @@ int draw_lab_dda(t_data *m_struct) {
     double ZBuffer[m_struct->params->screen_width];
 	//цикл для иксов
 	int x = 0;
+	int gg =  m_struct->params->screen_width;
 	while (x < m_struct->params->screen_width) {
 		//calculate ray position and direction
 		//точка на векторе камеры, счиается за 100% ширина экрана
@@ -167,9 +168,12 @@ int draw_lab_dda(t_data *m_struct) {
 			int texY = (int) texPos;
 			texPos += step;
             int color = textu_mlx_pixel_get(&tx_struct, texX, texY);
-			cerebus_mlx_pixel_put(m_struct, x, y, color);
+			//cerebus_mlx_pixel_put(m_struct, x, y, color);
+			cerebus_mlx_pixel_put(m_struct, gg, y, color);
 		}
         x++;
+		////gg
+		gg--;
         //SET THE ZBUFFER FOR THE SPRITE CASTING
         ZBuffer[x-1] = perpWallDist; //perpendicular distance is used
 	}
@@ -219,6 +223,7 @@ int draw_lab_dda(t_data *m_struct) {
 
         //loop through every vertical stripe of the sprite on screen
         for(int stripe = drawStartX; stripe < drawEndX; stripe++)
+		////for(int stripe = drawEndX-1; stripe >= drawStartX; stripe--)
         {
            // int texX = (int)(256 * (stripe - (-spriteWidth / 2 + spriteScreenX)) * texWidth / spriteWidth) / 256;
             int texX = (int)(256 * (stripe - (-spriteWidth / 2 + spriteScreenX)) * m_struct->sprite_info->w / spriteWidth) / 256;
@@ -227,7 +232,10 @@ int draw_lab_dda(t_data *m_struct) {
             //2) it's on the screen (left)
             //3) it's on the screen (right)
             //4) ZBuffer, with perpendicular distance
-            if(transformY > 0 && stripe > 0 && stripe < m_struct->params->screen_width && transformY < ZBuffer[stripe])
+
+            //if(transformY > 0 && stripe > 0 && stripe < m_struct->params->screen_width && transformY < ZBuffer[stripe])
+			if(transformY > 0 && (drawEndX - stripe) > 0 && (drawEndX - stripe) < m_struct->params->screen_width && transformY < ZBuffer[stripe])
+
                 for(int y = drawStartY; y < drawEndY; y++) //for every pixel of the current stripe
                 {
                     int d = (y) * 256 - m_struct->params->screen_higth * 128 + spriteHeight * 128; //256 and 128 factors to avoid floats
@@ -237,7 +245,7 @@ int draw_lab_dda(t_data *m_struct) {
                   //  Uint32 color = texture[sprite[spriteOrder[i]].texture][texWidth * texY + texX]; //get current color from the texture
                    if((color & 0x00FFFFFF) != 0)
                    {
-                       cerebus_mlx_pixel_put(m_struct, stripe, y, color);
+                       cerebus_mlx_pixel_put(m_struct, m_struct->params->screen_width-stripe, y, color);
                    }; //paint pixel if it isn't black, black is the invisible color
 
                 }

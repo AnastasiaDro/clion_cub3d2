@@ -76,14 +76,14 @@ int key_hook(int keycode, t_data *m_struct)
 //поворот налево
     if (keycode == 123)
 	{
-		double rotSpeed = 0.0872665; // 5 градусов
+		double rotSpeed = -0.0872665; // 5 градусов
 		rotate(m_struct, rotSpeed);
 		return 1;
 	}
 //поворот направо
 	if (keycode == 124)
 	{
-		double rotSpeed = -0.0872665; // 5 градусов
+		double rotSpeed = 0.0872665; // 5 градусов
 		rotate(m_struct, rotSpeed);
 		return 1;
 	}

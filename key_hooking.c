@@ -51,13 +51,13 @@ int step_backward(t_data *m_struct, double moveSpeed)
 
 int step_rigth(t_data *m_struct, double moveSpeed)
 {
-	step_left_rigth(m_struct, moveSpeed, 1);
+	step_left_rigth(m_struct, moveSpeed, -1);
 	return 1;
 }
 
 int step_left(t_data *m_struct, double moveSpeed)
 {
-	step_left_rigth(m_struct, moveSpeed, -1);
+	step_left_rigth(m_struct, moveSpeed, 1);
 	return 1;
 }
 
