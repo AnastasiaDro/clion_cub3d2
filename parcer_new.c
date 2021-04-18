@@ -4,6 +4,7 @@
 #include "new_cub_utils.h"
 #include "utils.h"
 #include "exceptions.h"
+#include "colors.h"
 #define IS_SPACE ((str[i] >= '\t' && str[i] <= '\r') || str[i] == ' ')
 #define IS_NUM (str[i] >= '0' && str[i] <='9')
 
@@ -17,92 +18,6 @@
 # define MAX_HEIGHT_NUM_LENGTH 4
 # define MAP_SYMBOL "012 "
 # define PLAYER_SYMBOLS "NSWE"
-
-void make_color_exception(char *s, t_data *m_struct)
-{
-    throwException(INVALID_FLOOR_COLOR);
-    free(s);
-    s = NULL;
-    free_all(m_struct);
-    exit(0);
-}
-
-int go_to_the_next_color(int i, char *str)
-{
-    while(str[i] && str[i] >= '0' && str[i] <= '9')
-        i++;
-    while (str[i] && str[i]!= ',')
-	{
-		if (!IS_SPACE && !IS_NUM)
-			return (-1);
-		i++;
-	}
-    i++;
-	while (IS_SPACE)
-		i++;
-	if (!IS_NUM)
-		return (-1);
-    return (i);
-}
-
-
-int check_color_part(char *str)
-{
-    int i;
-    int num_start;
-    int num_length;
-    int color;
-
-	i = 0;
-    num_start = i;
-    while(IS_NUM)
-        i++;
-    num_length = i - num_start;
-    if (num_length > 3)
-        return (-1);
-    color = ft_atoi(str);
-    if (color > 255)
-        return (-1);
-    return (color);
-}
-
-int check_color_s_end(char *str, int i)
-{
-	while (IS_NUM)
-		i++;
-	while (str[i])
-	{
-		if (!IS_SPACE)
-			return (-1);
-		i++;
-	}
-	return (1);
-}
-
-int get_color(char *s, t_data *m_struct)
-{
-    int i = 0;
-    int r = 0x0;
-    int g = 0x0;
-    int b = 0x0;
-    char *str;
-    str = s+1;
-    int color = 0x000000;
-    while(str[i] == ' ')
-        i++;
-    if ((r = check_color_part(&str[i])) == -1)
-        make_color_exception(s, m_struct);
-    i = go_to_the_next_color(i, str);
-    if (i == -1 || (g = check_color_part(&str[i])) == -1)
-        make_color_exception(s, m_struct);
-    i = go_to_the_next_color(i, str);
-    if (i == -1 || (b = check_color_part(&str[i])) == -1)
-        make_color_exception(s, m_struct);
-	if (check_color_s_end(str, i) == -1)
-		make_color_exception(s, m_struct);
-	color = r*16*16*16*16 + g*16*16 + b;
-    return color;
-}
 
 int check_borders(char **map, int l_i, int i, int coef)
 {       //символ правее или левее         символ выше             //символ ниже
@@ -225,8 +140,6 @@ int check_fe_line(char *s)
 	return (1);
 }
 
-
-
 int  is_map_start(char *line)
 {
     char *ptr = line;
@@ -248,40 +161,40 @@ int  is_map_start(char *line)
     return (i);
 }
 
+char *get_texture_path(char *s)
+{
+	int start_i;
+
+	start_i = find_string_start(s);
+	return (ft_strdup(&s[start_i]));
+}
+
 //сохраняем текстуры
 int check_n_save_textures(char *s, t_data *m_struct)
 {
-    int start_i = 0;
-    int  s_len = 0;
     if (!ft_strncmp(s, "NO", 2)) //если строки равны
     {
-        start_i = find_string_start(s);
-        //обработка
-        m_struct->params->north_texture_path = ft_strdup(&s[start_i]);
+		m_struct->params->north_texture_path = get_texture_path(s);
 		return (1);
     }
     if (!ft_strncmp(s, "SO", 2)) //если строки равны
     {
-       start_i = find_string_start(s);
-        m_struct->params->south_texture_path = ft_strdup(&s[start_i]);
+		m_struct->params->south_texture_path = get_texture_path(s);
         return (1);
     }
     if (!ft_strncmp(s, "WE", 2)) //если строки равны
     {
-        start_i = find_string_start(s);
-        m_struct->params->west_texture_path = ft_strdup(&s[start_i]);
+		m_struct->params->west_texture_path = get_texture_path(s);
         return (1);
     }
     if (!ft_strncmp(s, "EA", 2)) //если строки равны
     {
-        start_i = find_string_start(s);
-        m_struct->params->east_texture_path = ft_strdup(&s[start_i]);
+		m_struct->params->east_texture_path = get_texture_path(s);
         return (1);
     }
 	if (!ft_strncmp(s, "S", 1))
 	{
-		start_i = find_string_start(s);
-		m_struct->params->sprite_texture_path = ft_strdup(&s[start_i]);
+		m_struct->params->sprite_texture_path = get_texture_path(s);
 		return (1);
 	}
     return (0);
