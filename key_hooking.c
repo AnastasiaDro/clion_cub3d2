@@ -4,7 +4,7 @@
 #include "key_hooking.h"
 #include "stdio.h"
 
-//повернуть игрока
+
 int rotate(t_data *m_struct, double rotSpeed)
 {
 	double oldDirX = m_struct->dirX;
@@ -37,27 +37,27 @@ int step_left_rigth(t_data *m_struct, double moveSpeed, int coef)
 	return 1;
 }
 
-int step_forward(t_data *m_struct, double moveSpeed)
+int step_forward(t_data *m_struct, double move_speed)
 {
-	do_step(m_struct, moveSpeed, 1);
+	do_step(m_struct, move_speed, 1);
 	return 1;
 }
 
-int step_backward(t_data *m_struct, double moveSpeed)
+int step_backward(t_data *m_struct, double move_speed)
 {
-	do_step(m_struct, moveSpeed, -1);
+	do_step(m_struct, move_speed, -1);
 	return 1;
 }
 
-int step_rigth(t_data *m_struct, double moveSpeed)
+int step_rigth(t_data *m_struct, double move_speed)
 {
-	step_left_rigth(m_struct, moveSpeed, -1);
+	step_left_rigth(m_struct, move_speed, -1);
 	return 1;
 }
 
-int step_left(t_data *m_struct, double moveSpeed)
+int step_left(t_data *m_struct, double move_speed)
 {
-	step_left_rigth(m_struct, moveSpeed, 1);
+	step_left_rigth(m_struct, move_speed, 1);
 	return 1;
 }
 
