@@ -276,41 +276,36 @@ int check_n_save_params(char *s, t_data *m_struct)
     return 0;
 }
 
+void set_player_direction(t_data *m_struct, double dirX, double dirY, double planeY, double PlaneX)
+{
+	m_struct->dirX = dirX;
+	m_struct->dirY = dirY;
+	//the 2d raycaster version of camera plane
+	m_struct->planeY = planeY;
+	m_struct->planeX = PlaneX;
+}
 
 int set_player_vision(char c, t_data *m_struct)
 {
 	if (c == 'N') //90 градусов
 	{
+		set_player_direction(m_struct, 0, -1, 0, -0.66);
         //нужен первоначальный вектор направления:
-        m_struct->dirX = 0;
-        m_struct->dirY = -1;
-        //the 2d raycaster version of camera plane
-        m_struct->planeY=0;
-        m_struct->planeX = -0.66;
         return 1;
 	}
 	if (c == 'S') //270 градусов
 	{
-        m_struct->dirX = 0;
-        m_struct->dirY = 1;
-        m_struct->planeY=0;
-        m_struct->planeX = 0.66;
+		set_player_direction(m_struct, 0, 1, 0, 0.66);
         return 1;
 	}
 	if (c == 'E') //270 градусов
 	{
-        m_struct->dirX =   1;
-        m_struct->dirY =   0;
-        m_struct->planeY= -0.66;
-        m_struct->planeX = 0;
+		set_player_direction(m_struct, 1, 0, -0.66, 0);
         return 1;
 	}
 	if (c == 'W') //270 градусов
 	{
-        m_struct->dirX = -1;
-        m_struct->dirY = 0;
-        m_struct->planeY=0.66;
-        m_struct->planeX = 0;
+		set_player_direction(m_struct, -1, 0, 0.66, 0);
         return 1;
 	}
 	return 0;
@@ -415,10 +410,12 @@ int fill_map(t_list **last_elem, int elems_num, t_data *m_struct)
         free_all(m_struct);
     }
     //выведем карту
+    printf("elems_num = %d\n", elems_num);
     while (map[elems_num])
     {
         //выводим строку???
         ft_putendl_fd(map[elems_num], 1);
+      //  printf("%s\n", map[elems_num]);
         elems_num++;
     }
     m_struct->map = map;

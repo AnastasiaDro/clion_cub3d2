@@ -29,9 +29,9 @@ t_textu  set_texture(t_data *m_struct, double rayDirX, double rayDirY)
 	if (m_struct->side == 0)
 	{
 		if (rayDirX > 0)
-			return m_struct->textu[2];
-		else
 			return m_struct->textu[3];
+		else
+			return m_struct->textu[2];
 	}
     return (m_struct->textu[0]); //просто дефолт
 }
@@ -81,17 +81,21 @@ int draw_lab_dda(t_data *m_struct) {
 
 		//calculate step and initial sideDist
 		if (rayDirX < 0) {
+			//stepX = 1;
 			stepX = -1;
 			sideDistX = (m_struct->map_player_x - mapX) * deltaDistX;
 		} else {
+			//stepX = -1;
 			stepX = 1;
 			sideDistX = (mapX + 1.0 - m_struct->map_player_x) * deltaDistX;
 		}
 		if (rayDirY < 0) {
 			stepY = -1;
+			//stepY = 1;
 			sideDistY = (m_struct->map_player_y - mapY) * deltaDistY;
 		} else {
 			stepY = 1;
+			//stepY = -1;
 			sideDistY = (mapY + 1.0 - m_struct->map_player_y) * deltaDistY;
 		}
 
