@@ -166,6 +166,7 @@ char *get_texture_path(char *s)
 	int start_i;
 
 	start_i = find_string_start(s);
+	free(s);
 	return (ft_strdup(&s[start_i]));
 }
 
@@ -364,7 +365,7 @@ int fill_map(t_list **last_elem, int elems_num, t_data *m_struct)
     int is_player;
     int flag_player = 0;
     
-    map = ft_calloc(elems_num + 1, sizeof(char *)); //количество наших сьтрочек + 1 для зануления
+    map = ft_calloc(elems_num +1 , sizeof(char *)); //количество наших сьтрочек + 1 для зануления
     elem = *last_elem;
     char *st = (char *)elem->content;
     while('\0' == *st)
@@ -378,26 +379,12 @@ int fill_map(t_list **last_elem, int elems_num, t_data *m_struct)
     {
         map[elems_num - 1] =  (char *)elem->content;
         elem->content = NULL;
-//        if (flag_player == 1 && ((is_player = find_player(map[elems_num - 1], m_struct)) != -1))
-//        {
-//            throwException(MORE_PLAYERS);
-//            free_all(m_struct);
-//        }
-//        else if ((is_player = find_player(map[elems_num - 1], m_struct)) != -1)
-//        {
-//             m_struct->map_player_x = (double)is_player + 0.5;
-//             m_struct->map_player_y = (double)(elems_num - 1) + 0.5;
-//			flag_player = 1;
-//             map[elems_num - 1][is_player] = '0';
-//        }
-//        }
 		if((is_player = check_symbols(map[elems_num-1], m_struct, &flag_player)))
 		{
 			m_struct->map_player_x = (double)is_player + 0.5;
 			m_struct->map_player_y = (double)(elems_num - 1) + 0.5;
 			map[elems_num - 1][is_player] = '0';
 		}
-
 
 //посчитаем спрайты
         check_sprites(map[elems_num - 1], m_struct, elems_num);

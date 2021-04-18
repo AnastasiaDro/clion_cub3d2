@@ -10,7 +10,7 @@
 
 void made_exceptions_arr(t_textu *textu)
 {
-	textu->exceptions_arr = malloc(sizeof (char *) * 4);
+	textu->exceptions_arr = ft_calloc(sizeof (char *), 5);
 	textu->exceptions_arr[0] = NORTH_TEX_PATH_ERROR;
 	textu->exceptions_arr[1] = SOUTH_TEX_PATH_ERROR;
 	textu->exceptions_arr[2] = WEST_TEX_PATH_ERROR;

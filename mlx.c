@@ -37,10 +37,8 @@ int     render_next_frame(t_data *m_struct)
 
 int cross_hook(t_data *m_struct)
 {
-	mlx_destroy_window(m_struct->mlx, m_struct->mlx_win);
-	mlx_destroy_image(m_struct->mlx, m_struct->img);
 	ft_lstclear(&m_struct->lst, free);
-	free(m_struct->map);
+	free_all(m_struct);
 	exit(0);
 }
 
@@ -49,7 +47,6 @@ int key_hook(int keycode, t_data *m_struct)
 {
    // printf("hello Nest! keycode is %d\n", keycode);
 //шаг вперед
-
     if (keycode == 13)
 	{
 		step_forward(m_struct, 0.0872665);
@@ -89,59 +86,17 @@ int key_hook(int keycode, t_data *m_struct)
 	}
     if (keycode == 53)
 	{
-    	mlx_destroy_window(m_struct->mlx, m_struct->mlx_win);
-    	mlx_destroy_image(m_struct->mlx, m_struct->img);
-		free(m_struct->map);
+		free_all(m_struct);
 		exit(0);
 	}
     return 1;
 }
-
-// 2d
-//int key_hook(int keycode, t_data *m_struct)
-//{
-//	printf("hello Nest! keycode is %d\n", keycode);
-//	int p_x = m_struct->map_player_x;
-//	int p_y = m_struct->map_player_y;
-//	char **map = m_struct->map;
-//	if (keycode == 1 && map[p_y + 1][p_x] != '1')
-//	{
-//		m_struct->map_player_y+=1;3
-//		change_y_p_coords(m_struct);
-//	}
-//	if (keycode == 13 && map[p_y - 1][p_x] != '1')
-//	{
-//		m_struct->map_player_y-=1;
-//		change_y_p_coords(m_struct);
-//		//mlx_put_image_to_window(m_struct->mlx, m_struct->mlx_win, m_struct->img, 0, 0);
-//		//return 1;
-//	}
-//	if (keycode == 2 && map[p_y][p_x + 1] != '1')
-//	{
-//		m_struct->map_player_x += 1;
-//		change_x_p_coors(m_struct);
-//	//	mlx_put_image_to_window(m_struct->mlx, m_struct->mlx_win, m_struct->img, 0, 0);
-//	}
-//	if (keycode == 0 && map[p_y][p_x - 1] != '1')
-//	{
-//		m_struct->map_player_x -= 1;
-//		change_x_p_coors(m_struct);
-//	//	mlx_put_image_to_window(m_struct->mlx, m_struct->mlx_win, m_struct->img, 0, 0);
-//	}
-//	printf("%d hello from key_hook!\n", keycode);
-
-//	mlx_put_image_to_window(m_struct->mlx, m_struct->mlx_win, m_struct->img, 0, 0);
-//	return 1;
-//}
-
 
 int main()
 {
     t_data m_struct;
 
     m_struct.mlx = mlx_init();
-//    m_struct.screen_width = 512;
-//    m_struct.screen_higth = 512;
     m_struct.voxel_size = 32;
 
     //массив текстур
@@ -195,13 +150,8 @@ int main()
 	m_struct.addr = mlx_get_data_addr(m_struct.img, &m_struct.bits_per_pixel, &m_struct.line_length,
 									  &m_struct.endian);
 
-  //  render_next_frame(&m_struct);
-//    m_struct.map_player_x - 0.5;
-//    m_struct.map_player_y - 0.5;
 	mlx_loop_hook(m_struct.mlx, render_next_frame, &m_struct);
 	mlx_loop(m_struct.mlx);
 
-	ft_lstclear(&m_struct.lst, free);
-	free(m_struct.map);
 	exit(0);
 }

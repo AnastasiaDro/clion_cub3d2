@@ -15,9 +15,7 @@ typedef struct s_sprite
     double 	x;
     double 	y;
 //    int 	code;
-//    void 	*img;
     double distance;
- //   struct s_sprite *prev;
     struct s_sprite *next;
 }              t_sprite;
 
@@ -50,5 +48,8 @@ void sortSprites(t_sprite **sprite_list);
 
 // получить пиксель из img спрайта
 int sprite_mlx_pixel_get(t_spr_info *spr_info, int x, int y);
+
+//очистить список спрайтов
+void	sprite_lstclear(t_sprite **lst);
 
 #endif //SPRITES_UTILS_H

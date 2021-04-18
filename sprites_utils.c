@@ -21,8 +21,7 @@ int init_sprite_info(t_spr_info *spr_info, int sprite_h, int sprite_w, char *pat
 										 &(spr_info->endian));
 	spr_info->h = sprite_h;
 	spr_info->w = sprite_w;
-
-	return 1;
+	return (1);
 }
 
 int sprite_mlx_pixel_get(t_spr_info *spr_info, int x, int y)
@@ -31,10 +30,8 @@ int sprite_mlx_pixel_get(t_spr_info *spr_info, int x, int y)
     char *dst;
     dst = spr_info->addr + (y * spr_info->line_length + x * (spr_info->bits_per_pixel / 8));
     color = *(int*)dst;
-    return color;
+    return (color);
 }
-
-
 
 t_sprite *sprite_lstnew(double x, double y)
 {
@@ -46,7 +43,6 @@ t_sprite *sprite_lstnew(double x, double y)
     new_sprite->x = x;
     new_sprite->y = y;
     new_sprite->next = NULL;
-//    new_sprite->prev = NULL;
     return (new_sprite);
 }
 
@@ -60,37 +56,9 @@ void	sprite_lstadd_front(t_sprite **lst, t_sprite *new)
     if (new)
     {
         new->next = *lst;
-     //   new->prev = NULL;
         *lst = new;
         return ;
     }
-}
-
-t_sprite 	*sprite_lstlast(t_sprite *lst)
-{
-    t_sprite *p;
-
-    p = lst;
-    while (p)
-    {
-        if (p->next == NULL)
-            return (p);
-        p = p->next;
-    }
-    return (NULL);
-}
-
-void	sprite_lstadd_back(t_sprite **lst, t_sprite *new)
-{
-    t_sprite *last;
-
-    if (!*lst)
-    {
-        *lst = new;
-        return ;
-    }
-    last = sprite_lstlast(*(lst));
-    last->next = new;
 }
 
 
@@ -138,16 +106,21 @@ void sortSprites(t_sprite **head)
     }
 }
 
-//void sortSprites(int* order, double* dist, int numSprites)
-//{
-//    int i = 0;
-//    //сортировка вставками
-//    //нужно пройтись по всему массиву
-//    while (i < numSprites)
-//    {
-//        //есть расстояние
-//
-//
-//        i++;
-//    }
+void	sprite_lstclear(t_sprite **lst)
+{
+	t_sprite *p;
+	t_sprite *p_next;
+
+	p = *lst;
+	if (!*lst)
+		return ;
+	*lst = NULL;
+	while (p)
+	{
+		p_next = p->next;
+		free(p);
+		p = p_next;
+	}
+}
+
 
