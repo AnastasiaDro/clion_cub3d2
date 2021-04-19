@@ -274,6 +274,7 @@ int check_n_save_params(char *s, t_data *m_struct)
         m_struct->params->ceil_color = get_color(s, m_struct);
         return (1);
     }
+    printf("check_n_save_params\n");
     return 0;
 }
 
@@ -415,9 +416,9 @@ void parse_map(t_data *m_struct)
     write(1, "PARSE_MAP\n", 10);
 
 //школа
-   //int fd = open("/Users/cerebus/projects/clion_cub3d2/real_map1.cub", O_RDONLY);
+   int fd = open("/Users/cerebus/projects/clion_cub3d2/real_map1.cub", O_RDONLY);
   //ДОМ
-  int fd = open("/Users/anastasia/CLionProjects/clion_cub3d2/real_map1.cub", O_RDONLY);
+ // int fd = open("/Users/anastasia/CLionProjects/clion_cub3d2/real_map2.cub", O_RDONLY);
     char *line;
     t_list *last_elem = NULL;
     int elems_num = 0;
@@ -431,6 +432,7 @@ void parse_map(t_data *m_struct)
 			if (check_fe_line(line) == MAP_ERROR)
 			{
 				throwException(INVALID_MAP);
+                printf("check_fe_line\n");
 				free_all(m_struct);
 			}
             ft_lstadd_front(&last_elem, ft_lstnew(line));
@@ -442,9 +444,15 @@ void parse_map(t_data *m_struct)
             //сохраняю в структуру параметров текстуры
             //если у нас уже
 			if (line[0] == '\0')
-				continue;
+            {
+                free(line);
+                line = NULL;
+                continue;
+            }
+
 			if (!(check_n_save_textures(&line[index], m_struct)) && !(check_n_save_params(&line[index], m_struct)))
 			{
+                printf("check_n-SAVE_TEXTURESe\n");
 				throwException(INVALID_MAP);
 				free_all(m_struct);
 			}
@@ -469,6 +477,7 @@ void parse_map(t_data *m_struct)
     elems_num = fill_map(&last_elem, elems_num, m_struct);
     if (check_fe_line(m_struct->map[elems_num-1]) == MAP_ERROR)
     {
+        printf("check_fe_line 2\n");
         throwException(INVALID_MAP);
         free_all(m_struct);
     }
@@ -478,6 +487,7 @@ void parse_map(t_data *m_struct)
    	//проверим карту
     if (check_map(m_struct->map, elems_num) == MAP_ERROR)
     {
+        printf("check_map\n");
         throwException(INVALID_MAP);
         free_all(m_struct);
     }

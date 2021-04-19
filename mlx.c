@@ -37,8 +37,9 @@ int     render_next_frame(t_data *m_struct)
 
 int cross_hook(t_data *m_struct)
 {
-	ft_lstclear(&m_struct->lst, free);
+//	ft_lstclear(&m_struct->lst, free);
 	free_all(m_struct);
+    system("leaks a.out");
 	exit(0);
 }
 
