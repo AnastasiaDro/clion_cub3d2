@@ -36,7 +36,7 @@ typedef struct s_spr_info
 	int         endian;
 }				t_spr_info;
 
-int init_sprite_info(t_spr_info *spr_info, int sprite_h, int sprite_w, char *path);
+int set_sprite_info(t_spr_info *spr_info, int sprite_h, int sprite_w, char *path);
 
 t_sprite *sprite_lstnew(double x, double y);
 
@@ -52,4 +52,6 @@ int sprite_mlx_pixel_get(t_spr_info *spr_info, int x, int y);
 //очистить список спрайтов
 void	sprite_lstclear(t_sprite **lst);
 
+//инициализировать NULL-ами
+int init_sprite_info(t_spr_info  *sprite_info);
 #endif //SPRITES_UTILS_H

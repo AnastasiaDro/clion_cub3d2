@@ -18,4 +18,7 @@ typedef struct s_params
     int floor_color;
     int ceil_color;
 }               t_params;
+
+int init_params(t_params *params);
+
 #endif //CLION_CUB3D_PARAMS_STRUCT_H

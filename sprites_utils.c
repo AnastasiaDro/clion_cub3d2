@@ -6,7 +6,7 @@
 #include "exceptions.h"
 
 
-int init_sprite_info(t_spr_info *spr_info, int sprite_h, int sprite_w, char *path)
+int set_sprite_info(t_spr_info *spr_info, int sprite_h, int sprite_w, char *path)
 {
 	spr_info->sprite_path = path;
 	spr_info->num_sprites = 0;
@@ -108,12 +108,15 @@ void sortSprites(t_sprite **head)
 
 void	sprite_lstclear(t_sprite **lst)
 {
+    if (!lst)
+        return ;
 	t_sprite *p;
 	t_sprite *p_next;
 
-	p = *lst;
+
 	if (!*lst)
 		return ;
+    p = *lst;
 	*lst = NULL;
 	while (p)
 	{
@@ -121,6 +124,13 @@ void	sprite_lstclear(t_sprite **lst)
 		free(p);
 		p = p_next;
 	}
+}
+
+int init_sprite_info(t_spr_info  *sprite_info)
+{
+    sprite_info->sprite_list = NULL;
+    sprite_info->sprite_path = NULL;
+    return (1);
 }
 
 

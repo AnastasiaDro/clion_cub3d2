@@ -97,8 +97,10 @@ int main()
     t_data m_struct;
 
     m_struct.mlx = mlx_init();
+    m_struct.img = NULL;
+    m_struct.mlx_win = NULL;
     m_struct.voxel_size = 32;
-
+    m_struct.map = NULL;
     //массив текстур
     t_textu textu[4];
 
@@ -109,13 +111,16 @@ int main()
    		write(1, "NULL!", 5);
    		exit(0);
    }
+    init_sprite_info(sprite_info);
     t_params *params = malloc(sizeof (t_params));
+    init_params(params);
     m_struct.params = params;
 
 
 //	init_textu_arr(textu, 128, 128);
 	m_struct.textu = textu;
 	m_struct.sprite_info = sprite_info;
+
 // парсинг карты
     parse_map(&m_struct);
 	printf("after parsing\n");
@@ -136,7 +141,7 @@ int main()
 
 	if (init_textu_arr(textu, 128, 128) == -1)
 		free_all(&m_struct);
-	if(init_sprite_info(sprite_info, 64,64, m_struct.params->sprite_texture_path) == -1)
+	if(set_sprite_info(sprite_info, 64, 64, m_struct.params->sprite_texture_path) == -1)
 		free_all(&m_struct);
 
 	m_struct.img = mlx_new_image(m_struct.mlx, m_struct.params->screen_width, m_struct.params->screen_higth);

@@ -6,6 +6,8 @@
 int free_arr(char **arr)
 {
 	char **ptr = arr;
+    if (ptr == NULL)
+        return (1);
 	while (*ptr != NULL)
 	{
 		free((*ptr));
@@ -40,13 +42,16 @@ int free_textu(t_data *m_struct)
 	int i;
 
 	i = 0;
-	while (i < 4)
-	{
-		mlx_destroy_image(m_struct->textu[i].mlx, m_struct->textu[i].img);
+    if (m_struct->textu[i].adress != NULL)
+    {
+	    while (i < 4)
+	    {
+		    mlx_destroy_image(m_struct->textu[i].mlx, m_struct->textu[i].img);
 		//free(m_struct->textu[i].adress);
-		i++;
-	}
-	return (1);
+		    i++;
+	    }
+    }
+    return (1);
 }
 
 int free_all(t_data *m_struct)
@@ -59,8 +64,11 @@ int free_all(t_data *m_struct)
 	free_textu(m_struct);
 	//sprite info
 	free_sprite_info(m_struct);
-	mlx_destroy_window(m_struct->mlx, m_struct->mlx_win);
-	mlx_destroy_image(m_struct->mlx, m_struct->img);
+    if (m_struct->img)
+    {
+        mlx_destroy_window(m_struct->mlx, m_struct->mlx_win);
+        mlx_destroy_image(m_struct->mlx, m_struct->img);
+    }
 	exit(0);
 }
 

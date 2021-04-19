@@ -17,6 +17,21 @@ void made_exceptions_arr(t_textu *textu)
 	textu->exceptions_arr[3] = EAST_TEX_PATH_ERROR;
 }
 
+int start_textu_init(t_textu *textu)
+{
+    int i;
+
+    i = 0;
+    while (i < 4)
+    {
+        textu[i].mlx = NULL;
+        textu[i].adress = NULL;
+        textu[i].img = NULL;
+        i++;
+    }
+    return (1);
+}
+
 int init_textu_arr(t_textu *textu, int height, int width)
 {
 	made_exceptions_arr(textu);
