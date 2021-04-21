@@ -17,7 +17,6 @@
 #define NO_PLAYER "There is no player at the map!"
 #define MORE_PLAYERS "Too many players at the map!"
 #define INVALID_FLOOR_COLOR "Invalid floor color"
-#define INVALID_CEIL_COLOR "Invalid ceil color"
 
 void throwException(char *msg);
 int free_all(t_data *m_struct);

@@ -12,7 +12,7 @@ void make_color_exception(char *s, t_data *m_struct)
 	free(s);
 	s = NULL;
 	free_all(m_struct);
-	exit(0);
+	exit (0);
 }
 
 int go_to_the_next_color(int i, char *str)
@@ -87,7 +87,7 @@ int get_color(char *s, t_data *m_struct)
 		make_color_exception(s, m_struct);
 	if (check_color_s_end(str, i) == -1)
 		make_color_exception(s, m_struct);
-	color = r*16*16*16*16 + g*16*16 + b;
+	color = r * (int)(pow(16, 4))+ g * (int)(pow(16, 2)) + b;
 	free(s);
-	return color;
+	return (color);
 }

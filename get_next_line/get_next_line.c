@@ -76,7 +76,7 @@ int		get_next_line(int fd, char **line)
 	if (!tail)
 		tail = ft_strdup("");
 	*line = NULL;
-	while (!(pn = ft_strchr(&tail[start], '\n')) &&
+	while (!(pn = ft_strchr(&tail[start], '\n')) && \
 		(read_bytes = read(fd, buff, BUFFER_SIZE)))
 		if (ft_increase_tail(&tail, &buff, &start, read_bytes) == -1)
 			return (-1);
