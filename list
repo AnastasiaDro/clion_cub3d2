@@ -6,4 +6,10 @@
 3.key_hooking.c
 4.key_hooking.h
 
+5.exceptions.c
+6.exceptions.h
 
+7.constants.h
+
+8.params.c
+9.params.h

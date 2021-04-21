@@ -94,9 +94,8 @@ int main()
 
 	m_struct.mlx_win = mlx_new_window(m_struct.mlx, m_struct.params->screen_width, m_struct.params->screen_higth, "hello, world!");
 
-	mlx_hook(m_struct.mlx_win, KEY_PRESS, KEY_PESS_MASK, key_hook, &m_struct);
-	mlx_hook(m_struct.mlx_win, KEY_PRESS, KEY_PESS_MASK, key_hook, &m_struct);
-	mlx_hook(m_struct.mlx_win, CROSS_PRESS, CROSS_PRESS_MASK, cross_hook, &m_struct);
+	mlx_hook(m_struct.mlx_win, KEY_PRESS, 1L<<0, key_hook, &m_struct);
+	mlx_hook(m_struct.mlx_win, CROSS_PRESS, 1L<<5, cross_hook, &m_struct);
 	m_struct.addr = mlx_get_data_addr(m_struct.img, &m_struct.bits_per_pixel, &m_struct.line_length,\
 									  &m_struct.endian);
 	mlx_loop_hook(m_struct.mlx, render_next_frame, &m_struct);

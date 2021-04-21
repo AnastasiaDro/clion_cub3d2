@@ -8,7 +8,7 @@
 #include "texture_parse.h"
 #include "libft/libft.h"
 #include "sprites_utils.h"
-#include "params_struct.h"
+#include "params.h"
 
 typedef struct  s_data {
 	void        *img;

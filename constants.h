@@ -1,11 +1,17 @@
-//
-// Created by Cesar Erebus on 3/28/21.
-//
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   constants.h                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: cerebus <cerebus@student.21-school.ru>     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/04/21 20:57:52 by cerebus           #+#    #+#             */
+/*   Updated: 2021/04/21 20:58:34 by cerebus          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #ifndef CONSTANTS_H
-#define CONSTANTS_H
+# define CONSTANTS_H
 # define KEY_PRESS 02
-# define KEY_PESS_MASK (1L<<0)
 # define CROSS_PRESS 17
-# define CROSS_PRESS_MASK (1L<<5)
-#endif //CLION_CUB3D_CONSTANTS_H
+#endif
