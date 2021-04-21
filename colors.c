@@ -89,5 +89,5 @@ int get_color(char *s, t_data *m_struct)
 		make_color_exception(s, m_struct);
 	color = r * (int)(pow(16, 4))+ g * (int)(pow(16, 2)) + b;
 	free(s);
-	return (color);
+	return (color );
 }
