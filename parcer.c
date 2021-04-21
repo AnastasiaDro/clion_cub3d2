@@ -85,8 +85,6 @@ int check_map (char **map, int elems_num)
 
             l_i++;
         }
-
-        //cправа налево
         next_s = map[i+1];
         next_s_len = ft_strlen(next_s);
         int diff = 0;
@@ -103,7 +101,7 @@ int check_map (char **map, int elems_num)
             diff = cur_s_len - next_s_len;
             while(diff > 0)
             {
-                if (cur_s[cur_s_len-diff-1] == '0') // || next_s[next_s_len-diff-1] == '0')
+                if (cur_s[cur_s_len-diff-1] == '0')
                     return MAP_ERROR;
                 diff--;
             }
@@ -111,11 +109,6 @@ int check_map (char **map, int elems_num)
                 if ( next_s[next_s_len-1] == '0')
                     return MAP_ERROR;
         }
-
-        //проверим строку на пробелы
-        //l_i - то, откуда начались единицы
-
-                //int check_space_borders(int start_i, int end_i, char **map, char *cur_s, int s_num)
         if (check_space_borders(l_i, cur_s_len, map, cur_s, i) == MAP_ERROR)
             return (MAP_ERROR);
         i++;
@@ -134,7 +127,7 @@ int check_fe_line(char *s)
 	while (s[i])
 	{
 		if (s[i]!= '1' && s[i]!= ' ')
-			return MAP_ERROR;
+			return (MAP_ERROR);
 		i++;
 	}
 	return (1);
@@ -152,9 +145,9 @@ int  is_map_start(char *line)
             continue;
         }
         if (ptr[i] >= '0' && ptr[i] <= '9')
-            return MAP_STARTED;
+            return (MAP_STARTED);
         else if (ptr[i] == '0')
-			return ZERO_START_LINE;
+			return (ZERO_START_LINE);
         else
             return (i);
     }
@@ -286,37 +279,25 @@ int check_n_save_params(char *s, t_data *m_struct)
     return 0;
 }
 
-void set_player_direction(t_data *m_struct, double dirX, double dirY, double planeY, double PlaneX)
+ int set_player_direction(t_data *m_struct, double dirX, double dirY, double planeY, double PlaneX)
 {
 	m_struct->dirX = dirX;
 	m_struct->dirY = dirY;
-	//the 2d raycaster version of camera plane
 	m_struct->planeY = planeY;
 	m_struct->planeX = PlaneX;
+	return (1);
 }
 
 int set_player_vision(char c, t_data *m_struct)
 {
 	if (c == 'N')
-	{
-		set_player_direction(m_struct, 0, -1, 0, -0.66);
-        return (1);
-	}
+        return (set_player_direction(m_struct, 0, -1, 0, -0.66));
 	if (c == 'S')
-	{
-		set_player_direction(m_struct, 0, 1, 0, 0.66);
-        return (1);
-	}
+		return (set_player_direction(m_struct, 0, 1, 0, 0.66));
 	if (c == 'E')
-	{
-		set_player_direction(m_struct, 1, 0, -0.66, 0);
-        return (1);
-	}
+		return (set_player_direction(m_struct, 1, 0, -0.66, 0));
 	if (c == 'W')
-	{
-		set_player_direction(m_struct, -1, 0, 0.66, 0);
-        return (1);
-	}
+		return (set_player_direction(m_struct, -1, 0, 0.66, 0));
 	return (0);
 }
 
