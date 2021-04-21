@@ -10,98 +10,71 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "parcer.h"
+#include "parcer_new.h"
 #include "minilibx_opengl_20191021/mlx.h"
 #include "stdlib.h"
-#include <stdio.h>
 #include "libft/libft.h"
-
 #include "new_cub_utils.h"
-#include "draw_utils.h"
 #include "unistd.h"
-//библиотека математических функций
-#include <math.h>
 #include "constants.h"
 #include "texture_parse.h"
 #include "key_hooking.h"
 #include "sprites_utils.h"
 #include "exceptions.h"
+#include "draw_utils.h"
 
-// 3d
 int     render_next_frame(t_data *m_struct)
 {
-    draw_floor_ceil1(m_struct, m_struct->params->screen_higth, m_struct->params->screen_width);
+    draw_floor_ceil(m_struct, m_struct->params->screen_higth, m_struct->params->screen_width);
 	draw_lab_dda(m_struct);
-	return 1;
+	return(1);
 }
 
 int cross_hook(t_data *m_struct)
 {
-//	ft_lstclear(&m_struct->lst, free);
 	free_all(m_struct);
-    system("leaks a.out");
-
-
-
-
 	exit(0);
-
-
 }
 
 
 int key_hook(int keycode, t_data *m_struct)
 {
-   // printf("hello Nest! keycode is %d\n", keycode);
-//шаг вперед
-//    int h = 0;
-//    int w = 0;
-//    mlx_get_screen_size(&w, &h);
-//    printf("ширина  %d, высота %d", w, h);
-
     if (keycode == 13)
 	{
 		step_forward(m_struct, 0.0872665);
-        printf("m_struct->map_player_y %f\n", m_struct->map_player_y);
-		return 1;
+		return (1);
 	}
-//шаг назад
     if (keycode == 1)
 	{
 		step_backward(m_struct, 0.0872665);
-		return 1;
+		return (1);
 	}
     if (keycode == 0)
 	{
 		step_left(m_struct, 0.0872665);
-		return 1;
+		return (1);
 	}
     if (keycode == 2)
 	{
 		step_rigth(m_struct, 0.0872665);
-		return 1;
+		return (1);
 	}
-
-//поворот налево
     if (keycode == 123)
 	{
-		double rotSpeed = -0.0872665; // 5 градусов
-		rotate(m_struct, rotSpeed);
-		return 1;
+		rotate(m_struct, -0.0872665);
+		return (1);
 	}
-//поворот направо
 	if (keycode == 124)
 	{
-		double rotSpeed = 0.0872665; // 5 градусов
-		rotate(m_struct, rotSpeed);
-		return 1;
+		rotate(m_struct, 0.0872665);
+		return (1);
 	}
     if (keycode == 53)
 	{
 		free_all(m_struct);
 		exit(0);
 	}
-    return 1;
+    return (0);
 }
 
 int main()
@@ -111,7 +84,6 @@ int main()
     m_struct.mlx = mlx_init();
     m_struct.img = NULL;
     m_struct.mlx_win = NULL;
-    m_struct.voxel_size = 32;
     m_struct.map = NULL;
     //массив текстур
     t_textu textu[4];
@@ -129,23 +101,10 @@ int main()
     m_struct.params = params;
 
 
-//	init_textu_arr(textu, 128, 128);
 	m_struct.textu = textu;
 	m_struct.sprite_info = sprite_info;
 
-// парсинг карты
     parse_map(&m_struct);
-	printf("after parsing\n");
-	printf("north path %s\n", m_struct.params->north_texture_path);
-	printf("south path %s\n", m_struct.params->south_texture_path);
-	printf("west path %s\n", m_struct.params->west_texture_path);
-	printf("east path %s\n", m_struct.params->east_texture_path);
-    printf("m_struct.params->screen_weight %d\n", m_struct.params->screen_width);
-    printf("m_struct.params->screen_height %d\n", m_struct.params->screen_higth);
-//    m_struct.screen_width = 512;
-//    m_struct.screen_higth = 512;
-	//textu[0].adress = m_struct.params->north_texture_path;
-
 	textu[0].adress =  m_struct.params->north_texture_path;
 	textu[1].adress = m_struct.params->south_texture_path;
 	textu[2].adress = m_struct.params->west_texture_path;;
@@ -161,14 +120,11 @@ int main()
 	m_struct.mlx_win = mlx_new_window(m_struct.mlx, m_struct.params->screen_width, m_struct.params->screen_higth, "hello, world!");
 
 	mlx_hook(m_struct.mlx_win, KEY_PRESS, KEY_PESS_MASK, key_hook, &m_struct);
-	// для крестика
 	mlx_hook(m_struct.mlx_win, KEY_PRESS, KEY_PESS_MASK, key_hook, &m_struct);
 	mlx_hook(m_struct.mlx_win, CROSS_PRESS, CROSS_PRESS_MASK, cross_hook, &m_struct);
-	m_struct.addr = mlx_get_data_addr(m_struct.img, &m_struct.bits_per_pixel, &m_struct.line_length,
+	m_struct.addr = mlx_get_data_addr(m_struct.img, &m_struct.bits_per_pixel, &m_struct.line_length,\
 									  &m_struct.endian);
-
 	mlx_loop_hook(m_struct.mlx, render_next_frame, &m_struct);
 	mlx_loop(m_struct.mlx);
-
 	exit(0);
 }

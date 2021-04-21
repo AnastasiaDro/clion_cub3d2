@@ -30,13 +30,8 @@ typedef struct  s_data {
 	t_params *params;
 
 	//позиция игрока
-	float player_x;
-	float player_y;
-	//угол зрения
-	float fov;
-
-	//размер воксела
-	int voxel_size;
+//	float player_x;
+//	float player_y;
 
 	//вектор направления
 	double dirX;
@@ -60,7 +55,6 @@ void     cerebus_mlx_pixel_put(t_data *data, int x, int y, int color);
 int draw_lab_dda(t_data *m_struct);
 
 
-int draw_floor_ceil1(t_data *m_struct, int screen_higth, int screen_width);
 
 
 
