@@ -40,7 +40,13 @@ int cross_hook(t_data *m_struct)
 //	ft_lstclear(&m_struct->lst, free);
 	free_all(m_struct);
     system("leaks a.out");
+
+
+
+
 	exit(0);
+
+
 }
 
 
@@ -48,6 +54,11 @@ int key_hook(int keycode, t_data *m_struct)
 {
    // printf("hello Nest! keycode is %d\n", keycode);
 //шаг вперед
+    int h = 0;
+    int w = 0;
+    mlx_get_screen_size(&w, &h);
+    printf("ширина  %d, высота %d", w, h);
+
     if (keycode == 13)
 	{
 		step_forward(m_struct, 0.0872665);
