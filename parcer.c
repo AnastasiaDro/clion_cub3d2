@@ -86,7 +86,7 @@ int check_map (char **map, int elems_num)
             l_i++;
         }
         next_s = map[i+1];
-        next_s_len = ft_strlen(next_s);
+        next_s_len = (int)ft_strlen(next_s);
         int diff = 0;
         if (cur_s_len < next_s_len)
         {
@@ -94,7 +94,7 @@ int check_map (char **map, int elems_num)
             while(diff > 0)
             {
                 if (next_s[next_s_len-diff-1] == '0')
-                    return MAP_ERROR;
+                    return (MAP_ERROR);
                 diff--;
             }
         } else {
@@ -102,12 +102,12 @@ int check_map (char **map, int elems_num)
             while(diff > 0)
             {
                 if (cur_s[cur_s_len-diff-1] == '0')
-                    return MAP_ERROR;
+                    return (MAP_ERROR);
                 diff--;
             }
             if (diff == 0)
                 if ( next_s[next_s_len-1] == '0')
-                    return MAP_ERROR;
+                    return (MAP_ERROR);
         }
         if (check_space_borders(l_i, cur_s_len, map, cur_s, i) == MAP_ERROR)
             return (MAP_ERROR);
