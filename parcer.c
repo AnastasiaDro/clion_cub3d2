@@ -297,28 +297,27 @@ void set_player_direction(t_data *m_struct, double dirX, double dirY, double pla
 
 int set_player_vision(char c, t_data *m_struct)
 {
-	if (c == 'N') //90 градусов
+	if (c == 'N')
 	{
 		set_player_direction(m_struct, 0, -1, 0, -0.66);
-        //нужен первоначальный вектор направления:
-        return 1;
+        return (1);
 	}
-	if (c == 'S') //270 градусов
+	if (c == 'S')
 	{
 		set_player_direction(m_struct, 0, 1, 0, 0.66);
-        return 1;
+        return (1);
 	}
-	if (c == 'E') //270 градусов
+	if (c == 'E')
 	{
 		set_player_direction(m_struct, 1, 0, -0.66, 0);
-        return 1;
+        return (1);
 	}
-	if (c == 'W') //270 градусов
+	if (c == 'W')
 	{
 		set_player_direction(m_struct, -1, 0, 0.66, 0);
-        return 1;
+        return (1);
 	}
-	return 0;
+	return (0);
 }
 
 int check_symbols(char *s, t_data *m_struct, int *flag_player)
@@ -470,7 +469,6 @@ void parse_map(t_data *m_struct)
    int res = 0;
     while ((res = get_next_line(fd, &line)))
     {
-    	int s_len = ft_strlen(line);
         ft_lstadd_front(&last_elem, ft_lstnew(line));
         elems_num++;
     }
@@ -485,7 +483,6 @@ void parse_map(t_data *m_struct)
     elems_num = fill_map(&last_elem, elems_num, m_struct);
     if (check_fe_line(m_struct->map[elems_num-1]) == MAP_ERROR)
     {
-        printf("check_fe_line 2\n");
         throwException(INVALID_MAP);
         free_all(m_struct);
     }
@@ -495,7 +492,6 @@ void parse_map(t_data *m_struct)
    	//проверим карту
     if (check_map(m_struct->map, elems_num) == MAP_ERROR)
     {
-        printf("check_map\n");
         throwException(INVALID_MAP);
         free_all(m_struct);
     }

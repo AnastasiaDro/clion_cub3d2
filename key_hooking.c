@@ -40,24 +40,24 @@ int step_left_rigth(t_data *m_struct, double moveSpeed, int coef)
 int step_forward(t_data *m_struct, double move_speed)
 {
 	do_step(m_struct, move_speed, 1);
-	return 1;
+	return (1);
 }
 
 int step_backward(t_data *m_struct, double move_speed)
 {
 	do_step(m_struct, move_speed, -1);
-	return 1;
+	return (1);
 }
 
 int step_rigth(t_data *m_struct, double move_speed)
 {
 	step_left_rigth(m_struct, move_speed, -1);
-	return 1;
+	return (1);
 }
 
 int step_left(t_data *m_struct, double move_speed)
 {
 	step_left_rigth(m_struct, move_speed, 1);
-	return 1;
+	return (1);
 }
 

@@ -21,14 +21,14 @@ int go_to_the_next_color(int i, char *str)
 		i++;
 	while (str[i] && str[i]!= ',')
 	{
-		if (!IS_SPACE && !IS_NUM)
+		if ((str[i] != ' ') && !(str[i] >= '0' && str[i] <= '9'))
 			return (-1);
 		i++;
 	}
 	i++;
-	while (IS_SPACE)
+	while (str[i] == ' ')
 		i++;
-	if (!IS_NUM)
+	if (!(str[i] >= '0' && str[i] <= '9'))
 		return (-1);
 	return (i);
 }
@@ -42,7 +42,7 @@ int check_color_part(char *str)
 
 	i = 0;
 	num_start = i;
-	while(IS_NUM)
+	while(str[i] >= '0' && str[i] <= '9')
 		i++;
 	num_length = i - num_start;
 	if (num_length > 3)
@@ -55,11 +55,11 @@ int check_color_part(char *str)
 
 int check_color_s_end(char *str, int i)
 {
-	while (IS_NUM)
+	while (str[i] >= '0' && str[i] <= '9')
 		i++;
 	while (str[i])
 	{
-		if (!IS_SPACE)
+		if (str[i] != ' ')
 			return (-1);
 		i++;
 	}
@@ -68,26 +68,29 @@ int check_color_s_end(char *str, int i)
 
 int get_color(char *s, t_data *m_struct)
 {
-	int i = 0;
-	int r = 0x0;
-	int g = 0x0;
-	int b = 0x0;
-	char *str;
-	str = s+1;
-	int color = 0x000000;
+	int     i;
+    t_color *m_color;
+	char    *str;
+    int     color;
+
+    i = 0;
+    str = s + 1;
+    color = 0x000000;
+    m_color = malloc(sizeof (t_color));
 	while(str[i] == ' ')
 		i++;
-	if ((r = check_color_part(&str[i])) == -1)
+	m_color->r = check_color_part(&str[i]);
+	if (m_color->r == -1)
 		make_color_exception(s, m_struct);
 	i = go_to_the_next_color(i, str);
-	if (i == -1 || (g = check_color_part(&str[i])) == -1)
+	if (i == -1 || (m_color->g = check_color_part(&str[i])) == -1)
 		make_color_exception(s, m_struct);
 	i = go_to_the_next_color(i, str);
-	if (i == -1 || (b = check_color_part(&str[i])) == -1)
+	if (i == -1 || (m_color->b = check_color_part(&str[i])) == -1)
 		make_color_exception(s, m_struct);
 	if (check_color_s_end(str, i) == -1)
 		make_color_exception(s, m_struct);
-	color = r * (int)(pow(16, 4))+ g * (int)(pow(16, 2)) + b;
+	color = m_color->r * (int)(pow(16, 4))+ m_color->g * (int)(pow(16, 2)) + m_color->b;
 	free(s);
 	return (color);
 }

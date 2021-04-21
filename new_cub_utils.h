@@ -29,10 +29,6 @@ typedef struct  s_data {
 	// параметры
 	t_params *params;
 
-	//позиция игрока
-//	float player_x;
-//	float player_y;
-
 	//вектор направления
 	double dirX;
 	double dirY;

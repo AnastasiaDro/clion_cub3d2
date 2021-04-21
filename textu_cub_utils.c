@@ -5,10 +5,7 @@
 #include "new_cub_utils.h"
 #include "sprites_utils.h"
 #include "minilibx_opengl_20191021/mlx.h"
-#include <time.h>
 #include <stdio.h>
-
-
 
 void     cerebus_mlx_pixel_put(t_data *data, int x, int y, int color)
 {
@@ -38,9 +35,8 @@ t_textu  set_texture(t_data *m_struct, double rayDirX, double rayDirY)
 
 //пойти вперед или назад
 
-int draw_lab_dda(t_data *m_struct) {
-
-
+int draw_lab_dda(t_data *m_struct)
+{
     //1D Zbuffer
     double ZBuffer[m_struct->params->screen_width];
 	//цикл для иксов
@@ -239,10 +235,8 @@ int draw_lab_dda(t_data *m_struct) {
                 for(int y = drawStartY; y < drawEndY; y++) //for every pixel of the current stripe
                 {
                     int d = (y) * 256 - m_struct->params->screen_higth * 128 + spriteHeight * 128; //256 and 128 factors to avoid floats
-                  //  int texY = ((d * texHeight) / spriteHeight) / 256;
                     int texY = ((d * m_struct->sprite_info->h) / spriteHeight) / 256;
                     int color = sprite_mlx_pixel_get(m_struct->sprite_info, texX, texY);
-                  //  Uint32 color = texture[sprite[spriteOrder[i]].texture][texWidth * texY + texX]; //get current color from the texture
                    if((color & 0x00FFFFFF) != 0)
                    {
                        cerebus_mlx_pixel_put(m_struct, m_struct->params->screen_width-stripe, y, color);

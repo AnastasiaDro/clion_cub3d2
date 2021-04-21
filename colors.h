@@ -7,6 +7,15 @@
 # include "new_cub_utils.h"
 # include "exceptions.h"
 
+typedef struct s_color
+{
+    int r;
+    int g;
+    int b;
+}               t_color;
+
+
+
 int check_color_part(char *str);
 
 int go_to_the_next_color(int i, char *str);
@@ -19,4 +28,4 @@ int get_color(char *s, t_data *m_struct);
 
 
 
-#endif //CLION_CUB3D2_COLOR_H
+#endif

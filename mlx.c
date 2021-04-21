@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "parcer_new.h"
+#include "parcer.h"
 #include "minilibx_opengl_20191021/mlx.h"
 #include "stdlib.h"
 #include "libft/libft.h"
