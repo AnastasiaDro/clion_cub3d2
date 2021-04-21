@@ -12,8 +12,8 @@
 #define ZERO_START_LINE (-3)
 #define MAP_ERROR (-3)
 
-# define MAX_SCREEN_WIDTH 2560
-# define MAX_SCREEN_HEIGHT 1440
+# define MAX_SCREEN_WIDTH
+# define MAX_SCREEN_HEIGHT
 # define MAX_WIDTH_NUM_LENGTH 4
 # define MAX_HEIGHT_NUM_LENGTH 4
 # define MAP_SYMBOL "012 "
@@ -207,6 +207,14 @@ int check_n_save_params(char *s, t_data *m_struct)
     int i = 0;
     int num_start;
     int num_length;
+
+    int max_screen_width;
+    int max_screen_height;
+
+    max_screen_width = 0;
+    max_screen_height = 0;
+
+    mlx_get_screen_size(&max_screen_width, &max_screen_height);
     if (*s == 'R') //и что этого флага ещё не было, если был - ошибка
     {
         str = s+1;
@@ -220,8 +228,8 @@ int check_n_save_params(char *s, t_data *m_struct)
         num_length = i - num_start;
         if (num_length > MAX_WIDTH_NUM_LENGTH)
         {
-            m_struct->params->screen_width = MAX_SCREEN_WIDTH;
-            m_struct->params->screen_higth = MAX_SCREEN_HEIGHT;
+            m_struct->params->screen_width = max_screen_width;
+            m_struct->params->screen_higth = max_screen_height;
             free(s);
             s = NULL;
             return 1;
@@ -235,18 +243,18 @@ int check_n_save_params(char *s, t_data *m_struct)
         num_length = i - num_start;
         if (num_length > MAX_HEIGHT_NUM_LENGTH)
         {
-            m_struct->params->screen_width = MAX_SCREEN_WIDTH;
-            m_struct->params->screen_higth = MAX_SCREEN_HEIGHT;
+            m_struct->params->screen_width = max_screen_width;
+            m_struct->params->screen_higth = max_screen_height;
             free(s);
             s = NULL;
             return 1;
         }
         m_struct->params->screen_higth = ft_atoi(&str[num_start]);
 
-        if ( m_struct->params->screen_width > MAX_SCREEN_WIDTH || m_struct->params->screen_higth > MAX_SCREEN_HEIGHT)
+        if ( m_struct->params->screen_width > max_screen_width || m_struct->params->screen_higth > max_screen_height)
         {
-            m_struct->params->screen_width = MAX_SCREEN_WIDTH;
-            m_struct->params->screen_higth = MAX_SCREEN_HEIGHT;
+            m_struct->params->screen_width = max_screen_width;
+            m_struct->params->screen_higth = max_screen_height;
             free(s);
             s = NULL;
             return 1;

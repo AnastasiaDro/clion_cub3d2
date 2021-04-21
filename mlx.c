@@ -54,10 +54,10 @@ int key_hook(int keycode, t_data *m_struct)
 {
    // printf("hello Nest! keycode is %d\n", keycode);
 //шаг вперед
-    int h = 0;
-    int w = 0;
-    mlx_get_screen_size(&w, &h);
-    printf("ширина  %d, высота %d", w, h);
+//    int h = 0;
+//    int w = 0;
+//    mlx_get_screen_size(&w, &h);
+//    printf("ширина  %d, высота %d", w, h);
 
     if (keycode == 13)
 	{
