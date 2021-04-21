@@ -2,9 +2,6 @@
 // Created by  Anastasia on 18.04.2021.
 //
 #include "colors.h"
-#define IS_SPACE ((str[i] >= '\t' && str[i] <= '\r') || str[i] == ' ')
-#define IS_NUM (str[i] >= '0' && str[i] <='9')
-
 
 void make_color_exception(char *s, t_data *m_struct)
 {

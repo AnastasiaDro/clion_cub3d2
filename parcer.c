@@ -113,6 +113,9 @@ int check_map (char **map, int elems_num)
             return (MAP_ERROR);
         i++;
     }
+    cur_s = map[i];
+    if (check_space_borders(0, ft_strlen(cur_s), map, cur_s, i) == MAP_ERROR)
+        return (MAP_ERROR);
     return (1);
 }
 
