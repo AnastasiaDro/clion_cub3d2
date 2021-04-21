@@ -1,21 +1,9 @@
-int check_map (char **map, int elems_num)
-{
-    int i = 1;
-    char *cur_s;
-    char *next_s;
+файлы по норме:
 
-    int cur_s_len;
-    int nexr_s_len;
-    while (i < elems_num-1) //до последней строки
-    {
-        cur_s = map[i];
-        next_s = map[i+1];
-        cur_s_len = ft_strlen(cur_s);
-        nexr_s_len = ft_strlen(next_s);
+1. draw_utils.c
+2. draw_utils.h
+
+3.key_hooking.c
+4.key_hooking.h
 
 
-
-        i++;
-    }
-    return 1;
-}

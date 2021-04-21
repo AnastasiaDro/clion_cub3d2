@@ -2,25 +2,8 @@
 #include <unistd.h>
 #include "exceptions.h"
 
-
-int free_arr(char **arr)
-{
-	char **ptr = arr;
-    if (ptr == NULL)
-        return (1);
-	while (*ptr != NULL)
-	{
-		free((*ptr));
-		ptr++;
-	}
-	free(arr);
-	arr = NULL;
-	return (1);
-}
-
 int free_params(t_data *m_struct)
 {
-	//очистить теустуру
 	free(m_struct->params->north_texture_path);
 	free(m_struct->params->south_texture_path);
 	free(m_struct->params->west_texture_path);
@@ -47,7 +30,6 @@ int free_textu(t_data *m_struct)
 	    while (i < 4)
 	    {
 		    mlx_destroy_image(m_struct->textu[i].mlx, m_struct->textu[i].img);
-		//free(m_struct->textu[i].adress);
 		    i++;
 	    }
     }
@@ -56,13 +38,20 @@ int free_textu(t_data *m_struct)
 
 int free_all(t_data *m_struct)
 {
-	free_arr(m_struct->map);
-	write(1, "map\n", 4);
-	//params
+    char **ptr;
+
+    ptr = m_struct->map;
+    if (ptr == NULL)
+        return (1);
+    while (*ptr != NULL)
+    {
+        free((*ptr));
+        ptr++;
+    }
+    free(m_struct->map);
+    m_struct->map = NULL;
 	free_params(m_struct);
-	//textu
 	free_textu(m_struct);
-	//sprite info
 	free_sprite_info(m_struct);
     if (m_struct->img)
     {

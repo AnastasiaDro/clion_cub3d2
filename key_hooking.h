@@ -1,21 +1,23 @@
-//
-// Created by  Anastasia on 31.03.2021.
-//
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   key_hooking.h                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: cerebus <cerebus@student.21-school.ru>     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/04/21 20:32:29 by cerebus           #+#    #+#             */
+/*   Updated: 2021/04/21 20:42:15 by cerebus          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #ifndef KEY_HOOKING_H
-#define KEY_HOOKING_H
-#include "new_cub_utils.h"
+# define KEY_HOOKING_H
+# include "new_cub_utils.h"
 
-//повернуть игрока
-int rotate(t_data *m_struct, double rotSpeed);
+int	rotate(t_data *m_struct, double rotSpeed, int keycode);
 
-int do_step(t_data *m_struct, double moveSpeed, double coef);
+int	step_forw_back(t_data *m_struct, double moveSpeed, int keycode);
 
-int step_forward(t_data *m_struct, double move_speed);
+int	step_left_rigth(t_data *m_struct, double moveSpeed, int keycode);
 
-int step_backward(t_data *m_struct, double move_speed);
-
-int step_rigth(t_data *m_struct, double move_speed);
-
-int step_left(t_data *m_struct, double moveSpeed);
-#endif //CLION_CUB3D_KEY_HOOKING_H
+#endif
