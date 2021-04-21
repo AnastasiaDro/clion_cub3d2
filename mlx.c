@@ -36,7 +36,6 @@ int cross_hook(t_data *m_struct)
 	exit(0);
 }
 
-
 int key_hook(int keycode, t_data *m_struct)
 {
     if (keycode == 13)
