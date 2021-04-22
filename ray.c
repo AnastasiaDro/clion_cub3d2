@@ -40,9 +40,17 @@ void calc_step_side_dist(t_ray *ray, t_data *m_struct)
         //stepY = -1;
         ray->sideDistY = (ray->mapY + 1.0 - m_struct->map_player_y) * ray->deltaDistY;
     }
-
 }
 
+void set_ray_params(t_ray *ray, t_data *m_struct, int x)
+{
+    calc_ray_dir(ray, m_struct, x);
+    calc_ray_length(ray);
+    ray->mapX = (int) m_struct->map_player_x;
+    ray->mapY = (int) m_struct->map_player_y;
+    ray->hit = 0; //was there a wall hit?
+    calc_step_side_dist(ray, m_struct);
+}
 
 
 

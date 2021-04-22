@@ -40,4 +40,6 @@ void calc_ray_length(t_ray *ray);
 
 void calc_step_side_dist(t_ray *ray, t_data *m_struct);
 
+void set_ray_params(t_ray *ray, t_data *m_struct, int x);
+
 #endif //CLION_CUB3D_RAY_H

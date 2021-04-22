@@ -40,24 +40,7 @@ int draw_lab_dda(t_data *m_struct)
 	int gg =  m_struct->params->screen_width;
 	while (x < m_struct->params->screen_width)
 	{
-		//calculate ray position and direction
-		//точка на векторе камеры, счиается за 100% ширина экрана
-        calc_ray_dir(&ray, m_struct, x);
-
-		//which box of the map we're in
-		ray.mapX = (int) m_struct->map_player_x;
-		ray.mapY = (int) m_struct->map_player_y;
-
-        calc_ray_length(&ray);
-
-		//what direction to step in x or y-direction (either +1 or -1)
-
-		ray.hit = 0; //was there a wall hit?
-		//	int side; //was a NS or a EW wall hit?
-
-        //calculate step and initial sideDist
-        calc_step_side_dist(&ray, m_struct);
-
+        set_ray_params(&ray, m_struct, x);
 		//perform DDA
 		while (ray.hit == 0)
 		{
