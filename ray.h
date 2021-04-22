@@ -4,11 +4,12 @@
 
 #ifndef RAY_H
 #define RAY_H
+#include "new_cub_utils.h"
 typedef struct s_ray
 {
     //вектор направления луча
-    double rayDirX;
-    double rayDirY;
+    double DirX;
+    double DirY;
 
     //length of ray from current position to next x or y-side
     double sideDistX;
@@ -18,6 +19,25 @@ typedef struct s_ray
     double deltaDistX;
     double deltaDistY;
 
+    //точка на векторе камеры, счиается за 100% ширина экрана
+    double cameraX;
+
+    int hit;
+
+    int stepX;
+    int stepY;
+
+    int mapX;
+    int mapY;
+
+    //расстояние до стены?
+    double perpWallDist;
 }               t_ray;
+
+void calc_ray_dir(t_ray *ray, t_data *m_struct, int x);
+
+void calc_ray_length(t_ray *ray);
+
+void calc_step_side_dist(t_ray *ray, t_data *m_struct);
 
 #endif //CLION_CUB3D_RAY_H

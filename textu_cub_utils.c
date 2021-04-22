@@ -38,90 +38,56 @@ int draw_lab_dda(t_data *m_struct)
 	//цикл для иксов
 	int x = 0;
 	int gg =  m_struct->params->screen_width;
-	while (x < m_struct->params->screen_width) {
+	while (x < m_struct->params->screen_width)
+	{
 		//calculate ray position and direction
 		//точка на векторе камеры, счиается за 100% ширина экрана
-		double cameraX = 2 * x / (double) m_struct->params->screen_width - 1; //x-coordinate in camera space cameraX
-		// is the x-coordinate on the camera plane that the current x-coordinate of the screen represents
+        calc_ray_dir(&ray, m_struct, x);
 
-		//вектор направления луча
-//ray		 rayDirX = m_struct->dirX + m_struct->planeX * cameraX; //
-//ray		double rayDirY = m_struct->dirY + m_struct->planeY * cameraX;
-
-//		mapX and mapY represent the current square of the map the ray is in.
-//		The ray position itself is a floating point number
-//		and contains both info about in which square of the map we are,
-//		and where in that square we are, but mapX and mapY are only the coordinates of that square.
 		//which box of the map we're in
-		int mapX = (int) m_struct->map_player_x;
-		int mapY = (int) m_struct->map_player_y;
-		//length of ray from current position to next x or y-side
-//ray		double sideDistX;
-//ray		double sideDistY;
+		ray.mapX = (int) m_struct->map_player_x;
+		ray.mapY = (int) m_struct->map_player_y;
 
-		//length of ray from one x or y-side to next x or y-side
-		// Alternative code for deltaDist in case division through zero is not supported
-		double deltaDistX = (rayDirY == 0) ? 0 : ((rayDirX == 0) ? 1 : fabs(1 / rayDirX));
-		double deltaDistY = (rayDirX == 0) ? 0 : ((rayDirY == 0) ? 1 : fabs(1 / rayDirY));
+        calc_ray_length(&ray);
 
-		double perpWallDist;
 		//what direction to step in x or y-direction (either +1 or -1)
-		int stepX;
-		int stepY;
 
-		int hit = 0; //was there a wall hit?
+		ray.hit = 0; //was there a wall hit?
 		//	int side; //was a NS or a EW wall hit?
 
-		//calculate step and initial sideDist
-		if (rayDirX < 0) {
-			//stepX = 1;
-			stepX = -1;
-			sideDistX = (m_struct->map_player_x - mapX) * deltaDistX;
-		} else {
-			//stepX = -1;
-			stepX = 1;
-			sideDistX = (mapX + 1.0 - m_struct->map_player_x) * deltaDistX;
-		}
-		if (rayDirY < 0) {
-			stepY = -1;
-			//stepY = 1;
-			sideDistY = (m_struct->map_player_y - mapY) * deltaDistY;
-		} else {
-			stepY = 1;
-			//stepY = -1;
-			sideDistY = (mapY + 1.0 - m_struct->map_player_y) * deltaDistY;
-		}
+        //calculate step and initial sideDist
+        calc_step_side_dist(&ray, m_struct);
 
 		//perform DDA
-		while (hit == 0)
+		while (ray.hit == 0)
 		{
 			//jump to next map square, OR in x-direction, OR in y-direction
-			if (sideDistX <= sideDistY) {
-				sideDistX += deltaDistX;
-				mapX += stepX;
+			if (ray.sideDistX <= ray.sideDistY) {
+				ray.sideDistX += ray.deltaDistX;
+				ray.mapX += ray.stepX;
 				m_struct->side = 0;
 			} else {
-				sideDistY += deltaDistY;
+				ray.sideDistY += ray.deltaDistY;
 
-				mapY += stepY;
+				ray.mapY += ray.stepY;
 				m_struct->side = 1;
 			}
 			//Check if ray has hit a wall
-			if (m_struct->map[mapY][mapX] == '1')
-				hit = 1;
+			if (m_struct->map[ray.mapY][ray.mapX] == '1')
+				ray.hit = 1;
 		}
 		//Calculate distance projected on camera direction (Euclidean distance will give fisheye effect!)
 		if (m_struct->side == 0)
-			perpWallDist = (mapX - m_struct->map_player_x + (1 - (double) stepX) / 2) / rayDirX;
+			ray.perpWallDist = (ray.mapX - m_struct->map_player_x + (1 - (double) ray.stepX) / 2) / ray.DirX;
 		else {
-			double firstPart = (double) (mapY - m_struct->map_player_y + (1 - (double) stepY) / 2);
-			perpWallDist = firstPart / rayDirY;
-			//perpWallDist = (double)(mapY - posY + (1 - (double)stepY) / 2) / rayDirY;
+			double firstPart = (double) (ray.mapY - m_struct->map_player_y + (1 - (double) ray.stepY) / 2);
+			ray.perpWallDist = firstPart / ray.DirY;
+			//perpWallDist = (double)(mapY - posY + (1 - (double)stepY) / 2) / DirY;
 		}
 		//Calculate height of line to draw on screen
 		int lineHeight;
-		if (perpWallDist != 0)
-			lineHeight = (int) (m_struct->params->screen_higth / perpWallDist);
+		if (ray.perpWallDist != 0)
+			lineHeight = (int) (m_struct->params->screen_higth / ray.perpWallDist);
 		else
 			lineHeight = m_struct->params->screen_higth;;
 
@@ -137,18 +103,18 @@ int draw_lab_dda(t_data *m_struct)
 //новые вычисления для текстуры
 		double wallX; //where exactly the wall was hit
 		if (m_struct->side == 0)
-			wallX = m_struct->map_player_y + perpWallDist * rayDirY;
+			wallX = m_struct->map_player_y + ray.perpWallDist * ray.DirY;
 		else
-			wallX = m_struct->map_player_x + perpWallDist * rayDirX;
+			wallX = m_struct->map_player_x + ray.perpWallDist * ray.DirX;
 		wallX -= floor((wallX));
 
         //получим текстуру
-        t_textu tx_struct = set_texture(m_struct, rayDirX, rayDirY);
+        t_textu tx_struct = set_texture(m_struct, ray.DirX, ray.DirY);
 
 		//x coordinate on the texture
 		int texX = (int) (wallX * (double) (tx_struct.width));
-		if (m_struct->side == 0 && rayDirX > 0) texX = tx_struct.height - texX - 1;
-		if (m_struct->side == 1 && rayDirY < 0) texX = tx_struct.width - texX - 1;
+		if (m_struct->side == 0 && ray.DirX > 0) texX = tx_struct.height - texX - 1;
+		if (m_struct->side == 1 && ray.DirY < 0) texX = tx_struct.width - texX - 1;
 
 		//получим наш массив текстур
 
@@ -167,7 +133,7 @@ int draw_lab_dda(t_data *m_struct)
         x++;
 		gg--;
         //SET THE ZBUFFER FOR THE SPRITE CASTING
-        ZBuffer[x-1] = perpWallDist; //perpendicular distance is used
+        ZBuffer[x-1] = ray.perpWallDist; //perpendicular distance is used
 	}
     //SPRITE CASTING
     //sort sprites from far to close
