@@ -6,7 +6,7 @@
 /*   By: cerebus <cerebus@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/15 15:54:45 by cerebus           #+#    #+#             */
-/*   Updated: 2021/03/15 23:31:13 by cerebus          ###   ########.fr       */
+/*   Updated: 2021/04/22 14:51:20 by cerebus          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,82 +22,59 @@
 #include "sprites_utils.h"
 #include "exceptions.h"
 #include "draw_utils.h"
+#include "main_inits.h"
 
-int     render_next_frame(t_data *m_struct)
+int	render_next_frame(t_data *m_struct)
 {
-    draw_floor_ceil(m_struct, m_struct->params->screen_higth, m_struct->params->screen_width);
+	draw_floor_ceil(m_struct, m_struct->params->screen_higth, \
+				m_struct->params->screen_width);
 	draw_lab_dda(m_struct);
-	return(1);
+	return (1);
 }
 
-int cross_hook(t_data *m_struct)
+int	cross_hook(t_data *m_struct)
 {
 	free_all(m_struct);
-	exit(0);
+	exit (0);
 }
 
-int key_hook(int keycode, t_data *m_struct)
+int	key_hook(int keycode, t_data *m_struct)
 {
-    if (keycode == 13 || keycode == 1)
-        return (step_forw_back(m_struct, 0.0872665, keycode));
-    if (keycode == 0 || keycode == 2)
-        return (step_left_rigth(m_struct, 0.0872665, keycode));
-    if (keycode == 123 || keycode == 124)
-        return (rotate(m_struct, 0.0872665, keycode));
-    if (keycode == 53)
+	if (keycode == 13 || keycode == 1)
+		return (step_forw_back(m_struct, 0.0872665, keycode));
+	if (keycode == 0 || keycode == 2)
+		return (step_left_rigth(m_struct, 0.0872665, keycode));
+	if (keycode == 123 || keycode == 124)
+		return (rotate(m_struct, 0.0872665, keycode));
+	if (keycode == 53)
 	{
 		free_all(m_struct);
 		exit(0);
 	}
-    return (0);
+	return (0);
 }
 
-int main()
+int	main()
 {
-    t_data m_struct;
+	t_data	m_struct;
 
-    m_struct.mlx = mlx_init();
-    m_struct.img = NULL;
-    m_struct.mlx_win = NULL;
-    m_struct.map = NULL;
-    //массив текстур
-    t_textu textu[4];
-
-    //спрайты
-	t_spr_info *sprite_info;
-   if(!(sprite_info = malloc(sizeof(t_spr_info))))
-   {
-   		write(1, "NULL!", 5);
-   		exit(0);
-   }
-    init_sprite_info(sprite_info);
-    t_params *params = malloc(sizeof (t_params));
-    init_params(params);
-    m_struct.params = params;
-
-
-	m_struct.textu = textu;
-	m_struct.sprite_info = sprite_info;
-
-    parse_map(&m_struct);
-	textu[0].adress =  m_struct.params->north_texture_path;
-	textu[1].adress = m_struct.params->south_texture_path;
-	textu[2].adress = m_struct.params->west_texture_path;;
-	textu[3].adress = m_struct.params->east_texture_path;
-
-	if (init_textu_arr(textu, 128, 128) == -1)
+	m_struct.mlx = mlx_init();
+	init_all(&m_struct);
+	parse_map(&m_struct);
+	get_textures_paths(m_struct.textu, &m_struct);
+	if (init_textu_arr(m_struct.textu, 128, 128) == -1)
 		free_all(&m_struct);
-	if(set_sprite_info(sprite_info, 64, 64, m_struct.params->sprite_texture_path) == -1)
+	if (set_sprite_info(m_struct.sprite_info, 64, 64, \
+						m_struct.params->sprite_texture_path) == -1)
 		free_all(&m_struct);
-
-	m_struct.img = mlx_new_image(m_struct.mlx, m_struct.params->screen_width, m_struct.params->screen_higth);
-
-	m_struct.mlx_win = mlx_new_window(m_struct.mlx, m_struct.params->screen_width, m_struct.params->screen_higth, "hello, world!");
-
-	mlx_hook(m_struct.mlx_win, KEY_PRESS, 1L<<0, key_hook, &m_struct);
-	mlx_hook(m_struct.mlx_win, CROSS_PRESS, 1L<<5, cross_hook, &m_struct);
-	m_struct.addr = mlx_get_data_addr(m_struct.img, &m_struct.bits_per_pixel, &m_struct.line_length,\
-									  &m_struct.endian);
+	m_struct.img = mlx_new_image(m_struct.mlx, m_struct.params->screen_width, \
+								m_struct.params->screen_higth);
+	m_struct.mlx_win = mlx_new_window(m_struct.mlx, m_struct.params->screen_width, \
+									m_struct.params->screen_higth, PROG_NAME);
+	mlx_hook(m_struct.mlx_win, KEY_PRESS, 1L << 0, key_hook, &m_struct);
+	mlx_hook(m_struct.mlx_win, CROSS_PRESS, 1L << 5, cross_hook, &m_struct);
+	m_struct.addr = mlx_get_data_addr(m_struct.img, &m_struct.bits_per_pixel, &m_struct.line_length, \
+										&m_struct.endian);
 	mlx_loop_hook(m_struct.mlx, render_next_frame, &m_struct);
 	mlx_loop(m_struct.mlx);
 	exit(0);

@@ -45,6 +45,7 @@ int	free_textu(t_data *m_struct)
 			i++;
 		}
 	}
+	free(m_struct->textu);
 	return (1);
 }
 

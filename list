@@ -13,3 +13,6 @@
 
 8.params.c
 9.params.h
+
+10.mlx.c  - только аргументы остались
+11.main_inits.c

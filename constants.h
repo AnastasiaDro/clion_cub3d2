@@ -14,4 +14,5 @@
 # define CONSTANTS_H
 # define KEY_PRESS 02
 # define CROSS_PRESS 17
+# define PROG_NAME "cub3d"
 #endif
