@@ -6,13 +6,8 @@
 #include "sprites_utils.h"
 #include "minilibx_opengl_20191021/mlx.h"
 #include <stdio.h>
-
-void     cerebus_mlx_pixel_put(t_data *data, int x, int y, int color)
-{
-	char    *dst;
-	dst = data->addr + (y * data->line_length + x * (data->bits_per_pixel / 8));
-	*(unsigned int*)dst = color;
-}
+#include "draw_utils.h"
+#include "ray.h"
 
 t_textu  set_texture(t_data *m_struct, double rayDirX, double rayDirY)
 {
@@ -37,6 +32,7 @@ t_textu  set_texture(t_data *m_struct, double rayDirX, double rayDirY)
 
 int draw_lab_dda(t_data *m_struct)
 {
+    t_ray ray;
     //1D Zbuffer
     double ZBuffer[m_struct->params->screen_width];
 	//цикл для иксов
@@ -49,8 +45,8 @@ int draw_lab_dda(t_data *m_struct)
 		// is the x-coordinate on the camera plane that the current x-coordinate of the screen represents
 
 		//вектор направления луча
-		double rayDirX = m_struct->dirX + m_struct->planeX * cameraX; //
-		double rayDirY = m_struct->dirY + m_struct->planeY * cameraX;
+//ray		 rayDirX = m_struct->dirX + m_struct->planeX * cameraX; //
+//ray		double rayDirY = m_struct->dirY + m_struct->planeY * cameraX;
 
 //		mapX and mapY represent the current square of the map the ray is in.
 //		The ray position itself is a floating point number
@@ -60,8 +56,8 @@ int draw_lab_dda(t_data *m_struct)
 		int mapX = (int) m_struct->map_player_x;
 		int mapY = (int) m_struct->map_player_y;
 		//length of ray from current position to next x or y-side
-		double sideDistX;
-		double sideDistY;
+//ray		double sideDistX;
+//ray		double sideDistY;
 
 		//length of ray from one x or y-side to next x or y-side
 		// Alternative code for deltaDist in case division through zero is not supported
@@ -97,7 +93,8 @@ int draw_lab_dda(t_data *m_struct)
 		}
 
 		//perform DDA
-		while (hit == 0) {
+		while (hit == 0)
+		{
 			//jump to next map square, OR in x-direction, OR in y-direction
 			if (sideDistX <= sideDistY) {
 				sideDistX += deltaDistX;
@@ -168,7 +165,6 @@ int draw_lab_dda(t_data *m_struct)
 			cerebus_mlx_pixel_put(m_struct, gg, y, color);
 		}
         x++;
-		////gg
 		gg--;
         //SET THE ZBUFFER FOR THE SPRITE CASTING
         ZBuffer[x-1] = perpWallDist; //perpendicular distance is used

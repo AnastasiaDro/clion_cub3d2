@@ -26,8 +26,7 @@
 
 int	render_next_frame(t_data *m_struct)
 {
-	draw_floor_ceil(m_struct, m_struct->params->screen_higth, \
-				m_struct->params->screen_width);
+	draw_floor_ceil(m_struct, m_struct->params->screen_higth);
 	draw_lab_dda(m_struct);
 	return (1);
 }

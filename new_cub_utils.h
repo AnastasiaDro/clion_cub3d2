@@ -45,13 +45,8 @@ typedef struct  s_data {
 }               t_data;
 
 
-void     cerebus_mlx_pixel_put(t_data *data, int x, int y, int color);
-
+//void     cerebus_mlx_pixel_put(t_data *data, int x, int y, int color);
 
 int draw_lab_dda(t_data *m_struct);
-
-
-
-
 
 #endif
