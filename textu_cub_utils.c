@@ -114,7 +114,7 @@ int draw_lab_dda(t_data *m_struct)
         //calculate height of the sprite on screen
         int spriteHeight = abs((int)(m_struct->params->screen_higth / (transformY))); //using 'transformY' instead of the real distance prevents fisheye
         //calculate lowest and highest pixel to fill in current stripe
-        int drawStartY = -spriteHeight / 2 + m_struct->params->screen_higth  / 2;
+        int drawStartY = -spriteHeight / 2 + m_struct->params->screen_higth  / 2 ;
         if(drawStartY < 0) drawStartY = 0;
         int drawEndY = spriteHeight / 2 + m_struct->params->screen_higth  / 2;
         if(drawEndY >= m_struct->params->screen_higth ) drawEndY = m_struct->params->screen_higth  - 1;
