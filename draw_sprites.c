@@ -15,5 +15,6 @@ void set_sprite_data(t_data *m_struct)
 		sprite_lst = sprite_lst->next;
 	}
 	sprite_lst = *(m_struct->sprite_info->sprite_list);
-	sortSprites(&sprite_lst);
+	sortSprites(&sprite_lst); //сортировка спрайтов
 }
+

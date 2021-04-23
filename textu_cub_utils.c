@@ -73,20 +73,7 @@ int draw_lab_dda(t_data *m_struct)
         ZBuffer[x-1] = ray.perpWallDist; //perpendicular distance is used
 	}
     //SPRITE CASTING
-    //sort sprites from far to close
     set_sprite_data(m_struct);
-//	t_sprite *sprite_lst;
-//	sprite_lst = *(m_struct->sprite_info->sprite_list);
-//    while (sprite_lst != NULL)
-//    {
-//        //spriteOrder[i] = i;
-//        sprite_lst->distance = ((m_struct->map_player_x - sprite_lst->x) * (m_struct->map_player_x - sprite_lst->x) + (m_struct->map_player_y
-//                - sprite_lst->y) * (m_struct->map_player_y - sprite_lst->y));
-//        sprite_lst = sprite_lst->next;
-//    }
-//    sprite_lst = *(m_struct->sprite_info->sprite_list);
-//    //сортировка спрайтов
-//    sortSprites(&sprite_lst);
     //after sorting the sprites, do the projection and draw them
 
 	double h = m_struct->params->screen_higth;
