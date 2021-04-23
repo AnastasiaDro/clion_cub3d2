@@ -65,17 +65,7 @@ int draw_lab_dda(t_data *m_struct)
 		//получим наш массив текстур
 
 
-		double step = 1.0 * tx_struct.height / wall.line_height;
-		// Starting texture coordinate
-		double texPos = (wall.drawStart - m_struct->params->screen_higth / 2 + wall.line_height / 2) * step;
-		for (int y = wall.drawStart; y < wall.draw_end; y++) {
-			// Cast the texture coordinate to integer, and mask with (texHeight - 1) in case of overflow
-			txdraw.texY= (int) texPos;
-			texPos += step;
-            int color = textu_mlx_pixel_get(&tx_struct, txdraw.texX, txdraw.texY);
-			//cerebus_mlx_pixel_put(m_struct, x, y, color);
-			cerebus_mlx_pixel_put(m_struct, gg, y, color);
-		}
+		draw_wall_line(&wall, m_struct, &txdraw, gg);
         x++;
 		gg--;
         //SET THE ZBUFFER FOR THE SPRITE CASTING
