@@ -10,6 +10,7 @@
 #include "ray.h"
 #include "dda_utils.h"
 #include "wall_utils.h"
+#include "draw_sprites.h"
 
 t_textu  set_texture(t_data *m_struct, double rayDirX, double rayDirY)
 {
@@ -73,23 +74,25 @@ int draw_lab_dda(t_data *m_struct)
 	}
     //SPRITE CASTING
     //sort sprites from far to close
-	t_sprite *sprite_lst;
-	sprite_lst = *(m_struct->sprite_info->sprite_list);
-    while (sprite_lst != NULL)
-    {
-        //spriteOrder[i] = i;
-        sprite_lst->distance = ((m_struct->map_player_x - sprite_lst->x) * (m_struct->map_player_x - sprite_lst->x) + (m_struct->map_player_y
-                - sprite_lst->y) * (m_struct->map_player_y - sprite_lst->y));
-        sprite_lst = sprite_lst->next;
-    }
-    sprite_lst = *(m_struct->sprite_info->sprite_list);
-    //сортировка спрайтов
-    sortSprites(&sprite_lst);
+    set_sprite_data(m_struct);
+//	t_sprite *sprite_lst;
+//	sprite_lst = *(m_struct->sprite_info->sprite_list);
+//    while (sprite_lst != NULL)
+//    {
+//        //spriteOrder[i] = i;
+//        sprite_lst->distance = ((m_struct->map_player_x - sprite_lst->x) * (m_struct->map_player_x - sprite_lst->x) + (m_struct->map_player_y
+//                - sprite_lst->y) * (m_struct->map_player_y - sprite_lst->y));
+//        sprite_lst = sprite_lst->next;
+//    }
+//    sprite_lst = *(m_struct->sprite_info->sprite_list);
+//    //сортировка спрайтов
+//    sortSprites(&sprite_lst);
     //after sorting the sprites, do the projection and draw them
 
 	double h = m_struct->params->screen_higth;
 	double w = m_struct->params->screen_width;
 	double coef = w / h * 0.77;
+	t_sprite *sprite_lst = *(m_struct->sprite_info->sprite_list);
     while (sprite_lst != NULL)
     {
         //translate sprite position to relative to camera
@@ -107,8 +110,6 @@ int draw_lab_dda(t_data *m_struct)
         int spriteScreenX = (int)((m_struct->params->screen_width * 0.5) * (1 + transformX / transformY));
         //calculate height of the sprite on screen
         double tro = m_struct->params->screen_higth / (transformY) * coef;
-		printf("tro = %f\n", tro+0.5);
-		printf("round %f\n", round(tro+0.5));
         double spriteHeight = fabs(m_struct->params->screen_higth / (transformY) *coef); //using 'transformY' instead of the real distance prevents fisheye
 
         //calculate lowest and highest pixel to fill in current stripe

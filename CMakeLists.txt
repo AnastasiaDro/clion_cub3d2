@@ -7,7 +7,7 @@ set(CMAKE_C_STANDARD 99)
 #imagetest.c mlx.c
 add_executable(clion_cub3d2 mlx.c get_next_line/get_next_line.c get_next_line/get_next_line_utils.c
         parcer.c draw_utils.c textu_cub_utils.c texture_parse.c new_cub_utils.h key_hooking.c key_hooking.h minilibx_opengl_20191021/mlx_get_screen_size.m
-        sprites_utils.c sprites_utils.h exceptions.h params.h exceptions.c utils.h utils.c colors.h colors.c params.c main_inits.c main_inits.h dda_utils.h ray.c dda_utils.c wall_utils.c wall_utils.h)
+        sprites_utils.c sprites_utils.h exceptions.h params.h exceptions.c utils.h utils.c colors.h colors.c params.c main_inits.c main_inits.h dda_utils.h ray.c dda_utils.c wall_utils.c wall_utils.h draw_sprites.c draw_sprites.h)
 
 
 #дом
