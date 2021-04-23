@@ -31,7 +31,7 @@ t_textu  set_texture(t_data *m_struct, double rayDirX, double rayDirY)
 }
 
 //пойти вперед или назад
-
+//
 int draw_lab_dda(t_data *m_struct)
 {
     t_ray ray;
@@ -62,10 +62,6 @@ int draw_lab_dda(t_data *m_struct)
 
 		//x coordinate on the texture
 		calc_x_textu_coord(m_struct, &ray, &wall, &txdraw);
-//		int texX = (int) (wall.wallX * (double) (tx_struct.width));
-//		if (m_struct->side == 0 && ray.DirX > 0) texX = tx_struct.height - texX - 1;
-//		if (m_struct->side == 1 && ray.DirY < 0) texX = tx_struct.width - texX - 1;
-
 		//получим наш массив текстур
 
 
@@ -74,9 +70,9 @@ int draw_lab_dda(t_data *m_struct)
 		double texPos = (wall.drawStart - m_struct->params->screen_higth / 2 + wall.line_height / 2) * step;
 		for (int y = wall.drawStart; y < wall.draw_end; y++) {
 			// Cast the texture coordinate to integer, and mask with (texHeight - 1) in case of overflow
-			int texY = (int) texPos;
+			txdraw.texY= (int) texPos;
 			texPos += step;
-            int color = textu_mlx_pixel_get(&tx_struct, txdraw.texX, texY);
+            int color = textu_mlx_pixel_get(&tx_struct, txdraw.texX, txdraw.texY);
 			//cerebus_mlx_pixel_put(m_struct, x, y, color);
 			cerebus_mlx_pixel_put(m_struct, gg, y, color);
 		}
@@ -161,3 +157,4 @@ int draw_lab_dda(t_data *m_struct)
     mlx_put_image_to_window(m_struct->mlx, m_struct->mlx_win, m_struct->img, 0, 0);
 	return 1;
 }
+

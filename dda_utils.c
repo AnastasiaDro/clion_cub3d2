@@ -14,7 +14,8 @@ void go_to_the_wall(t_ray *ray, t_data *m_struct)
 	while (ray->hit == 0)
 	{
 		//jump to next map square, OR in x-direction, OR in y-direction
-		if (ray->sideDistX <= ray->sideDistY) {
+		if (ray->sideDistX <= ray->sideDistY)
+		{
 			ray->sideDistX += ray->deltaDistX;
 			ray->mapX += ray->stepX;
 			m_struct->side = 0;

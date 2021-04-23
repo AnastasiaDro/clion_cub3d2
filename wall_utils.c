@@ -8,10 +8,14 @@
 
 void calc_line_height(t_wall *wall, t_ray *ray, t_data *m_struct)
 {
-	if (ray->perpWallDist != 0)
-		wall->line_height = (int) (m_struct->params->screen_higth / ray->perpWallDist);
+	//wall->line_height = (int) (m_struct->params->screen_higth / ray->perpWallDist);
+	double coef;
+
+	if (m_struct->params->screen_higth >= m_struct->params->screen_width)
+		coef = (double) m_struct->params->screen_higth / (double)m_struct->params->screen_width * 0.77;
 	else
-		wall->line_height = m_struct->params->screen_higth;
+		coef = (double)m_struct->params->screen_width / (double) m_struct->params->screen_higth * 0.77;
+	wall->line_height = (int) (m_struct->params->screen_higth / ray->perpWallDist * coef) ;
 }
 
 void calc_sart_pixels(t_wall *wall, t_data *m_struct)
