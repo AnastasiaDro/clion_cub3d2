@@ -21,6 +21,12 @@ typedef struct s_textu
 	char **exceptions_arr;
 }				t_textu;
 
+typedef struct s_txdraw
+{
+	t_textu *textu;
+	int texX;
+	int texY;
+}				t_txdraw;
 
 int init_textu_arr(t_textu *textu, int height, int width);
 

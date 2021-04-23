@@ -37,6 +37,7 @@ int draw_lab_dda(t_data *m_struct)
     t_ray ray;
     t_wall wall;
 	t_textu tx_struct;
+	t_txdraw txdraw;
     //1D Zbuffer
     double ZBuffer[m_struct->params->screen_width];
 	//цикл для иксов
@@ -53,12 +54,17 @@ int draw_lab_dda(t_data *m_struct)
 		calc_wall_x(&wall, &ray, m_struct); //новые вычисления для текстуры
 
         //получим текстуру
+
+
+
         tx_struct = set_texture(m_struct, ray.DirX, ray.DirY);
+		txdraw.textu = &tx_struct;
 
 		//x coordinate on the texture
-		int texX = (int) (wall.wallX * (double) (tx_struct.width));
-		if (m_struct->side == 0 && ray.DirX > 0) texX = tx_struct.height - texX - 1;
-		if (m_struct->side == 1 && ray.DirY < 0) texX = tx_struct.width - texX - 1;
+		calc_x_textu_coord(m_struct, &ray, &wall, &txdraw);
+//		int texX = (int) (wall.wallX * (double) (tx_struct.width));
+//		if (m_struct->side == 0 && ray.DirX > 0) texX = tx_struct.height - texX - 1;
+//		if (m_struct->side == 1 && ray.DirY < 0) texX = tx_struct.width - texX - 1;
 
 		//получим наш массив текстур
 
@@ -70,7 +76,7 @@ int draw_lab_dda(t_data *m_struct)
 			// Cast the texture coordinate to integer, and mask with (texHeight - 1) in case of overflow
 			int texY = (int) texPos;
 			texPos += step;
-            int color = textu_mlx_pixel_get(&tx_struct, texX, texY);
+            int color = textu_mlx_pixel_get(&tx_struct, txdraw.texX, texY);
 			//cerebus_mlx_pixel_put(m_struct, x, y, color);
 			cerebus_mlx_pixel_put(m_struct, gg, y, color);
 		}

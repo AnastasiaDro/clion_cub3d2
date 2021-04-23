@@ -4,6 +4,7 @@
 
 #include "dda_utils.h"
 #include "wall_utils.h"
+#include "texture_parse.h"
 
 
 //jump to next map square, OR in x-direction, OR in y-direction
@@ -40,7 +41,13 @@ void calc_camera_dist(t_ray *ray, t_data *m_struct)
 	}
 }
 
-void calc_textures(t_data *m_struct, t_ray *ray, t_wall *wall)
+//x coordinate on the texture
+void calc_x_textu_coord(t_data *m_struct, t_ray *ray, t_wall *wall, t_txdraw *txdraw)
 {
+	txdraw->texX = (int) (wall->wallX * (double) (txdraw->textu->width));
+	if (m_struct->side == 0 && ray->DirX > 0)
+		txdraw->texX = txdraw->textu->height - txdraw->texX - 1;
+	if (m_struct->side == 1 && ray->DirY < 0)
+		txdraw->texX = txdraw->textu->width - txdraw->texX - 1;
 
 }
