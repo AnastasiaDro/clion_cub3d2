@@ -96,6 +96,10 @@ int draw_lab_dda(t_data *m_struct)
     //сортировка спрайтов
     sortSprites(&sprite_lst);
     //after sorting the sprites, do the projection and draw them
+
+	double h = m_struct->params->screen_higth;
+	double w = m_struct->params->screen_width;
+	double coef = w / h * 0.77;
     while (sprite_lst != NULL)
     {
         //translate sprite position to relative to camera
@@ -112,17 +116,21 @@ int draw_lab_dda(t_data *m_struct)
 
         int spriteScreenX = (int)((m_struct->params->screen_width * 0.5) * (1 + transformX / transformY));
         //calculate height of the sprite on screen
-        int spriteHeight = abs((int)(m_struct->params->screen_higth / (transformY))); //using 'transformY' instead of the real distance prevents fisheye
+        double tro = m_struct->params->screen_higth / (transformY) * coef;
+		printf("tro = %f\n", tro+0.5);
+		printf("round %f\n", round(tro+0.5));
+        double spriteHeight = fabs(m_struct->params->screen_higth / (transformY) *coef); //using 'transformY' instead of the real distance prevents fisheye
+
         //calculate lowest and highest pixel to fill in current stripe
-        int drawStartY = -spriteHeight / 2 + m_struct->params->screen_higth  / 2 ;
+        int drawStartY = (int)round(-spriteHeight / 2 + (double)m_struct->params->screen_higth  / 2 );
         if(drawStartY < 0) drawStartY = 0;
-        int drawEndY = spriteHeight / 2 + m_struct->params->screen_higth  / 2;
+        int drawEndY = (int)round(spriteHeight / 2 + (double)m_struct->params->screen_higth  / 2);
         if(drawEndY >= m_struct->params->screen_higth ) drawEndY = m_struct->params->screen_higth  - 1;
         //calculate width of the sprite
-        int spriteWidth = abs( (int) (m_struct->params->screen_higth / (transformY)));
-        int drawStartX = -spriteWidth / 2 + spriteScreenX;
+        double spriteWidth = fabs((m_struct->params->screen_higth / (transformY) * coef));
+        int drawStartX = (int) round(-spriteWidth / 2 + spriteScreenX);
         if(drawStartX < 0) drawStartX = 0;
-        int drawEndX = spriteWidth / 2 + spriteScreenX;
+        int drawEndX = (int) round(spriteWidth / 2 + spriteScreenX);
         if(drawEndX >= m_struct->params->screen_width) drawEndX = m_struct->params->screen_width - 1;
 
         //loop through every vertical stripe of the sprite on screen
