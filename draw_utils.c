@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "new_cub_utils.h"
+#include "sprites_utils.h"
 
 void     cerebus_mlx_pixel_put(t_data *data, int x, int y, int color)
 {
@@ -49,4 +50,13 @@ int	draw_floor_ceil(t_data *m_struct, int screen_higth)
 	y = draw_background(y, half, ceiling_color, m_struct);
 	draw_background(y, screen_higth, floor_color, m_struct);
 	return (0);
+}
+
+int sprite_mlx_pixel_get(t_spr_info *spr_info, int x, int y)
+{
+	int color;
+	char *dst;
+	dst = spr_info->addr + (y * spr_info->line_length + x * (spr_info->bits_per_pixel / 8));
+	color = *(int*)dst;
+	return (color);
 }

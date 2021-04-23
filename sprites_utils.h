@@ -46,8 +46,8 @@ void	sprite_lstadd_front(t_sprite **lst, t_sprite *new);
 
 void sortSprites(t_sprite **sprite_list);
 
-// получить пиксель из img спрайта
-int sprite_mlx_pixel_get(t_spr_info *spr_info, int x, int y);
+//// получить пиксель из img спрайта
+//int sprite_mlx_pixel_get(t_spr_info *spr_info, int x, int y);
 
 //очистить список спрайтов
 void	sprite_lstclear(t_sprite **lst);

@@ -19,4 +19,7 @@ int	draw_floor_ceil(t_data *m_struct, int screen_higth);
 
 void     cerebus_mlx_pixel_put(t_data *data, int x, int y, int color);
 
+// получить пиксель из img спрайта
+int sprite_mlx_pixel_get(t_spr_info *spr_info, int x, int y);
+
 #endif

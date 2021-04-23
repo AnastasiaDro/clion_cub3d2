@@ -24,14 +24,7 @@ int set_sprite_info(t_spr_info *spr_info, int sprite_h, int sprite_w, char *path
 	return (1);
 }
 
-int sprite_mlx_pixel_get(t_spr_info *spr_info, int x, int y)
-{
-    int color;
-    char *dst;
-    dst = spr_info->addr + (y * spr_info->line_length + x * (spr_info->bits_per_pixel / 8));
-    color = *(int*)dst;
-    return (color);
-}
+
 
 t_sprite *sprite_lstnew(double x, double y)
 {
