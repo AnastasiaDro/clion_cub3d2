@@ -53,12 +53,3 @@ int init_textu_arr(t_textu *textu, int height, int width)
 	return (1);
 }
 
-
-int textu_mlx_pixel_get(t_textu *textu, int x, int y)
-{
-	int color;
-	char *dst;
-	dst = textu->addr + (y * textu->line_length + x * (textu->bits_per_pixel / 8));
-	color = *(int*)dst;
-	return color;
-}

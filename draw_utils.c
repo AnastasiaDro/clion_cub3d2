@@ -60,3 +60,12 @@ int sprite_mlx_pixel_get(t_spr_info *spr_info, int x, int y)
 	color = *(int*)dst;
 	return (color);
 }
+
+int textu_mlx_pixel_get(t_textu *textu, int x, int y)
+{
+	int color;
+	char *dst;
+	dst = textu->addr + (y * textu->line_length + x * (textu->bits_per_pixel / 8));
+	color = *(int*)dst;
+	return color;
+}

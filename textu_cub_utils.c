@@ -8,6 +8,8 @@
 #include <stdio.h>
 #include "draw_utils.h"
 #include "ray.h"
+#include "dda_utils.h"
+#include "wall_utils.h"
 
 t_textu  set_texture(t_data *m_struct, double rayDirX, double rayDirY)
 {
@@ -33,6 +35,8 @@ t_textu  set_texture(t_data *m_struct, double rayDirX, double rayDirY)
 int draw_lab_dda(t_data *m_struct)
 {
     t_ray ray;
+    t_wall wall;
+	t_textu tx_struct;
     //1D Zbuffer
     double ZBuffer[m_struct->params->screen_width];
 	//цикл для иксов
@@ -42,70 +46,27 @@ int draw_lab_dda(t_data *m_struct)
 	{
         set_ray_params(&ray, m_struct, x);
 		//perform DDA
-		while (ray.hit == 0)
-		{
-			//jump to next map square, OR in x-direction, OR in y-direction
-			if (ray.sideDistX <= ray.sideDistY) {
-				ray.sideDistX += ray.deltaDistX;
-				ray.mapX += ray.stepX;
-				m_struct->side = 0;
-			} else {
-				ray.sideDistY += ray.deltaDistY;
-
-				ray.mapY += ray.stepY;
-				m_struct->side = 1;
-			}
-			//Check if ray has hit a wall
-			if (m_struct->map[ray.mapY][ray.mapX] == '1')
-				ray.hit = 1;
-		}
-		//Calculate distance projected on camera direction (Euclidean distance will give fisheye effect!)
-		if (m_struct->side == 0)
-			ray.perpWallDist = (ray.mapX - m_struct->map_player_x + (1 - (double) ray.stepX) / 2) / ray.DirX;
-		else {
-			double firstPart = (double) (ray.mapY - m_struct->map_player_y + (1 - (double) ray.stepY) / 2);
-			ray.perpWallDist = firstPart / ray.DirY;
-			//perpWallDist = (double)(mapY - posY + (1 - (double)stepY) / 2) / DirY;
-		}
-		//Calculate height of line to draw on screen
-		int lineHeight;
-		if (ray.perpWallDist != 0)
-			lineHeight = (int) (m_struct->params->screen_higth / ray.perpWallDist);
-		else
-			lineHeight = m_struct->params->screen_higth;;
-
-		//calculate lowest and highest pixel to fill in current stripe
-		int drawStart = -lineHeight / 2 + m_struct->params->screen_higth / 2;
-		if (drawStart < 0)
-			drawStart = 0;
-		int drawEnd = lineHeight / 2 + m_struct->params->screen_higth / 2;
-		if (drawEnd >= m_struct->params->screen_higth)
-			drawEnd = m_struct->params->screen_higth - 1;
-
-
-//новые вычисления для текстуры
-		double wallX; //where exactly the wall was hit
-		if (m_struct->side == 0)
-			wallX = m_struct->map_player_y + ray.perpWallDist * ray.DirY;
-		else
-			wallX = m_struct->map_player_x + ray.perpWallDist * ray.DirX;
-		wallX -= floor((wallX));
+		go_to_the_wall(&ray, m_struct); //Calculate distance projected on camera direction (Euclidean distance will give fisheye effect!)
+		calc_camera_dist(&ray, m_struct);
+		calc_line_height(&wall, &ray, m_struct); //Calculate height of line to draw on screen
+		calc_sart_pixels(&wall, m_struct); //calculate lowest and highest pixel to fill in current stripe
+		calc_wall_x(&wall, &ray, m_struct); //новые вычисления для текстуры
 
         //получим текстуру
-        t_textu tx_struct = set_texture(m_struct, ray.DirX, ray.DirY);
+        tx_struct = set_texture(m_struct, ray.DirX, ray.DirY);
 
 		//x coordinate on the texture
-		int texX = (int) (wallX * (double) (tx_struct.width));
+		int texX = (int) (wall.wallX * (double) (tx_struct.width));
 		if (m_struct->side == 0 && ray.DirX > 0) texX = tx_struct.height - texX - 1;
 		if (m_struct->side == 1 && ray.DirY < 0) texX = tx_struct.width - texX - 1;
 
 		//получим наш массив текстур
 
 
-		double step = 1.0 * tx_struct.height / lineHeight;
+		double step = 1.0 * tx_struct.height / wall.line_height;
 		// Starting texture coordinate
-		double texPos = (drawStart - m_struct->params->screen_higth / 2 + lineHeight / 2) * step;
-		for (int y = drawStart; y < drawEnd; y++) {
+		double texPos = (wall.drawStart - m_struct->params->screen_higth / 2 + wall.line_height / 2) * step;
+		for (int y = wall.drawStart; y < wall.draw_end; y++) {
 			// Cast the texture coordinate to integer, and mask with (texHeight - 1) in case of overflow
 			int texY = (int) texPos;
 			texPos += step;
