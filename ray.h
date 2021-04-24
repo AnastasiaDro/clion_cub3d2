@@ -4,7 +4,7 @@
 
 #ifndef RAY_H
 #define RAY_H
-#include "new_cub_utils.h"
+#include "cub_utils.h"
 typedef struct s_ray
 {
     //вектор направления луча

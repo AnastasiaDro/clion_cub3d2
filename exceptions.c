@@ -39,12 +39,11 @@ int	free_textu(t_data *m_struct)
 	i = 0;
 //	if (m_struct->textu[i].adress != NULL)
 //	{
-		while (i < 4 && m_struct->textu[i].img != NULL)
-		{
-			mlx_destroy_image(m_struct->textu[i].mlx, m_struct->textu[i].img);
-			i++;
-		}
-	//}
+    while (i < 4 && m_struct->textu[i].img != NULL)
+    {
+        mlx_destroy_image(m_struct->textu[i].mlx, m_struct->textu[i].img);
+        i++;
+    }
 	free(m_struct->textu);
 	return (1);
 }

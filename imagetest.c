@@ -3,7 +3,7 @@
 //
 
 #include "minilibx_opengl_20191021/mlx.h"
-#include "new_cub_utils.h"
+#include "cub_utils.h"
 
 
 

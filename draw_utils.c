@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "new_cub_utils.h"
+#include "cub_utils.h"
 #include "sprites_utils.h"
 
 void     cerebus_mlx_pixel_put(t_data *data, int x, int y, int color)

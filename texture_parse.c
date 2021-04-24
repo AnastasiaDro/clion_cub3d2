@@ -17,7 +17,7 @@ void made_exceptions_arr(t_textu *textu)
 	textu->exceptions_arr[3] = EAST_TEX_PATH_ERROR;
 }
 
-int start_textu_init(t_textu *textu)
+int textu_start_init(t_textu *textu)
 {
     int i;
 

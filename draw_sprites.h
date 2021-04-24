@@ -5,7 +5,7 @@
 #ifndef DRAW_SPRITES_H
 # define DRAW_SPRITES_H
 # include "sprites_utils.h"
-# include "new_cub_utils.h"
+# include "cub_utils.h"
 
 typedef struct s_spr_draw
 {

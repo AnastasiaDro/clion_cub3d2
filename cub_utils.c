@@ -2,7 +2,7 @@
 // Created by  Anastasia on 29.03.2021.
 //
 
-#include "new_cub_utils.h"
+#include "cub_utils.h"
 #include "minilibx_opengl_20191021/mlx.h"
 #include "ray.h"
 #include "dda_utils.h"

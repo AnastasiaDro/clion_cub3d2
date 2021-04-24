@@ -4,7 +4,7 @@
 
 #ifndef MAIN_INITS_H
 # define MAIN_INITS_H
-# include "new_cub_utils.h"
+# include "cub_utils.h"
 
 void	get_textures_paths(t_textu *textu, t_data *m_struct);
 

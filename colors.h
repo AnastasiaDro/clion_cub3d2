@@ -4,7 +4,7 @@
 
 #ifndef COLORS_H
 # define  COLORS_H
-# include "new_cub_utils.h"
+# include "cub_utils.h"
 # include "exceptions.h"
 
 typedef struct s_color

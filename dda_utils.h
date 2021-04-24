@@ -4,7 +4,7 @@
 
 #ifndef DDA_UTILS_H
 # define DDA_UTILS_H
-# include "new_cub_utils.h"
+# include "cub_utils.h"
 # include "ray.h"
 #include "wall_utils.h"
 

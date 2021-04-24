@@ -1,23 +1,13 @@
 #include "libft/libft.h"
 #include "fcntl.h"
 #include "get_next_line/get_next_line.h"
-#include "new_cub_utils.h"
-#include "utils.h"
+#include "cub_utils.h"
+#include "parser_utils.h"
 #include "exceptions.h"
 #include "colors.h"
-#define IS_SPACE ((str[i] >= '\t' && str[i] <= '\r') || str[i] == ' ')
-#define IS_NUM (str[i] >= '0' && str[i] <='9')
+#include "player_params.h"
+#include "parse_resolution.h"
 
-#define MAP_STARTED (-1)
-#define ZERO_START_LINE (-3)
-#define MAP_ERROR (-3)
-
-# define MAX_SCREEN_WIDTH
-# define MAX_SCREEN_HEIGHT
-# define MAX_WIDTH_NUM_LENGTH 4
-# define MAX_HEIGHT_NUM_LENGTH 4
-# define MAP_SYMBOL "012 "
-# define PLAYER_SYMBOLS "NSWE"
 
 int check_borders(char **map, int l_i, int i, int coef)
 {       //символ правее или левее         символ выше             //символ ниже
@@ -42,7 +32,6 @@ int check_space_borders(int start_i, int end_i, char **map, char *cur_s, int s_n
     }
     return (1);
 }
-
 
 int check_map (char **map, int elems_num)
 {
@@ -157,116 +146,25 @@ int  is_map_start(char *line)
     return (i);
 }
 
-char *get_texture_path(char *s)
+int check_n_save_textures(char *s, t_data *m_struct, t_parse_flags *parse_f)
 {
-	int start_i;
-
-	start_i = find_string_start(s);
-	free(s);
-	return (ft_strdup(&s[start_i]));
-}
-
-//сохраняем текстуры
-int check_n_save_textures(char *s, t_data *m_struct)
-{
-    if (!ft_strncmp(s, "NO", 2)) //если строки равны
-    {
-		m_struct->params->north_texture_path = get_texture_path(s);
-		return (1);
-    }
-    if (!ft_strncmp(s, "SO", 2)) //если строки равны
-    {
-		m_struct->params->south_texture_path = get_texture_path(s);
-        return (1);
-    }
-    if (!ft_strncmp(s, "WE", 2)) //если строки равны
-    {
-		m_struct->params->west_texture_path = get_texture_path(s);
-        return (1);
-    }
-    if (!ft_strncmp(s, "EA", 2)) //если строки равны
-    {
-		m_struct->params->east_texture_path = get_texture_path(s);
-        return (1);
-    }
-	if (!ft_strncmp(s, "S", 1))
-	{
-		m_struct->params->sprite_texture_path = get_texture_path(s);
-		return (1);
-	}
+    if (!ft_strncmp(s, "NO", 2) && !(parse_f->north))
+        return(get_texture_path(s, &m_struct->params->north_texture_path, &(parse_f->north)));
+    if (!ft_strncmp(s, "SO", 2) && !parse_f->south)
+        return(get_texture_path(s, &m_struct->params->south_texture_path, &(parse_f->south)));
+    if (!ft_strncmp(s, "WE", 2) && !parse_f->west)
+        return(get_texture_path(s, &m_struct->params->west_texture_path, &(parse_f->west)));
+    if (!ft_strncmp(s, "EA", 2) && !parse_f->east)
+        return(get_texture_path(s, &m_struct->params->east_texture_path, &(parse_f->east)));
+    if (!ft_strncmp(s, "S", 1) && !parse_f->sprite)
+        return(get_texture_path(s, &m_struct->params->sprite_texture_path, &(parse_f->sprite)));
     return (0);
 }
 
-int check_n_save_params(char *s, t_data *m_struct)
+int check_n_save_params(char *s, t_data *m_struct, t_parse_flags *parse_f)
 {
-    char *str;
-    int i = 0;
-    int num_start;
-    int num_length;
-
-    int max_screen_width;
-    int max_screen_height;
-
-    max_screen_width = 0;
-    max_screen_height = 0;
-
-    mlx_get_screen_size(&max_screen_width, &max_screen_height);
     if (*s == 'R') //и что этого флага ещё не было, если был - ошибка
-    {
-        str = s+1;
-        m_struct->params->screen_width = 0;
-        m_struct->params->screen_higth = 0;
-        while(str[i] && (str[i] == ' '))
-            i++;
-        num_start = i;
-        while(str[i] >= '0' && str[i] <='9')
-            i++;
-        num_length = i - num_start;
-        if (num_length > MAX_WIDTH_NUM_LENGTH)
-        {
-            m_struct->params->screen_width = max_screen_width;
-            m_struct->params->screen_higth = max_screen_height;
-            free(s);
-            s = NULL;
-            return 1;
-        }
-        m_struct->params->screen_width = ft_atoi(str);
-        while(str[i] && (str[i] == ' '))
-            i++;
-        num_start = i;
-        while(str[i] >= '0' && str[i] <='9')
-            i++;
-        num_length = i - num_start;
-        if (num_length > MAX_HEIGHT_NUM_LENGTH)
-        {
-            m_struct->params->screen_width = max_screen_width;
-            m_struct->params->screen_higth = max_screen_height;
-            free(s);
-            s = NULL;
-            return 1;
-        }
-        m_struct->params->screen_higth = ft_atoi(&str[num_start]);
-
-        if ( m_struct->params->screen_width > max_screen_width || m_struct->params->screen_higth > max_screen_height)
-        {
-            m_struct->params->screen_width = max_screen_width;
-            m_struct->params->screen_higth = max_screen_height;
-            free(s);
-            s = NULL;
-            return 1;
-        }
-        if(m_struct->params->screen_width<=0 ||  m_struct->params->screen_higth <= 0)
-        {
-            throwException(INVALID_RESOLUTION);
-            free(s);
-            s = NULL;
-            free_all(m_struct);
-            exit(0);
-        }
-        free(s);
-        s = NULL;
-        return (1);
-    }
+        return (parse_resolution(s, m_struct));
     if (*s == 'F') //и что этого флага ещё не было, если был - ошибка
     {
         m_struct->params->floor_color = get_color(s, m_struct);
@@ -274,7 +172,6 @@ int check_n_save_params(char *s, t_data *m_struct)
     }
     if (*s == 'C') //и что этого флага ещё не было, если был - ошибка
     {
-        //берём , цвет потолка, что после не должно быть других букв.
         m_struct->params->ceil_color = get_color(s, m_struct);
         return (1);
     }
@@ -282,27 +179,6 @@ int check_n_save_params(char *s, t_data *m_struct)
     return 0;
 }
 
- int set_player_direction(t_data *m_struct, double dirX, double dirY, double planeY, double PlaneX)
-{
-	m_struct->dirX = dirX;
-	m_struct->dirY = dirY;
-	m_struct->planeY = planeY;
-	m_struct->planeX = PlaneX;
-	return (1);
-}
-
-int set_player_vision(char c, t_data *m_struct)
-{
-	if (c == 'N')
-        return (set_player_direction(m_struct, 0, -1, 0, -0.66));
-	if (c == 'S')
-		return (set_player_direction(m_struct, 0, 1, 0, 0.66));
-	if (c == 'E')
-		return (set_player_direction(m_struct, 1, 0, -0.66, 0));
-	if (c == 'W')
-		return (set_player_direction(m_struct, -1, 0, 0.66, 0));
-	return (0);
-}
 
 int check_symbols(char *s, t_data *m_struct, int *flag_player)
 {
@@ -314,12 +190,14 @@ int check_symbols(char *s, t_data *m_struct, int *flag_player)
 		{
 			throwException(INVALID_MAP);
 			free_all(m_struct);
+			exit(0);
 		}
 		else
 		{
 			if (*flag_player == 1) {
 				throwException(MORE_PLAYERS);
 				free_all(m_struct);
+                exit(0);
 			} else {
 				set_player_vision(s[player_i], m_struct);
 				*flag_player = 1;
@@ -387,6 +265,7 @@ int fill_map(t_list **last_elem, int elems_num, t_data *m_struct)
     {
         throwException(NO_PLAYER);
         free_all(m_struct);
+        exit(0);
     }
     //выведем карту
     printf("elems_num = %d\n", elems_num);
@@ -402,6 +281,8 @@ int fill_map(t_list **last_elem, int elems_num, t_data *m_struct)
 
 void parse_map(t_data *m_struct)
 {
+    t_parse_flags parse_f;
+    init_parse_flags(&parse_f);
    // int fd = open(argv[1], O_RDONLY);
     write(1, "PARSE_MAP\n", 10);
 
@@ -413,6 +294,7 @@ void parse_map(t_data *m_struct)
     t_list *last_elem = NULL;
     int elems_num = 0;
     int index = -2;
+
     while (get_next_line(fd, &line))
     {
         //вот тут проверяем начало карты
@@ -424,6 +306,7 @@ void parse_map(t_data *m_struct)
 				throwException(INVALID_MAP);
                 printf("check_fe_line\n");
 				free_all(m_struct);
+                exit(0);
 			}
             ft_lstadd_front(&last_elem, ft_lstnew(line));
             elems_num++;
@@ -440,11 +323,11 @@ void parse_map(t_data *m_struct)
                 continue;
             }
 
-			if (!(check_n_save_textures(&line[index], m_struct)) && !(check_n_save_params(&line[index], m_struct)))
+			if (!(check_n_save_textures(&line[index], m_struct, &parse_f)) && !(check_n_save_params(&line[index], m_struct, &parse_f)))
 			{
-                printf("check_n-SAVE_TEXTURESe\n");
 				throwException(INVALID_MAP);
 				free_all(m_struct);
+                exit(0);
 			}
             //сохранить разрешение и другие параметры
         }

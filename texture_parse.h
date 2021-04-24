@@ -35,6 +35,6 @@ int init_textu_arr(t_textu *textu, int height, int width);
 
 int textu_mlx_pixel_get(t_textu *textu, int x, int y);
 
-
+int textu_start_init(t_textu *textu);
 
 #endif //TEXTURE_PARSE_H

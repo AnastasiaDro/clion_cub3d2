@@ -5,7 +5,7 @@
 #ifndef EXCEPTIONS_H
 # define EXCEPTIONS_H
 
-# include "new_cub_utils.h"
+# include "cub_utils.h"
 
 # define NORTH_TEX_PATH_ERROR "Invalid North texture path"
 # define SOUTH_TEX_PATH_ERROR "Invalid South texture path"

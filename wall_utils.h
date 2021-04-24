@@ -5,7 +5,7 @@
 #ifndef WALL_UTILS_H
 # define WALL_UTILS_H
 # include "ray.h"
-#include "new_cub_utils.h"
+#include "cub_utils.h"
 
 typedef struct s_wall
 {
