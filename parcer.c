@@ -7,7 +7,7 @@
 #include "colors.h"
 #include "player_params.h"
 #include "parse_resolution.h"
-#include "map_checkers.h"
+#include "map_checker.h"
 #include "constants.h"
 
 
@@ -211,10 +211,11 @@ int check_symbols(char *s, t_data *m_struct, int *flag_player)
 
 int get_sprites_list(char *s, t_data *m_struct, int elems_num)
 {
-	int i = 0;
-	double x = 0;
-	double y = 0;
+	int i;
+	double x;
+	double y;
 
+	i = 0;
 	while (s[i])
 	{
 		if (s[i] == '2')

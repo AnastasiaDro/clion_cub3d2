@@ -10,11 +10,7 @@
 
     int check_map (char **map, int elems_num);
 
-    int check_line_middle(char *cur_s, int *l_i, int i, char **map);
 
-    int check_line_start(int *l_i, int cur_s_len, char *cur_s);
-
-    int check_lines_ends(char **map, int i, char *cur_s);
 
     int big_first_str(char *cur_s, int next_s_len, int cur_s_len);
 
