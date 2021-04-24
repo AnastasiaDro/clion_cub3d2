@@ -15,7 +15,7 @@ int check_borders(char **map, int l_i, int i, int coef)
 }
 
 
-int check_space_borders(int start_i, int end_i, char **map, char *cur_s, int s_num)
+int check_spc_borders(int start_i, int end_i, char **map, char *cur_s, int s_num)
 {
     int start = start_i;
     int end = end_i;
@@ -34,7 +34,7 @@ int small_first_str(char *next_s, int next_s_len, int cur_s_len)
 {
     int diff;
     diff = next_s_len - cur_s_len;
-    while(diff > 0)
+    while(diff >= 0)
     {
         if (next_s[next_s_len-diff-1] == '0')
             return (MAP_ERROR);
@@ -57,79 +57,83 @@ int big_first_str(char *cur_s, int next_s_len, int cur_s_len)
     return (1);
 }
 
-int check_strings_ends(char **map, int i, char *cur_s)
+int check_lines_ends(char **map, int i, char *cur_s)
 {
     char *next_s;
     int next_s_len;
 //    int diff;
     int cur_s_len;
 
-    cur_s_len = (int)ft_strlen(cur_s);
-    next_s = map[i+1];
-    next_s_len = (int)ft_strlen(next_s);
-    if (cur_s_len < next_s_len)
-    {
-        if(small_first_str(next_s, next_s_len, cur_s_len) == MAP_ERROR)
+    cur_s_len = (int) ft_strlen(cur_s);
+    next_s = map[i + 1];
+    next_s_len = (int) ft_strlen(next_s);
+    if (cur_s_len < next_s_len) {
+        if (small_first_str(next_s, next_s_len, cur_s_len) == MAP_ERROR)
             return (MAP_ERROR);
-    }
-    else
-    {
+    } else if (cur_s_len > next_s_len) {
         if (big_first_str(cur_s, next_s_len, cur_s_len) == MAP_ERROR)
             return (MAP_ERROR);
-//        if (diff == 0)
-//            if (next_s[next_s_len-1] == '0')
-//                return (MAP_ERROR);
+    } else {
+        if (next_s[next_s_len - 1] == '0')
+            return (MAP_ERROR);
     }
     return (1);
 }
 
-//int check_empty_line
+int check_line_start(int *l_i, int cur_s_len, char *cur_s)
+{
+    while(*l_i < cur_s_len)
+    {
+        if (cur_s[*l_i] == '0')
+            return MAP_ERROR;
+        if (cur_s[*l_i] == '1')
+            break;
+        (*l_i)++;
+    }
+    return (1);
+}
+
+int check_line_middle(char *cur_s, int *l_i, int i, char **map)
+{
+    int cur_s_len;
+
+    cur_s_len = (int) ft_strlen(cur_s);
+    while(*l_i < cur_s_len)
+    {
+        if (cur_s[*l_i] == '0')
+        {
+            if (check_borders(map, (*l_i), i, 1) == MAP_ERROR)
+                return (MAP_ERROR);
+        }
+        (*l_i)++;
+    }
+    return (1);
+}
+
 
 int check_map (char **map, int elems_num)
 {
     int cur_s_len;
-    int i = 1; //начнем со второй строки
-    int l_i = 0; //индекс по строке
+    int i;
+    int l_i;
     char *cur_s;
 
+    i = 1;
     while (i < elems_num-2)
     {
         l_i = 0;
         cur_s = map[i];
         cur_s_len = (int)ft_strlen(cur_s);
-        //слева направо
-        while(l_i < cur_s_len)
-        {
-            if (cur_s[l_i] == '0')
-                return MAP_ERROR;
-            if (cur_s[l_i] == '1')
-                break;
-            l_i++;
-        }
-//        if (l_i == cur_s_len)
-//        {
-//            throwException(INVALID_MAP);    //ошибка карты, мы дошли до конца, единица так и не встретилась
-//            return (MAP_ERROR);
-//        }
-        while(l_i < cur_s_len)
-        {
-            if (cur_s[l_i] == '0')
-            {
-                if (check_borders(map, l_i, i, 1) == MAP_ERROR)
-                    return MAP_ERROR;
-//                else
-//                    break;
-            }
-            l_i++;
-        }
-        if (check_strings_ends(map, i, cur_s) == MAP_ERROR)
+        if (check_line_start(&l_i, cur_s_len, cur_s) == MAP_ERROR \
+            || check_line_middle(cur_s, &l_i, i, map) == MAP_ERROR)
             return (MAP_ERROR);
-        if (check_space_borders(l_i, cur_s_len, map, cur_s, i) == MAP_ERROR)
+        if (check_lines_ends(map, i, cur_s) == MAP_ERROR || \
+                check_spc_borders(l_i, cur_s_len, map, cur_s, i) == MAP_ERROR)
             return (MAP_ERROR);
         i++;
     }
     cur_s = map[i];
-    if (check_space_borders(0, ft_strlen(cur_s), map, cur_s, i) == MAP_ERROR)
+    if (check_spc_borders(0, ft_strlen(cur_s), map, cur_s, i) == MAP_ERROR)
         return (MAP_ERROR);
     return (1);
 }

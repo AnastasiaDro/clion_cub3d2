@@ -20,7 +20,7 @@
 //}
 //
 //
-//int check_space_borders(int start_i, int end_i, char **map, char *cur_s, int s_num)
+//int check_spc_borders(int start_i, int end_i, char **map, char *cur_s, int s_num)
 //{
 //    int start = start_i;
 //    int end = end_i;
@@ -100,12 +100,12 @@
 //                if ( next_s[next_s_len-1] == '0')
 //                    return (MAP_ERROR);
 //        }
-//        if (check_space_borders(l_i, cur_s_len, map, cur_s, i) == MAP_ERROR)
+//        if (check_spc_borders(l_i, cur_s_len, map, cur_s, i) == MAP_ERROR)
 //            return (MAP_ERROR);
 //        i++;
 //    }
 //    cur_s = map[i];
-//    if (check_space_borders(0, ft_strlen(cur_s), map, cur_s, i) == MAP_ERROR)
+//    if (check_spc_borders(0, ft_strlen(cur_s), map, cur_s, i) == MAP_ERROR)
 //        return (MAP_ERROR);
 //    return (1);
 //}
