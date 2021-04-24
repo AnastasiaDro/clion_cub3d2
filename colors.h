@@ -24,7 +24,7 @@ void make_color_exception(char *s, t_data *m_struct);
 
 int check_color_s_end(char *str, int i);
 
-int get_color(char *s, t_data *m_struct);
+int get_color(char *s, t_data *m_struct, int *flag);
 
 
 

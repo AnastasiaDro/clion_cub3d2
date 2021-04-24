@@ -11,7 +11,7 @@
 
 int get_num_length(char *str, int *i, int *num_start);
 
-int parse_resolution(char *s, t_data *m_struct);
+int parse_resolution(char *s, t_data *m_struct, int *flag);
 
 void throw_resol_except(char **s, t_data *m_struct);
 

@@ -45,7 +45,7 @@ int check_s_end(char *str, int i)
     return (1);
 }
 
-int parse_resolution(char *s, t_data *m_struct)
+int parse_resolution(char *s, t_data *m_struct, int *flag)
 {
     int num_start;
     int num_length;
@@ -53,6 +53,7 @@ int parse_resolution(char *s, t_data *m_struct)
     int max_screen_w;
     int max_screen_h;
 
+    *flag = 1;
     i = 0;
     num_start = 0;
     num_length = get_num_length(s+1, &i, &num_start);

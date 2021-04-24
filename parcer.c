@@ -146,7 +146,7 @@ int  is_map_start(char *line)
     return (i);
 }
 
-int check_n_save_textures(char *s, t_data *m_struct, t_parse_flags *parse_f)
+int get_n_check_textures(char *s, t_data *m_struct, t_parse_flags *parse_f)
 {
     if (!ft_strncmp(s, "NO", 2) && !(parse_f->north))
         return(get_texture_path(s, &m_struct->params->north_texture_path, &(parse_f->north)));
@@ -161,21 +161,20 @@ int check_n_save_textures(char *s, t_data *m_struct, t_parse_flags *parse_f)
     return (0);
 }
 
-int check_n_save_params(char *s, t_data *m_struct, t_parse_flags *parse_f)
+int get_n_check_params(char *s, t_data *m_struct, t_parse_flags *parse_f)
 {
-    if (*s == 'R') //и что этого флага ещё не было, если был - ошибка
-        return (parse_resolution(s, m_struct));
-    if (*s == 'F') //и что этого флага ещё не было, если был - ошибка
+    if (*s == 'R' && !parse_f->resol)
+        return (parse_resolution(s, m_struct, &parse_f->resol));
+    if (*s == 'F' && !parse_f->floor_color)
     {
-        m_struct->params->floor_color = get_color(s, m_struct);
+        m_struct->params->floor_color = get_color(s, m_struct, &parse_f->floor_color);
         return (1);
     }
-    if (*s == 'C') //и что этого флага ещё не было, если был - ошибка
+    if (*s == 'C' && !parse_f->ceil_color)
     {
-        m_struct->params->ceil_color = get_color(s, m_struct);
+        m_struct->params->ceil_color = get_color(s, m_struct, &parse_f->ceil_color);
         return (1);
     }
-    printf("check_n_save_params\n");
     return 0;
 }
 
@@ -208,7 +207,7 @@ int check_symbols(char *s, t_data *m_struct, int *flag_player)
 	return (0);
 }
 
-int check_sprites(char *s, t_data *m_struct, int elems_num)
+int get_sprites_list(char *s, t_data *m_struct, int elems_num)
 {
 	int i = 0;
 	double x = 0;
@@ -257,7 +256,7 @@ int fill_map(t_list **last_elem, int elems_num, t_data *m_struct)
 		}
 
 //посчитаем спрайты
-        check_sprites(map[elems_num - 1], m_struct, elems_num);
+        get_sprites_list(map[elems_num - 1], m_struct, elems_num);
         elem = elem->next;
         elems_num--;
     }
@@ -323,7 +322,8 @@ void parse_map(t_data *m_struct)
                 continue;
             }
 
-			if (!(check_n_save_textures(&line[index], m_struct, &parse_f)) && !(check_n_save_params(&line[index], m_struct, &parse_f)))
+			if (!(get_n_check_textures(&line[index], m_struct, &parse_f)) && !(get_n_check_params(&line[index],
+                                                                                                  m_struct, &parse_f)))
 			{
 				throwException(INVALID_MAP);
 				free_all(m_struct);

@@ -63,16 +63,16 @@ int check_color_s_end(char *str, int i)
 	return (1);
 }
 
-int get_color(char *s, t_data *m_struct)
+int get_color(char *s, t_data *m_struct, int *flag)
 {
 	int     i;
     t_color *m_color;
 	char    *str;
     int     color;
 
+    *flag = 1;
     i = 0;
     str = s + 1;
-    color = 0x000000;
     m_color = malloc(sizeof (t_color));
 	while(str[i] == ' ')
 		i++;
