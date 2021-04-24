@@ -3,14 +3,10 @@
 //
 
 #include "new_cub_utils.h"
-#include "sprites_utils.h"
 #include "minilibx_opengl_20191021/mlx.h"
-#include <stdio.h>
-#include "draw_utils.h"
 #include "ray.h"
 #include "dda_utils.h"
 #include "wall_utils.h"
-#include "draw_sprites.h"
 
 t_textu  set_texture(t_data *m_struct, double rayDirX, double rayDirY)
 {
@@ -28,11 +24,9 @@ t_textu  set_texture(t_data *m_struct, double rayDirX, double rayDirY)
 		else
 			return m_struct->textu[2];
 	}
-    return (m_struct->textu[0]); //просто дефолт
+    return (m_struct->textu[0]);
 }
 
-//пойти вперед или назад
-//
 int draw_lab_dda(t_data *m_struct)
 {
     t_ray ray;
@@ -42,6 +36,5 @@ int draw_lab_dda(t_data *m_struct)
     cast_walls(m_struct, &ray, &wall, ZBuffer);
     cast_sprites(m_struct, ZBuffer);
     mlx_put_image_to_window(m_struct->mlx, m_struct->mlx_win, m_struct->img, 0, 0);
-	return 1;
+	return (1);
 }
-

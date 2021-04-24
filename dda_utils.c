@@ -7,9 +7,6 @@
 #include "texture_parse.h"
 #include "draw_sprites.h"
 
-
-//jump to next map square, OR in x-direction, OR in y-direction
-
 void go_to_the_wall(t_ray *ray, t_data *m_struct)
 {
 	while (ray->hit == 0)
@@ -80,7 +77,6 @@ void cast_walls(t_data *m_struct, t_ray *ray, t_wall *wall, double *z_buffer)
         z_buffer[x-1] = ray->perpWallDist; //perpendicular distance is used         //SET THE ZBUFFER FOR THE SPRITE CASTING
     }
 }
-
 
 void cast_sprites(t_data *m_struct, double const *z_buffer)
 {
