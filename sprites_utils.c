@@ -16,7 +16,6 @@ int set_sprite_info(t_spr_info *spr_info, int sprite_h, int sprite_w, char *path
 		throwException(SPRITE_PATH_ERROR);
 		return -1;
 	}
-
 	(*spr_info).addr = mlx_get_data_addr((*spr_info).img, &(spr_info->bits_per_pixel), &(spr_info->line_length),
 										 &(spr_info->endian));
 	spr_info->h = sprite_h;
@@ -117,13 +116,6 @@ void	sprite_lstclear(t_sprite **lst)
 		free(p);
 		p = p_next;
 	}
-}
-
-int init_sprite_info(t_spr_info  *sprite_info)
-{
-    sprite_info->sprite_list = NULL;
-    sprite_info->sprite_path = NULL;
-    return (1);
 }
 
 

@@ -38,6 +38,14 @@ void	set_data(t_data *m_struct, t_params *params, \
 
 }
 
+int init_sprite_info(t_spr_info  *sprite_info)
+{
+    sprite_info->sprite_list = NULL;
+    sprite_info->sprite_path = NULL;
+    return (1);
+}
+
+
 void	init_all(t_data *m_struct)
 {
 	t_textu		*textu;

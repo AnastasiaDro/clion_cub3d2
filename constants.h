@@ -15,4 +15,9 @@
 # define KEY_PRESS 02
 # define CROSS_PRESS 17
 # define PROG_NAME "cub3d"
+#define MAP_STARTED (-1)
+#define ZERO_START_LINE (-3)
+#define MAP_ERROR (-3)
+# define MAP_SYMBOL "012 "
+# define PLAYER_SYMBOLS "NSWE"
 #endif

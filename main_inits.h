@@ -13,6 +13,8 @@ void	init_t_data(t_data *m_struct);
 void	set_data(t_data *m_struct, t_params *params, \
 					t_textu *textu, t_spr_info *spr_info);
 
+int     init_sprite_info(t_spr_info  *sprite_info);
+
 void	init_all(t_data *m_struct);
 
 #endif

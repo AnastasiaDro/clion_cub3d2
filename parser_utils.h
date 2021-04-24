@@ -6,12 +6,7 @@
 # define UTILS_H
 # include "libft/libft.h"
 # include "cub_utils.h"
-#define MAP_STARTED (-1)
-#define ZERO_START_LINE (-3)
-#define MAP_ERROR (-3)
 
-# define MAP_SYMBOL "012 "
-# define PLAYER_SYMBOLS "NSWE"
 
 typedef struct s_parse_flags
 {
