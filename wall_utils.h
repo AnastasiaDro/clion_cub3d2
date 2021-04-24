@@ -21,5 +21,6 @@ void calc_sart_pixels(t_wall *wall, t_data *m_struct);
 
 void calc_wall_x(t_wall *wall, t_ray *ray, t_data *m_struct);
 
+void draw_wall_line(t_wall *wall, t_data *m_struct, t_txdraw *txdraw, int gg);
 
 #endif //CLION_CUB3D2_WALL_UTILS_H

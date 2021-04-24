@@ -16,6 +16,9 @@ void calc_camera_dist(t_ray *ray, t_data *m_struct);
 
 void calc_x_textu_coord(t_data *m_struct, t_ray *ray, t_wall *wall, t_txdraw *txdraw);
 
-void draw_wall_line(t_wall *wall, t_data *m_struct, t_txdraw *txdraw, int gg);
+void cast_walls(t_data *m_struct, t_ray *ray, t_wall *wall, double *z_buffer);
+
+void cast_sprites(t_data *m_struct, double const *z_buffer);
+
 
 #endif //CLION_CUB3D2_DDA_UTILS_H

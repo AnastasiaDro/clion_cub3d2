@@ -53,4 +53,3 @@ int init_textu_arr(t_textu *textu, int height, int width)
 	return (1);
 }
 
-

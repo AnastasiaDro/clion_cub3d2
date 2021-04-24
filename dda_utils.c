@@ -5,7 +5,7 @@
 #include "dda_utils.h"
 #include "wall_utils.h"
 #include "texture_parse.h"
-#include "draw_utils.h"
+#include "draw_sprites.h"
 
 
 //jump to next map square, OR in x-direction, OR in y-direction
@@ -53,24 +53,53 @@ void calc_x_textu_coord(t_data *m_struct, t_ray *ray, t_wall *wall, t_txdraw *tx
 		txdraw->texX = txdraw->textu->width - txdraw->texX - 1;
 }
 
-void draw_wall_line(t_wall *wall, t_data *m_struct, t_txdraw *txdraw, int gg) {
-	double step;
-	double texPos;
-	double h;
-	int y;
+void cast_walls(t_data *m_struct, t_ray *ray, t_wall *wall, double *z_buffer)
+{
+    int x;
+    int gg;
+    t_textu tx_struct;
+    t_txdraw txdraw;
 
-	h = m_struct->params->screen_higth;
-	step = 1.0 * txdraw->textu->height / wall->line_height;
-	y = wall->drawStart;
-	// Starting texture coordinate
-	texPos = (wall->drawStart - h / 2 + (double)wall->line_height / 2) * step;
-	while(y < wall->draw_end)
-	{
-		// Cast the texture coordinate to integer, and mask with (texHeight - 1) in case of overflow
-		txdraw->texY = (int) texPos;
-		texPos += step;
-		int color = textu_mlx_pixel_get(txdraw->textu, txdraw->texX, txdraw->texY);
-		cerebus_mlx_pixel_put(m_struct, gg, y, color);
-		y++;
-	}
+    x = 0;
+    gg =  m_struct->params->screen_width;
+    while (x < m_struct->params->screen_width)
+    {
+        set_ray_params(ray, m_struct, x);
+        //perform DDA
+        go_to_the_wall(ray, m_struct); //Calculate distance projected on camera direction (Euclidean distance will give fisheye effect!)
+        calc_camera_dist(ray, m_struct);
+        calc_line_height(wall, ray, m_struct); //Calculate height of line to draw on screen
+        calc_sart_pixels(wall, m_struct); //calculate lowest and highest pixel to fill in current stripe
+        calc_wall_x(wall, ray, m_struct); //новые вычисления для текстуры
+        tx_struct = set_texture(m_struct, ray->DirX, ray->DirY); //получим текстуру
+        txdraw.textu = &tx_struct;
+        calc_x_textu_coord(m_struct, ray, wall, &txdraw);
+        draw_wall_line(wall, m_struct, &txdraw, gg);
+        x++;
+        gg--;
+        z_buffer[x-1] = ray->perpWallDist; //perpendicular distance is used         //SET THE ZBUFFER FOR THE SPRITE CASTING
+    }
+}
+
+
+void cast_sprites(t_data *m_struct, double const *z_buffer)
+{
+    double h;
+    double w;
+    double coef;
+    t_sprite *sprite_lst;
+
+    h = m_struct->params->screen_higth;
+    w = m_struct->params->screen_width;
+    coef = w / h * 0.77;
+    set_sprite_data(m_struct);
+    sprite_lst = *(m_struct->sprite_info->sprite_list);
+    t_spr_draw sprDraw;
+    while (sprite_lst != NULL)
+    {
+        set_sprite_pos(&sprDraw, sprite_lst, m_struct);
+        set_sprite_draw_limits(&sprDraw, m_struct, coef);
+        draw_sprite(&sprDraw, m_struct, z_buffer);
+        sprite_lst = sprite_lst->next;
+    }
 }

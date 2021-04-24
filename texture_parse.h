@@ -7,6 +7,7 @@
 # include <stdlib.h>
 #include "minilibx_opengl_20191021/mlx.h"
 
+
 typedef struct s_textu
 {
 	char 		*adress;
@@ -33,5 +34,7 @@ int init_textu_arr(t_textu *textu, int height, int width);
 
 
 int textu_mlx_pixel_get(t_textu *textu, int x, int y);
+
+
 
 #endif //TEXTURE_PARSE_H

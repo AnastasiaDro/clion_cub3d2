@@ -26,14 +26,21 @@ void	init_t_data(t_data *m_struct)
 	m_struct->img = NULL;
 	m_struct->mlx_win = NULL;
 	m_struct->map = NULL;
+
 }
 
 void	set_data(t_data *m_struct, t_params *params, \
 				t_textu *textu, t_spr_info *spr_info)
 {
+    int w;
+    int h;
+
+    w = m_struct->params->screen_width;
+    h = m_struct->params->screen_higth;
 	m_struct->params = params;
 	m_struct->textu = textu;
 	m_struct->sprite_info = spr_info;
+
 }
 
 void	init_all(t_data *m_struct)

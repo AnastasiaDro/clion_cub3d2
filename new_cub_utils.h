@@ -36,6 +36,8 @@ typedef struct  s_data {
 	double planeX;
 	double planeY;
 
+	//coef
+	double coef;
 //текстуры
 	t_textu *textu;
 //инфа о текстуре
@@ -44,8 +46,7 @@ typedef struct  s_data {
 	t_list *lst;
 }               t_data;
 
-
-//void     cerebus_mlx_pixel_put(t_data *data, int x, int y, int color);
+t_textu  set_texture(t_data *m_struct, double rayDirX, double rayDirY);
 
 int draw_lab_dda(t_data *m_struct);
 
