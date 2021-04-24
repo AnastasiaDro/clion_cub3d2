@@ -61,7 +61,7 @@ int check_strings_ends(char **map, int i, char *cur_s)
 {
     char *next_s;
     int next_s_len;
-    int diff;
+//    int diff;
     int cur_s_len;
 
     cur_s_len = (int)ft_strlen(cur_s);
@@ -74,16 +74,16 @@ int check_strings_ends(char **map, int i, char *cur_s)
     }
     else
     {
-
         if (big_first_str(cur_s, next_s_len, cur_s_len) == MAP_ERROR)
             return (MAP_ERROR);
-        if (diff == 0)
-            if (next_s[next_s_len-1] == '0')
-                return (MAP_ERROR);
+//        if (diff == 0)
+//            if (next_s[next_s_len-1] == '0')
+//                return (MAP_ERROR);
     }
     return (1);
 }
 
+//int check_empty_line
 
 int check_map (char **map, int elems_num)
 {
@@ -106,19 +106,19 @@ int check_map (char **map, int elems_num)
                 break;
             l_i++;
         }
-        if (l_i == cur_s_len)
-        {
-            throwException(INVALID_MAP);    //ошибка карты, мы дошли до конца, единица так и не встретилась
-            return (MAP_ERROR);
-        }
+//        if (l_i == cur_s_len)
+//        {
+//            throwException(INVALID_MAP);    //ошибка карты, мы дошли до конца, единица так и не встретилась
+//            return (MAP_ERROR);
+//        }
         while(l_i < cur_s_len)
         {
             if (cur_s[l_i] == '0')
             {
                 if (check_borders(map, l_i, i, 1) == MAP_ERROR)
                     return MAP_ERROR;
-                else
-                    break;
+//                else
+//                    break;
             }
             l_i++;
         }
