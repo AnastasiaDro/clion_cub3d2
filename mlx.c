@@ -10,13 +10,10 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <printf.h>
 #include "parcer.h"
 #include "minilibx_opengl_20191021/mlx.h"
 #include "stdlib.h"
-#include "libft/libft.h"
 #include "cub_utils.h"
-#include "unistd.h"
 #include "constants.h"
 #include "texture_parse.h"
 #include "key_hooking.h"
