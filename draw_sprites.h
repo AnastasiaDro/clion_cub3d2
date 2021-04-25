@@ -13,15 +13,15 @@ typedef struct s_spr_draw
 	double sprite_y;
 	double transform_x;
 	double transform_y;
-    int sprite_screen_x;
+    int screen_x;
 
-    double spriteHeight;
-    double spriteWidth;
+    double h;
+    double w;
 
-    int drawStartX;
-    int drawEndX;
-    int drawStartY;
-    int drawEndY;
+    int draw_start_x;
+    int draw_end_x;
+    int draw_start_y;
+    int draw_end_y;
 }				t_spr_draw;
 
 

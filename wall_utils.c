@@ -5,7 +5,7 @@
 #include "wall_utils.h"
 #include "draw_utils.h"
 
-//Calculate height of line to draw on screen
+//Calculate h of line to draw on screen
 
 void calc_line_height(t_wall *wall, t_ray *ray, t_data *m_struct)
 {
