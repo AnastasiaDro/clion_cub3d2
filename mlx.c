@@ -75,9 +75,6 @@ int	main()
 	mlx_hook(m_struct.mlx_win, CROSS_PRESS, 1L << 5, cross_hook, &m_struct);
 	m_struct.addr = mlx_get_data_addr(m_struct.img, &m_struct.bits_per_pixel, &m_struct.line_length, \
 										&m_struct.endian);
-
-	printf("ширина окна %d, высота окна %d", m_struct.params->screen_width, m_struct.params->screen_higth);
-
 	mlx_loop_hook(m_struct.mlx, render_next_frame, &m_struct);
 	mlx_loop(m_struct.mlx);
 	exit(0);
