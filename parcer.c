@@ -96,33 +96,13 @@ void parse_map(t_data *m_struct)
 //школа
   // int fd = open("/Users/cerebus/projects/clion_cub3d2/real_map1.cub", O_RDONLY);
   //ДОМ
-  int fd = open("/Users/anastasia/CLionProjects/clion_cub3d2/real_map.cub", O_RDONLY);
+ 	 int fd = open("/Users/anastasia/CLionProjects/clion_cub3d2/real_map.cub", O_RDONLY);
     char *line;
     t_list *last_elem = NULL;
     int elems_num = 0;
-    int index;
 
-    while (get_next_line(fd, &line))
-    {
-        //вот тут проверяем начало карты
-        index = is_map_start(line);
-        if (index == MAP_STARTED)
-        {
-			if (check_fe_line(line) == MAP_ERROR)
-                throw_map_except(m_struct);
-            ft_lstadd_front(&last_elem, ft_lstnew(line));
-            elems_num++;
-            break;
-        }
-        else
-        {
-            if(is_empty(&line))
-                continue;
-			if (!(get_n_check_textures(&line[index], m_struct, &parse_f)) && !(get_n_check_params(&line[index],
-                                                                                                  m_struct, &parse_f)))
-                throw_map_except(m_struct);
-        }
-    }
+	elems_num = go_th_params(fd, m_struct, &last_elem, &line);
+
    int res = 0;
     while ((res = get_next_line(fd, &line)))
     {

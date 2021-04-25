@@ -12,8 +12,12 @@
 
 NAME	=	cub3d
 SRC		=	mlx.c get_next_line/get_next_line.c get_next_line/get_next_line_utils.c \
-            parcer.c draw_utils.c textu_cub_utils.c texture_parse.c new_cub_utils.h key_hooking.c key_hooking.h \
-            sprites_utils.c exceptions.c utils.c colors.c params.c main_inits.c ray.c
+            parcer.c draw_utils.c cub_utils.c texture_parse.c key_hooking.c minilibx_opengl_20191021/mlx_get_screen_size.m \
+            sprites_utils.c exceptions.c parser_utils.c colors.c params.c main_inits.c \
+            ray.c dda_utils.c wall_utils.c draw_sprites.c player_params.c \
+            parse_resolution.c map_checker.c map_line_checkers.c fill_map.c is_empty.c \
+            get_sprites_list.c check_symbols.c go_th_params.c
+
 LIBFT	= 	libft.a
 LIBMX   =   minilibx_opengl_20191021/libmlx.a
 

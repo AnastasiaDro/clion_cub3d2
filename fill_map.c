@@ -2,7 +2,6 @@
 // Created by  Anastasia on 25.04.2021.
 //
 #include <printf.h>
-#include "libft/libft.h"
 #include "cub_utils.h"
 #include "parser_utils.h"
 #include "exceptions.h"
