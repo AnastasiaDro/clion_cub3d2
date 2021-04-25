@@ -6,7 +6,7 @@
 # define MAX_WIDTH_NUM_LENGTH 4
 # define MAX_HEIGHT_NUM_LENGTH 4
 
-void parse_map(t_data *m_struct);
+void parse_map(t_data *m_struct, char *map_path);
 
 void throw_map_except(t_data *m_struct);
 

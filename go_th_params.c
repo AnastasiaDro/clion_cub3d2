@@ -7,6 +7,13 @@
 #include "parser_utils.h"
 #include "constants.h"
 
+void add_to_list(char **line, t_data *m_struct, t_list **last_elem)
+{
+	if (check_fe_line(*line) == MAP_ERROR)
+		throw_map_except(m_struct);
+	ft_lstadd_front(last_elem, ft_lstnew(*line));
+}
+
 int go_th_params(int fd, t_data *m_struct, t_list **last_elem, char **line)
 {
 	int index;
@@ -20,9 +27,7 @@ int go_th_params(int fd, t_data *m_struct, t_list **last_elem, char **line)
 		index = is_map_start(*line);
 		if (index == MAP_STARTED)
 		{
-			if (check_fe_line(*line) == MAP_ERROR)
-				throw_map_except(m_struct);
-			ft_lstadd_front(last_elem, ft_lstnew(*line));
+			add_to_list(line, m_struct, last_elem);
 			elems_num++;
 			break;
 		}
@@ -30,12 +35,10 @@ int go_th_params(int fd, t_data *m_struct, t_list **last_elem, char **line)
 		{
 			if(is_empty(line))
 				continue;
-			if (!(get_n_check_textures(line[index], m_struct, &parse_f)) && !(get_n_check_params(line[index],
-																								  m_struct, &parse_f)))
+			if (!(get_n_check_textures(line[index], m_struct, &parse_f)) && \
+				!(get_n_check_params(line[index], m_struct, &parse_f)))
 				throw_map_except(m_struct);
 		}
 	}
-//	free(line);
-//	line = NULL;
 	return (elems_num);
 }

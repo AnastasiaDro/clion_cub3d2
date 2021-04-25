@@ -89,22 +89,17 @@ void throw_map_except(t_data *m_struct)
     exit(0);
 }
 
-void parse_map(t_data *m_struct)
+void parse_map(t_data *m_struct, char *map_path)
 {
-    t_parse_flags parse_f;
-    init_parse_flags(&parse_f);
-//школа
-  // int fd = open("/Users/cerebus/projects/clion_cub3d2/real_map1.cub", O_RDONLY);
-  //ДОМ
- 	 int fd = open("/Users/anastasia/CLionProjects/clion_cub3d2/real_map.cub", O_RDONLY);
-    char *line;
-    t_list *last_elem = NULL;
-    int elems_num = 0;
+	int fd;
+	char *line;
+	t_list *last_elem;
+	int elems_num;
 
+  	fd = open(map_path, O_RDONLY);
+    last_elem = NULL;
 	elems_num = go_th_params(fd, m_struct, &last_elem, &line);
-
-   int res = 0;
-    while ((res = get_next_line(fd, &line)))
+    while (get_next_line(fd, &line))
     {
         ft_lstadd_front(&last_elem, ft_lstnew(line));
         elems_num++;
@@ -112,18 +107,17 @@ void parse_map(t_data *m_struct)
     ft_lstadd_front(&last_elem, ft_lstnew(line));
     elems_num++;
     m_struct->lst = last_elem;
-
 	line = NULL;
-    //создадим список для спрайтов (с массивом еще париться по поводу памяти каждый раз...
     m_struct->sprite_info->sprite_list = malloc(1*sizeof (t_sprite *));
     *(m_struct->sprite_info->sprite_list) = NULL;
     elems_num = fill_map(&last_elem, elems_num, m_struct);
     if (check_fe_line(m_struct->map[elems_num-1]) == MAP_ERROR)
-        throw_map_except(m_struct);
+	{
+		throw_map_except(m_struct);
+		ft_lstclear(&last_elem, free);
+	}
     ft_lstclear(&last_elem, free);
    	close(fd);
-
-   	//проверим карту
     if (check_map(m_struct->map, elems_num) == MAP_ERROR)
         throw_map_except(m_struct);
 }
