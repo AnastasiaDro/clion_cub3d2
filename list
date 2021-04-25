@@ -1,20 +1,4 @@
 файлы по норме:
 
-1.НЕТ draw_utils.c
-2.НЕТ draw_utils.h
-
-3.key_hooking.c
-4.key_hooking.h
-
-5.exceptions.c
-6.exceptions.h
-
-7.constants.h
-
-8.params.c
-9.params.h
-
-10.mlx.c  - только аргументы остались
-11.main_inits.c
-12.main_inits.h
-
+1. check_symbols.
+2. 

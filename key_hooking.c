@@ -20,15 +20,15 @@ int	rotate(t_data *m_struct, double rotSpeed, int keycode)
 
 	if (keycode == 123)
 		rotSpeed = rotSpeed * (-1);
-	oldDirX = m_struct->dirX;
-	m_struct->dirX = m_struct->dirX * cos(rotSpeed) \
-		- m_struct->dirY * sin(rotSpeed);
-	m_struct->dirY = oldDirX * sin(rotSpeed) + m_struct->dirY * cos(rotSpeed);
-	oldPlaneX = m_struct->planeX;
-	m_struct->planeX = m_struct->planeX * cos(rotSpeed) \
-		- m_struct->planeY * sin(rotSpeed);
-	m_struct->planeY = oldPlaneX * sin(rotSpeed) \
-		+ m_struct->planeY * cos(rotSpeed);
+	oldDirX = m_struct->dir_x;
+	m_struct->dir_x = m_struct->dir_x * cos(rotSpeed) \
+ - m_struct->dir_y * sin(rotSpeed);
+	m_struct->dir_y = oldDirX * sin(rotSpeed) + m_struct->dir_y * cos(rotSpeed);
+	oldPlaneX = m_struct->plane_x;
+	m_struct->plane_x = m_struct->plane_x * cos(rotSpeed) \
+ - m_struct->plane_y * sin(rotSpeed);
+	m_struct->plane_y = oldPlaneX * sin(rotSpeed) \
+ + m_struct->plane_y * cos(rotSpeed);
 	return (1);
 }
 
@@ -43,11 +43,11 @@ int	step_forw_back(t_data *m_struct, double moveSpeed, int keycode)
 		coef = -1;
 	map = m_struct->map;
 	if (map[(int)m_struct->map_player_y][(int)(m_struct->map_player_x \
-		+ coef * m_struct->dirX * moveSpeed)] == '0')
-		m_struct->map_player_x += coef * m_struct->dirX * moveSpeed;
-	if (map[(int)(m_struct->map_player_y + coef * m_struct->dirY * moveSpeed)] \
+		+ coef * m_struct->dir_x * moveSpeed)] == '0')
+		m_struct->map_player_x += coef * m_struct->dir_x * moveSpeed;
+	if (map[(int)(m_struct->map_player_y + coef * m_struct->dir_y * moveSpeed)] \
 		[(int)m_struct->map_player_x] == '0')
-		m_struct->map_player_y += coef * m_struct->dirY * moveSpeed;
+		m_struct->map_player_y += coef * m_struct->dir_y * moveSpeed;
 	return (1);
 }
 
@@ -62,10 +62,10 @@ int	step_left_rigth(t_data *m_struct, double moveSpeed, int keycode)
 		coef = -1;
 	map = m_struct->map;
 	if (map[(int)m_struct->map_player_y][(int)(m_struct->map_player_x \
-		+ coef * m_struct->planeX * moveSpeed)] == '0')
-		m_struct->map_player_x += coef * m_struct->planeX * moveSpeed;
-	if (map[(int)(m_struct->map_player_y + coef * m_struct->planeY \
-		* moveSpeed)][(int)m_struct->map_player_x] == '0')
-		m_struct->map_player_y += coef * m_struct->planeY * moveSpeed;
+		+ coef * m_struct->plane_x * moveSpeed)] == '0')
+		m_struct->map_player_x += coef * m_struct->plane_x * moveSpeed;
+	if (map[(int)(m_struct->map_player_y + coef * m_struct->plane_y \
+ * moveSpeed)][(int)m_struct->map_player_x] == '0')
+		m_struct->map_player_y += coef * m_struct->plane_y * moveSpeed;
 	return (1);
 }

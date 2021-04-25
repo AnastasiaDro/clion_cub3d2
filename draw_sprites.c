@@ -1,10 +1,19 @@
-//
-// Created by  Anastasia on 23.04.2021.
-//
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   draw_sprites.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: cerebus <cerebus@student.21-school.ru>     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/04/25 23:53:11 by cerebus           #+#    #+#             */
+/*   Updated: 2021/04/25 23:54:46 by cerebus          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "draw_sprites.h"
 #include "draw_utils.h"
 
-void set_sprite_data(t_data *m_struct)
+void	set_sprite_data(t_data *m_struct)
 {
 	t_sprite *sprite_lst;
 
@@ -12,83 +21,79 @@ void set_sprite_data(t_data *m_struct)
 	while (sprite_lst != NULL)
 	{
 		sprite_lst->distance = ((m_struct->map_player_x - sprite_lst->x) * (m_struct->map_player_x - sprite_lst->x) + (m_struct->map_player_y
-		        - sprite_lst->y) * (m_struct->map_player_y - sprite_lst->y));
+				- sprite_lst->y) * (m_struct->map_player_y - sprite_lst->y));
 		sprite_lst = sprite_lst->next;
 	}
 	sprite_lst = *(m_struct->sprite_info->sprite_list);
-	sortSprites(&sprite_lst); //сортировка спрайтов
+	sortSprites(&sprite_lst);
 }
 
-//translate sprite position to relative to camera
-
-
-void set_sprite_pos(t_spr_draw *sprDraw, t_sprite *sprite_lst, t_data *m_struct)
+void	set_sprite_pos(t_spr_draw *spr_raw, t_sprite *sprite_lst, t_data *m_struct)
 {
-    double invDet;
+	double inv_det;
 
-    sprDraw->spriteX = sprite_lst->x - m_struct->map_player_x;
-    sprDraw->spriteY = sprite_lst->y - m_struct->map_player_y;
-    invDet = 1.0 / (m_struct->planeX * m_struct->dirY - m_struct->dirX * m_struct->planeY);
-    sprDraw->transformX = invDet * (m_struct->dirY * sprDraw->spriteX - m_struct->dirX * sprDraw->spriteY);
-    sprDraw->transformY = invDet * (-m_struct->planeY * sprDraw->spriteX + m_struct->planeX * sprDraw->spriteY); //this is actually the depth inside the screen, that what Z is in 3D
-    sprDraw->spriteScreenX = (int)((m_struct->params->screen_width * 0.5) * (1 + sprDraw->transformX / sprDraw->transformY));
+	spr_raw->sprite_x = sprite_lst->x - m_struct->map_player_x;
+	spr_raw->sprite_y = sprite_lst->y - m_struct->map_player_y;
+	inv_det = 1.0 / (m_struct->plane_x * m_struct->dir_y - m_struct->dir_x * m_struct->plane_y);
+	spr_raw->transform_x = inv_det * (m_struct->dir_y * spr_raw->sprite_x - m_struct->dir_x * spr_raw->sprite_y);
+	spr_raw->transform_y = inv_det * (-m_struct->plane_y * spr_raw->sprite_x + m_struct->plane_x * spr_raw->sprite_y); //this is actually the depth inside the screen, that what Z is in 3D
+	spr_raw->sprite_screen_x = (int)((m_struct->params->screen_width * 0.5) * (1 + spr_raw->transform_x / spr_raw->transform_y));
 }
 
-void set_sprite_draw_limits(t_spr_draw *sprDraw, t_data *m_struct, double coef)
+void	set_sprite_draw_limits(t_spr_draw *spr_draw, t_data *m_struct, double coef)
 {
-    sprDraw->spriteHeight = fabs(m_struct->params->screen_higth / (sprDraw->transformY) * coef);
-    //calculate lowest and highest pixel to fill in current stripe
-    sprDraw->drawStartY = (int)round(-sprDraw->spriteHeight / 2 + (double)m_struct->params->screen_higth  / 2 );
-    if(sprDraw->drawStartY < 0)
-        sprDraw->drawStartY = 0;
-    sprDraw->drawEndY = (int)round(sprDraw->spriteHeight / 2 + (double)m_struct->params->screen_higth  / 2);
-    if(sprDraw->drawEndY >= m_struct->params->screen_higth )
-        sprDraw->drawEndY = m_struct->params->screen_higth  - 1;
-    //calculate width of the sprite
-    sprDraw->spriteWidth = fabs((m_struct->params->screen_higth / (sprDraw->transformY) * coef));
-    sprDraw->drawStartX = (int) round(-sprDraw->spriteWidth / 2 + sprDraw->spriteScreenX);
-    if(sprDraw->drawStartX < 0)
-        sprDraw->drawStartX = 0;
-    sprDraw->drawEndX = (int) round(sprDraw->spriteWidth / 2 + sprDraw->spriteScreenX);
-    if(sprDraw->drawEndX >= m_struct->params->screen_width)
-        sprDraw->drawEndX = m_struct->params->screen_width - 1;
+	spr_draw->spriteHeight = fabs(m_struct->params->screen_higth / (spr_draw->transform_y) * coef);
+	spr_draw->drawStartY = (int)round(-spr_draw->spriteHeight / 2 + (double)m_struct->params->screen_higth / 2 );
+	if(spr_draw->drawStartY < 0)
+		spr_draw->drawStartY = 0;
+	spr_draw->drawEndY = (int)round(spr_draw->spriteHeight / 2 + (double)m_struct->params->screen_higth / 2);
+	if(spr_draw->drawEndY >= m_struct->params->screen_higth )
+		spr_draw->drawEndY = m_struct->params->screen_higth - 1;
+	spr_draw->spriteWidth = fabs((m_struct->params->screen_higth / (spr_draw->transform_y) * coef));
+	spr_draw->drawStartX = (int) round(-spr_draw->spriteWidth / 2 + spr_draw->sprite_screen_x);
+	if(spr_draw->drawStartX < 0)
+		spr_draw->drawStartX = 0;
+	spr_draw->drawEndX = (int) round(spr_draw->spriteWidth / 2 + spr_draw->sprite_screen_x);
+	if(spr_draw->drawEndX >= m_struct->params->screen_width)
+		spr_draw->drawEndX = m_struct->params->screen_width - 1;
 }
 
-void draw_sprite_line(t_spr_draw *sprDraw, t_data *m_struct, int line_i, int texX)
+void	draw_sprite_line(t_spr_draw *spr_draw, t_data *m_struct, int line_i, int texX)
 {
-    int y;
-    int texY;
-    int d;
-    int color;
+	int y;
+	int tex_y;
+	int d;
+	int color;
 
-    y = sprDraw->drawStartY;
-    while( y < sprDraw->drawEndY) //for every pixel of the current stripe
-    {
-        d = (y) * 256 - m_struct->params->screen_higth * 128 +
-            sprDraw->spriteHeight * 128; //256 and 128 factors to avoid floats
-        texY = ((d * m_struct->sprite_info->h) / sprDraw->spriteHeight) / 256;
-        color = sprite_mlx_pixel_get(m_struct->sprite_info, texX, texY);
-        if ((color & 0x00FFFFFF) != 0)
-        {
-            cerebus_mlx_pixel_put(m_struct, m_struct->params->screen_width - line_i, y, color);
-        }
-        y++;
-    }
+	y = spr_draw->drawStartY;
+	while(y < spr_draw->drawEndY)
+	{
+		d = (y) * 256 - m_struct->params->screen_higth * 128 +
+			spr_draw->spriteHeight * 128;
+		tex_y = ((d * m_struct->sprite_info->h) / spr_draw->spriteHeight) / 256;
+		color = sprite_mlx_pixel_get(m_struct->sprite_info, texX, tex_y);
+		if ((color & 0x00FFFFFF) != 0)
+		{
+			cerebus_mlx_pixel_put(m_struct, m_struct->params->screen_width - line_i, y, color);
+		}
+		y++;
+	}
 }
 
 
-void draw_sprite(t_spr_draw *sprDraw, t_data *m_struct, double const *z_buffer)
+void	draw_sprite(t_spr_draw *spr_draw, t_data *m_struct, double const *z_buffer)
 {
-    int line_i;
+	int		line_i;
+	int		tex_x;
 
-    line_i = sprDraw->drawStartX;
-    while(line_i < sprDraw->drawEndX)
-    {
-        int texX = (int) (256 * (line_i - (-sprDraw->spriteWidth / 2 + sprDraw->spriteScreenX)) * m_struct->sprite_info->w /
-                       sprDraw->spriteWidth) / 256;
-        if (sprDraw->transformY > 0 && (sprDraw->drawEndX - line_i) > 0 &&
-            (sprDraw->drawEndX - line_i) < m_struct->params->screen_width && sprDraw->transformY < z_buffer[line_i])
-                draw_sprite_line(sprDraw, m_struct, line_i, texX);
-        line_i++;
-    }
+	line_i = spr_draw->drawStartX;
+	while (line_i < spr_draw->drawEndX)
+	{
+		tex_x = (int)(256 * (line_i - (-spr_draw->spriteWidth / 2 + spr_draw->sprite_screen_x)) * m_struct->sprite_info->w / spr_draw->spriteWidth) / 256;
+		if (spr_draw->transform_y > 0 && (spr_draw->drawEndX - line_i) > 0 &&
+			(spr_draw->drawEndX - line_i) < m_struct->params->screen_width \
+			&& spr_draw->transform_y < z_buffer[line_i])
+			draw_sprite_line(spr_draw, m_struct, line_i, tex_x);
+		line_i++;
+	}
 }

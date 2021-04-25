@@ -5,10 +5,10 @@
 
 int set_player_direction(t_data *m_struct, double dirX, double dirY, double planeY, double PlaneX)
 {
-    m_struct->dirX = dirX;
-    m_struct->dirY = dirY;
-    m_struct->planeY = planeY;
-    m_struct->planeX = PlaneX;
+    m_struct->dir_x = dirX;
+    m_struct->dir_y = dirY;
+    m_struct->plane_y = planeY;
+    m_struct->plane_x = PlaneX;
     return (1);
 }
 

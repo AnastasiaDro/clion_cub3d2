@@ -16,8 +16,8 @@ void calc_ray_dir(t_ray *ray, t_data *m_struct, int x)
     //точка на векторе камеры, счиается за 100% ширина экрана
     ray->cameraX = 2 * x / (double) m_struct->params->screen_width - 1; //x-coordinate in camera space cameraX
     // is the x-coordinate on the camera plane that the current x-coordinate of the screen represents
-    ray->DirX = m_struct->dirX + m_struct->planeX * ray->cameraX; //
-    ray->DirY = m_struct->dirY + m_struct->planeY * ray->cameraX;
+    ray->DirX = m_struct->dir_x + m_struct->plane_x * ray->cameraX; //
+    ray->DirY = m_struct->dir_y + m_struct->plane_y * ray->cameraX;
 }
 
 void calc_step_side_dist(t_ray *ray, t_data *m_struct)
