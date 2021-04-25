@@ -10,6 +10,7 @@
 #include "map_checker.h"
 #include "constants.h"
 #include "parcer.h"
+#include "fill_map.h"
 
 int check_fe_line(char *s)
 {
@@ -81,112 +82,6 @@ int get_n_check_params(char *s, t_data *m_struct, t_parse_flags *parse_f)
 }
 
 
-int check_symbols(char *s, t_data *m_struct, int *flag_player)
-{
-	int player_i;
-
-	if ((player_i = is_symbol_valid(s, MAP_SYMBOL)) != -1)
-	{
-		if (ft_strchr(PLAYER_SYMBOLS, s[player_i]) == NULL)
-            throw_map_except(m_struct);
-		else
-		{
-			if (*flag_player == 1)
-                throw_map_except(m_struct);
-			else {
-				set_player_vision(s[player_i], m_struct);
-				*flag_player = 1;
-				return (player_i);
-			}
-		}
-	}
-	return (0);
-}
-
-int get_sprites_list(char *s, t_data *m_struct, int elems_num)
-{
-	int i;
-	double x;
-	double y;
-
-	i = 0;
-	while (s[i])
-	{
-		if (s[i] == '2')
-		{
-			x = i + 0.5;
-			y = elems_num - 1 + 0.5;
-            sprite_lstadd_front(m_struct->sprite_info->sprite_list, sprite_lstnew(x, y));
-			m_struct->sprite_info->num_sprites += 1;
-		}
-		i++;
-	}
-	return i;
-}
-
-
-int fill_map(t_list **last_elem, int elems_num, t_data *m_struct)
-{
-    char **map;
-    t_list *elem;
-    int is_player;
-    int flag_player = 0;
-    
-    map = ft_calloc(elems_num +1 , sizeof(char *)); //количество наших сьтрочек + 1 для зануления
-    elem = *last_elem;
-    char *st = (char *)elem->content;
-    while('\0' == *st)
-    {
-        elem = elem->next;
-        elems_num--;
-        st = (char *)elem->content;
-    }
-    int el_num = elems_num;
-    while (elems_num)
-    {
-        map[elems_num - 1] =  (char *)elem->content;
-        elem->content = NULL;
-		if((is_player = check_symbols(map[elems_num-1], m_struct, &flag_player)))
-		{
-			m_struct->map_player_x = (double)is_player + 0.5;
-			m_struct->map_player_y = (double)(elems_num - 1) + 0.5;
-			map[elems_num - 1][is_player] = '0';
-		}
-
-//посчитаем спрайты
-        get_sprites_list(map[elems_num - 1], m_struct, elems_num);
-        elem = elem->next;
-        elems_num--;
-    }
-    if (flag_player == 0)
-    {
-        throwException(NO_PLAYER);
-        free_all(m_struct);
-        exit(0);
-    }
-    //выведем карту
-    printf("elems_num = %d\n", elems_num);
-    while (map[elems_num])
-    {
-        //выводим строку???
-        ft_putendl_fd(map[elems_num], 1);
-        elems_num++;
-    }
-    m_struct->map = map;
-    return (el_num);
-}
-
-int is_empty(char **line)
-{
-    if ((*line)[0] == '\0')
-    {
-        free(*line);
-        *line = NULL;
-        return (1);
-    }
-    return (0);
-}
-
 void throw_map_except(t_data *m_struct)
 {
     throwException(INVALID_MAP);
@@ -199,9 +94,9 @@ void parse_map(t_data *m_struct)
     t_parse_flags parse_f;
     init_parse_flags(&parse_f);
 //школа
-   int fd = open("/Users/cerebus/projects/clion_cub3d2/real_map1.cub", O_RDONLY);
+  // int fd = open("/Users/cerebus/projects/clion_cub3d2/real_map1.cub", O_RDONLY);
   //ДОМ
- // int fd = open("/Users/anastasia/CLionProjects/clion_cub3d2/real_map.cub", O_RDONLY);
+  int fd = open("/Users/anastasia/CLionProjects/clion_cub3d2/real_map.cub", O_RDONLY);
     char *line;
     t_list *last_elem = NULL;
     int elems_num = 0;
