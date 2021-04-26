@@ -6,7 +6,7 @@
 /*   By: cerebus <cerebus@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/26 14:33:15 by cerebus           #+#    #+#             */
-/*   Updated: 2021/04/26 14:36:03 by cerebus          ###   ########.fr       */
+/*   Updated: 2021/04/26 22:50:49 by cerebus          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 int	check_borders(char **map, int l_i, int i, int coef)
 {
-	if (map[i][l_i + 1*coef] == ' ' || map[i-1][l_i] == ' ' \
+	if (map[i][l_i + 1 * coef] == ' ' || map[i - 1][l_i] == ' ' \
 			|| map[i + 2][l_i] == ' ')
 		return (MAP_ERROR);
 	else
@@ -24,16 +24,16 @@ int	check_borders(char **map, int l_i, int i, int coef)
 
 int	check_spc_borders(int start_i, int end_i, char **map, char *cur_s, int s_num)
 {
-	int start;
-	int end;
-	
+	int	start;
+	int	end;
+
 	start = start_i;
 	end = end_i;
 	while (start < end)
 	{
 		if (cur_s[start] == '0')
-			if (cur_s[start-1] == ' ' || cur_s[start+1] == ' ' \
-				|| map[s_num-1][start] == ' ' || map[s_num+1][start] == ' ')
+			if (cur_s[start - 1] == ' ' || cur_s[start + 1] == ' ' \
+				|| map[s_num - 1][start] == ' ' || map[s_num + 1][start] == ' ')
 				return (MAP_ERROR);
 		start++;
 	}
@@ -42,7 +42,8 @@ int	check_spc_borders(int start_i, int end_i, char **map, char *cur_s, int s_num
 
 int	small_first_str(char *next_s, int next_s_len, int cur_s_len)
 {
-	int diff;
+	int	diff;
+
 	diff = next_s_len - cur_s_len;
 	while (diff >= 0)
 	{
@@ -55,7 +56,7 @@ int	small_first_str(char *next_s, int next_s_len, int cur_s_len)
 
 int	big_first_str(char *cur_s, int next_s_len, int cur_s_len)
 {
-	int diff;
+	int	diff;
 
 	diff = cur_s_len - next_s_len;
 	while (diff >= 0)
