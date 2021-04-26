@@ -13,6 +13,8 @@
 #include "parser_utils.h"
 #include "constants.h"
 #include "player_params.h"
+#include "exceptions.h"
+
 
 int	check_symbols(char *s, t_data *m_struct, int *flag_player)
 {
@@ -26,7 +28,11 @@ int	check_symbols(char *s, t_data *m_struct, int *flag_player)
 		else
 		{
 			if (*flag_player == 1)
-				throw_map_except(m_struct);
+            {
+			    throw_exception(MORE_PLAYERS);
+                free_all(m_struct);
+                exit(0);
+            }
 			else
 			{
 				set_player_vision(s[player_i], m_struct);
