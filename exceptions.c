@@ -6,7 +6,7 @@
 /*   By: cerebus <cerebus@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/21 20:54:21 by cerebus           #+#    #+#             */
-/*   Updated: 2021/04/26 14:13:17 by cerebus          ###   ########.fr       */
+/*   Updated: 2021/04/26 17:03:21 by cerebus          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include <unistd.h>
 #include "exceptions.h"
 
-int		free_params(t_data *m_struct)
+int	free_params(t_data *m_struct)
 {
 	free(m_struct->params->north_texture_path);
 	free(m_struct->params->south_texture_path);
@@ -24,7 +24,7 @@ int		free_params(t_data *m_struct)
 	return (1);
 }
 
-int		free_sprite_info(t_data *m_struct)
+int	free_sprite_info(t_data *m_struct)
 {
 	sprite_lstclear(m_struct->sprite_info->sprite_lst);
 	free(m_struct->sprite_info->sprite_path);
@@ -32,7 +32,7 @@ int		free_sprite_info(t_data *m_struct)
 	return (1);
 }
 
-int		free_textu(t_data *m_struct)
+int	free_textu(t_data *m_struct)
 {
 	int	i;
 
@@ -46,7 +46,7 @@ int		free_textu(t_data *m_struct)
 	return (1);
 }
 
-int		free_all(t_data *m_struct)
+int	free_all(t_data *m_struct)
 {
 	char	**ptr;
 
@@ -63,6 +63,7 @@ int		free_all(t_data *m_struct)
 	free_params(m_struct);
 	free_textu(m_struct);
 	free_sprite_info(m_struct);
+	free(m_struct->z_buffer);
 	if (m_struct->img)
 	{
 		mlx_destroy_window(m_struct->mlx, m_struct->mlx_win);

@@ -6,7 +6,7 @@
 /*   By: cerebus <cerebus@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/25 22:58:22 by cerebus           #+#    #+#             */
-/*   Updated: 2021/04/25 23:02:56 by cerebus          ###   ########.fr       */
+/*   Updated: 2021/04/26 18:13:38 by cerebus          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	make_color_exception(char *s, t_data *m_struct)
 	exit(0);
 }
 
-int		go_to_the_next_color(int i, char *str)
+int	go_to_the_next_color(int i, char *str)
 {
 	while (str[i] && str[i] >= '0' && str[i] <= '9')
 		i++;
@@ -39,12 +39,12 @@ int		go_to_the_next_color(int i, char *str)
 	return (i);
 }
 
-int		check_color_part(char *str)
+int	check_color_part(char *str)
 {
-	int i;
-	int num_start;
-	int num_length;
-	int color;
+	int	i;
+	int	num_start;
+	int	num_length;
+	int	color;
 
 	i = 0;
 	num_start = i;
@@ -59,7 +59,7 @@ int		check_color_part(char *str)
 	return (color);
 }
 
-int		check_color_s_end(char *str, int i)
+int	check_color_s_end(char *str, int i)
 {
 	while (str[i] >= '0' && str[i] <= '9')
 		i++;
@@ -72,7 +72,7 @@ int		check_color_s_end(char *str, int i)
 	return (1);
 }
 
-int		get_color(char *s, t_data *m_struct, int *flag)
+int	get_color(char *s, t_data *m_struct, int *flag)
 {
 	int		i;
 	t_color	*m_color;
@@ -87,11 +87,9 @@ int		get_color(char *s, t_data *m_struct, int *flag)
 	if (m_color->r == -1)
 		make_color_exception(s, m_struct);
 	i = go_to_the_next_color(i, (s + 1));
-	if (i == -1 || (m_color->g = check_color_part(&(s + 1)[i])) == -1)
-		make_color_exception(s, m_struct);
+	parse_line_sect(i, s, m_struct, &m_color->g);
 	i = go_to_the_next_color(i, (s + 1));
-	if (i == -1 || (m_color->b = check_color_part(&(s + 1)[i])) == -1)
-		make_color_exception(s, m_struct);
+	parse_line_sect(i, s, m_struct, &m_color->b);
 	if (check_color_s_end((s + 1), i) == -1)
 		make_color_exception(s, m_struct);
 	color = m_color->r * (int)(pow(16, 4)) + \

@@ -71,5 +71,6 @@ int parse_resolution(char *s, t_data *m_struct, int *flag)
         throw_resol_except(&s, m_struct);
     free(s);
     s = NULL;
+    init_z_buffer(m_struct);
     return (1);
 }

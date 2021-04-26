@@ -6,7 +6,7 @@
 /*   By: cerebus <cerebus@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/25 23:41:25 by cerebus           #+#    #+#             */
-/*   Updated: 2021/04/25 23:51:09 by cerebus          ###   ########.fr       */
+/*   Updated: 2021/04/26 17:10:49 by cerebus          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void	go_to_the_wall(t_ray *ray, t_data *m_struct)
 
 void	calc_camera_dist(t_ray *ray, t_data *m_struct)
 {
-	double first_part;
+	double	first_part;
 
 	if (m_struct->side == 0)
 		ray->perpWallDist = (ray->mapX - m_struct->map_player_x \
@@ -61,7 +61,7 @@ void	calc_x_textu_coord(t_data *m_struct, \
 		txdraw->texX = txdraw->textu->width - txdraw->texX - 1;
 }
 
-void	cast_walls(t_data *m_struct, t_ray *ray, t_wall *wall, double *z_buffer)
+void	cast_walls(t_data *m_struct, t_ray *ray, t_wall *wall)
 {
 	int			x;
 	int			gg;
@@ -84,11 +84,11 @@ void	cast_walls(t_data *m_struct, t_ray *ray, t_wall *wall, double *z_buffer)
 		draw_wall_line(wall, m_struct, &txdraw, gg);
 		x++;
 		gg--;
-		z_buffer[x - 1] = ray->perpWallDist;
+		m_struct->z_buffer[x - 1] = ray->perpWallDist;
 	}
 }
 
-void	cast_sprites(t_data *m_struct, double const *z_buffer)
+void	cast_sprites(t_data *m_struct)
 {
 	double		h;
 	double		w;
@@ -105,7 +105,7 @@ void	cast_sprites(t_data *m_struct, double const *z_buffer)
 	{
 		set_sprite_pos(&spr_draw, sprite_lst, m_struct);
 		set_s_draw_limits(&spr_draw, m_struct, coef);
-		draw_sprite(&spr_draw, m_struct, z_buffer);
+		draw_sprite(&spr_draw, m_struct);
 		sprite_lst = sprite_lst->next;
 	}
 }

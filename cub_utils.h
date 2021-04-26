@@ -6,19 +6,19 @@
 /*   By: cerebus <cerebus@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/25 23:28:01 by cerebus           #+#    #+#             */
-/*   Updated: 2021/04/25 23:40:59 by cerebus          ###   ########.fr       */
+/*   Updated: 2021/04/26 17:58:29 by cerebus          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef NEW_CUB_UTILS_H
-# define NEW_CUB_UTILS_H
+#ifndef CUB_UTILS_H
+# define CUB_UTILS_H
 # include "math.h"
 # include "texture_parse.h"
 # include "libft/libft.h"
 # include "sprites_utils.h"
 # include "params.h"
 
-typedef	struct	s_data {
+typedef struct s_data {
 	void		*img;
 	char		*addr;
 	void		*mlx_win;
@@ -36,8 +36,9 @@ typedef	struct	s_data {
 	double		plane_x;
 	double		plane_y;
 	t_textu		*textu;
-	t_spr_info *sprite_info;
+	t_spr_info	*sprite_info;
 	t_list		*lst;
+	double		*z_buffer;
 }				t_data;
 
 t_textu			set_texture(t_data *m_struct, \

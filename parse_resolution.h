@@ -17,4 +17,6 @@ void throw_resol_except(char **s, t_data *m_struct);
 
 int set_max_resolution(t_data *m_struct, char *s, int max_w, int max_h);
 
+void init_z_buffer(t_data *m_struct);
+
 #endif //CLION_CUB3D2_PARSE_RESOLUTION_H

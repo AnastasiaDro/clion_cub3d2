@@ -6,7 +6,7 @@
 /*   By: cerebus <cerebus@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/26 13:45:43 by cerebus           #+#    #+#             */
-/*   Updated: 2021/04/26 13:54:49 by cerebus          ###   ########.fr       */
+/*   Updated: 2021/04/26 17:08:41 by cerebus          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 # include "sprites_utils.h"
 # include "cub_utils.h"
 
-typedef struct  s_spr_draw
+typedef struct s_spr_draw
 {
 	double	s_x;
 	double	s_y;
@@ -41,7 +41,6 @@ void			draw_s_line(t_spr_draw *spr_draw, \
 void			set_s_draw_limits(t_spr_draw *spr_draw, \
 						t_data *m_struct, double coef);
 
-void			draw_sprite(t_spr_draw *spr_draw, \
-					t_data *m_struct, double *z_buffer);
+void			draw_sprite(t_spr_draw *spr_draw, t_data *m_struct);
 
 #endif

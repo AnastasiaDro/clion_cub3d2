@@ -34,6 +34,7 @@ void	set_data(t_data *m_struct, t_params *params, \
 	m_struct->params = params;
 	m_struct->textu = textu;
 	m_struct->sprite_info = spr_info;
+	m_struct->z_buffer = NULL;
 }
 
 int		init_sprite_info(t_spr_info *sprite_info)
@@ -55,11 +56,12 @@ void	init_all(t_data *m_struct)
 	params = malloc(sizeof(t_params));
 	if (!textu || !sprite_info || !params)
 	{
-		free(textu);
-		free(sprite_info);
-		free(params);
+		//free(textu);
+		//free(sprite_info);
+		//free(params);
 		throw_exception(MALLOC_ERROR);
-		exit(0);
+        free_all(m_struct);
+		//exit(0);
 	}
 	textu_start_init(textu);
 	init_sprite_info(sprite_info);

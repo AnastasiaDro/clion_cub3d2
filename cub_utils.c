@@ -6,7 +6,7 @@
 /*   By: cerebus <cerebus@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/25 23:22:41 by cerebus           #+#    #+#             */
-/*   Updated: 2021/04/25 23:27:41 by cerebus          ###   ########.fr       */
+/*   Updated: 2021/04/26 17:36:07 by cerebus          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 #include "dda_utils.h"
 #include "wall_utils.h"
 
-t_textu		set_texture(t_data *m_struct, double ray_dir_x, double ray_dir_y)
+t_textu	set_texture(t_data *m_struct, double ray_dir_x, double ray_dir_y)
 {
 	if (m_struct->side == 1)
 	{
@@ -35,14 +35,13 @@ t_textu		set_texture(t_data *m_struct, double ray_dir_x, double ray_dir_y)
 	return (m_struct->textu[0]);
 }
 
-int			draw_lab_dda(t_data *m_struct)
+int	draw_lab_dda(t_data *m_struct)
 {
 	t_ray	ray;
 	t_wall	wall;
-	double	z_buffer[m_struct->params->screen_width];
 
-	cast_walls(m_struct, &ray, &wall, z_buffer);
-	cast_sprites(m_struct, z_buffer);
+	cast_walls(m_struct, &ray, &wall);
+	cast_sprites(m_struct);
 	mlx_put_image_to_window(m_struct->mlx, \
 		m_struct->mlx_win, m_struct->img, 0, 0);
 	return (1);
