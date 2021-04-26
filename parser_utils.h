@@ -41,7 +41,7 @@ int		find_string_start(char *s);
 
 int		is_symbol_valid(char *s, char *arr);
 
-int		get_texture_path(char *s, char **dst, int *flag);
+int		get_tex_path(char *s, char **dst, int *flag);
 
 int		check_symbols(char *s, t_data *m_struct, int *flag_player);
 

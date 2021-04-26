@@ -16,10 +16,10 @@
 
 int	free_params(t_data *m_struct)
 {
-	free(m_struct->params->north_texture_path);
-	free(m_struct->params->south_texture_path);
-	free(m_struct->params->west_texture_path);
-	free(m_struct->params->east_texture_path);
+	free(m_struct->params->north_tex_path);
+	free(m_struct->params->south_tex_path);
+	free(m_struct->params->west_tex_path);
+	free(m_struct->params->east_tex_path);
 	free(m_struct->params);
 	return (1);
 }

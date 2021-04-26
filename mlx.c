@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "parcer.h"
+#include "parser.h"
 #include "minilibx_opengl_20191021/mlx.h"
 #include "stdlib.h"
 #include "cub_utils.h"
@@ -62,7 +62,7 @@ int	main()
 	if (init_textu_arr(m_struct.textu, 128, 128) == -1)
 		free_all(&m_struct);
 	if (set_sprite_info(m_struct.sprite_info, 64, 64, \
-						m_struct.params->sprite_texture_path) == -1)
+						m_struct.params->sprite_tex_path) == -1)
 		free_all(&m_struct);
 	m_struct.img = mlx_new_image(m_struct.mlx, m_struct.params->screen_w, \
 								m_struct.params->screen_h);

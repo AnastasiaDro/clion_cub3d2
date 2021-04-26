@@ -15,10 +15,10 @@
 
 void	get_textures_paths(t_textu *textu, t_data *m_struct)
 {
-	textu[0].adress = m_struct->params->north_texture_path;
-	textu[1].adress = m_struct->params->south_texture_path;
-	textu[2].adress = m_struct->params->west_texture_path;
-	textu[3].adress = m_struct->params->east_texture_path;
+	textu[0].adress = m_struct->params->north_tex_path;
+	textu[1].adress = m_struct->params->south_tex_path;
+	textu[2].adress = m_struct->params->west_tex_path;
+	textu[3].adress = m_struct->params->east_tex_path;
 }
 
 void	init_t_data(t_data *m_struct)

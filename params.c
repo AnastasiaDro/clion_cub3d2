@@ -15,10 +15,10 @@
 
 int	init_params(t_params *params)
 {
-	params->north_texture_path = NULL;
-	params->south_texture_path = NULL;
-	params->west_texture_path = NULL;
-	params->east_texture_path = NULL;
-	params->sprite_texture_path = NULL;
+	params->north_tex_path = NULL;
+	params->south_tex_path = NULL;
+	params->west_tex_path = NULL;
+	params->east_tex_path = NULL;
+	params->sprite_tex_path = NULL;
 	return (1);
 }

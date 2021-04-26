@@ -49,7 +49,7 @@ int	find_string_start(char *s)
 	return (i);
 }
 
-int	get_texture_path(char *s, char **dst, int *flag)
+int	get_tex_path(char *s, char **dst, int *flag)
 {
 	int	start_i;
 

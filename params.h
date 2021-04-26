@@ -17,11 +17,11 @@ typedef struct s_params
 {
 	int		screen_h;
 	int		screen_w;
-	char	*north_texture_path;
-	char	*south_texture_path;
-	char	*west_texture_path;
-	char	*east_texture_path;
-	char	*sprite_texture_path;
+	char	*north_tex_path;
+	char	*south_tex_path;
+	char	*west_tex_path;
+	char	*east_tex_path;
+	char	*sprite_tex_path;
 	int		floor_color;
 	int		ceil_color;
 }				t_params;
