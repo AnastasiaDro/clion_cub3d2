@@ -14,10 +14,10 @@
 # define KEY_HOOKING_H
 # include "cub_utils.h"
 
-int	rotate(t_data *m_struct, double rotSpeed, int keycode);
+int	rotate(t_data *m_struct, double rot_speed, int keycode);
 
-int	step_forw_back(t_data *m_struct, double moveSpeed, int keycode);
+int	step_forw_back(t_data *m_struct, double move_speed, int keycode);
 
-int	step_left_rigth(t_data *m_struct, double moveSpeed, int keycode);
+int	step_left_rigth(t_data *m_struct, double move_speed, int keycode);
 
 #endif
