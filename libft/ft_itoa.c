@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_itoa.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cerebus <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: cerebus <cerebus@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/16 15:55:57 by cerebus           #+#    #+#             */
-/*   Updated: 2020/11/16 15:56:01 by cerebus          ###   ########.fr       */
+/*   Updated: 2021/04/27 02:23:26 by cerebus          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static char	*ft_strlcpy(char *dst, const char *src, size_t dstsize)
 {
-	size_t i;
+	size_t	i;
 
 	i = 0;
 	if (!dst || !src)
@@ -32,7 +32,7 @@ static char	*ft_strlcpy(char *dst, const char *src, size_t dstsize)
 
 static char	*ft_make_intmin(void)
 {
-	char *s;
+	char	*s;
 
 	s = malloc(12 * sizeof(char));
 	if (!s)
@@ -58,8 +58,8 @@ static char	*ft_fill_s(char *s, int n, int i)
 
 static int	ft_get_capacity(int n)
 {
-	int nm;
-	int num_cap;
+	int	nm;
+	int	num_cap;
 
 	nm = n;
 	num_cap = 0;
@@ -71,19 +71,21 @@ static int	ft_get_capacity(int n)
 	return (num_cap);
 }
 
-char		*ft_itoa(int n)
+char	*ft_itoa(int n)
 {
 	char	*s;
 	int		num_cap;
 	int		start;
 	int		size;
 
-	num_cap = 0;
 	start = 0;
 	if (n == -2147483648)
 		return (ft_make_intmin());
 	num_cap = ft_get_capacity(n);
-	size = (n < 1) ? num_cap + 2 : num_cap + 1;
+	if (n < 1)
+		size = num_cap + 2;
+	else
+		size = num_cap + 1;
 	s = malloc(size * sizeof(char));
 	if (!s)
 		return (NULL);

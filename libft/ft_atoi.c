@@ -3,15 +3,23 @@
 /*                                                        :::      ::::::::   */
 /*   ft_atoi.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cerebus <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: cerebus <cerebus@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/29 15:52:07 by cerebus           #+#    #+#             */
-/*   Updated: 2020/10/29 15:52:10 by cerebus          ###   ########.fr       */
+/*   Updated: 2021/04/27 02:28:21 by cerebus          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#define NOT_END str[i] != '\0'
-#define NOT_SPACE ((str[i] >= '\t' && str[i] <= '\r') || str[i] == ' ')
+static int	calc_coef(char c)
+{
+	int	coef;
+
+	if (c == '-')
+		coef = -1;
+	else
+		coef = 1;
+	return (coef);
+}
 
 int	ft_atoi(char *str)
 {
@@ -22,14 +30,14 @@ int	ft_atoi(char *str)
 	i = 0;
 	coef = 1;
 	result = 0;
-	while (NOT_END && NOT_SPACE)
+	while (str[i] != '\0' && (str[i] >= '\t' && str[i] <= '\r') || str[i] == ' ')
 		i++;
 	if (str[i] == '-' || str[i] == '+')
 	{
-		coef = (str[i] == '-') ? -1 : 1;
+		coef = calc_coef(str[i]);
 		i++;
 	}
-	while (NOT_END && str[i] >= '0' && str[i] <= '9')
+	while (str[i] != '\0' && str[i] >= '0' && str[i] <= '9')
 	{
 		result *= 10;
 		result += (str[i] - '0') * coef;
