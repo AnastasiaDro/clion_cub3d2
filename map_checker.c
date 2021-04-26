@@ -6,7 +6,7 @@
 /*   By: cerebus <cerebus@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/26 14:33:15 by cerebus           #+#    #+#             */
-/*   Updated: 2021/04/26 22:50:49 by cerebus          ###   ########.fr       */
+/*   Updated: 2021/04/26 22:57:29 by cerebus          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,13 +22,13 @@ int	check_borders(char **map, int l_i, int i, int coef)
 		return (1);
 }
 
-int	check_spc_borders(int start_i, int end_i, char **map, char *cur_s, int s_num)
+int	check_spc_borders(int start_i, char **map, char *cur_s, int s_num)
 {
 	int	start;
 	int	end;
 
 	start = start_i;
-	end = end_i;
+	end = (int)ft_strlen(cur_s);
 	while (start < end)
 	{
 		if (cur_s[start] == '0')
@@ -85,12 +85,12 @@ int	check_map(char **map, int elems_num)
 			|| check_line_middle(cur_s, &l_i, i, map) == MAP_ERROR)
 			return (MAP_ERROR);
 		if (check_lines_ends(map, i, cur_s) == MAP_ERROR || \
-				check_spc_borders(l_i, cur_s_len, map, cur_s, i) == MAP_ERROR)
+				check_spc_borders(l_i, map, cur_s, i) == MAP_ERROR)
 			return (MAP_ERROR);
 		i++;
 	}
 	cur_s = map[i];
-	if (check_spc_borders(0, ft_strlen(cur_s), map, cur_s, i) == MAP_ERROR)
+	if (check_spc_borders(0, map, cur_s, i) == MAP_ERROR)
 		return (MAP_ERROR);
 	return (1);
 }
