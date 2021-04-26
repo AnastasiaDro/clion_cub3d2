@@ -6,7 +6,7 @@
 /*   By: cerebus <cerebus@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/25 22:53:57 by cerebus           #+#    #+#             */
-/*   Updated: 2021/04/25 22:56:17 by cerebus          ###   ########.fr       */
+/*   Updated: 2021/04/26 18:16:11 by cerebus          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 
 int	check_symbols(char *s, t_data *m_struct, int *flag_player)
 {
-	int player_i;
+	int	player_i;
 
 	player_i = is_symbol_valid(s, MAP_SYMBOL);
 	if (player_i != -1)
