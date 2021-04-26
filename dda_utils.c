@@ -104,7 +104,7 @@ void	cast_sprites(t_data *m_struct, double const *z_buffer)
 	while (sprite_lst != NULL)
 	{
 		set_sprite_pos(&spr_draw, sprite_lst, m_struct);
-		set_sprite_draw_limits(&spr_draw, m_struct, coef);
+		set_s_draw_limits(&spr_draw, m_struct, coef);
 		draw_sprite(&spr_draw, m_struct, z_buffer);
 		sprite_lst = sprite_lst->next;
 	}

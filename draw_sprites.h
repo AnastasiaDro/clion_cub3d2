@@ -9,10 +9,10 @@
 
 typedef struct s_spr_draw
 {
-	double sprite_x;
-	double sprite_y;
-	double transform_x;
-	double transform_y;
+	double s_x;
+	double s_y;
+	double transf_x;
+	double transf_y;
     int screen_x;
 
     double h;
@@ -27,11 +27,11 @@ typedef struct s_spr_draw
 
 void set_sprite_data(t_data *m_struct);
 
-void set_sprite_pos(t_spr_draw *spr_raw, t_sprite *sprite_lst, t_data *m_struct);
+void set_sprite_pos(t_spr_draw *spr_draw, t_sprite *spr_lst, t_data *m_struct);
 
-void draw_sprite_line(t_spr_draw *spr_draw, t_data *m_struct, int line_i, int tex_x);
+void draw_s_line(t_spr_draw *spr_draw, t_data *m_struct, int l_i, int tex_x);
 
-void set_sprite_draw_limits(t_spr_draw *spr_draw, t_data *m_struct, double coef);
+void set_s_draw_limits(t_spr_draw *spr_draw, t_data *m_struct, double coef);
 
 void draw_sprite(t_spr_draw *spr_draw, t_data *m_struct, double *z_buffer);
 
