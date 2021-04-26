@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_lstnew.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cerebus <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: cerebus <cerebus@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/19 17:16:10 by cerebus           #+#    #+#             */
-/*   Updated: 2020/11/19 17:16:19 by cerebus          ###   ########.fr       */
+/*   Updated: 2021/04/27 02:10:23 by cerebus          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 t_list	*ft_lstnew(void *content)
 {
-	t_list *new_struct;
+	t_list	*new_struct;
 
 	new_struct = malloc(sizeof(t_list));
 	if (!new_struct)

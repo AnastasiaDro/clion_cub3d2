@@ -6,7 +6,7 @@
 /*   By: cerebus <cerebus@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/15 19:34:13 by cerebus           #+#    #+#             */
-/*   Updated: 2020/11/26 12:25:20 by cerebus          ###   ########.fr       */
+/*   Updated: 2021/04/27 02:10:03 by cerebus          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ static char	**ft_fill_res(char **res, char const *s, char c, int words_num)
 	return (res);
 }
 
-char		**ft_split(char const *s, char c)
+char	**ft_split(char const *s, char c)
 {
 	int		words_num;
 	char	**res;

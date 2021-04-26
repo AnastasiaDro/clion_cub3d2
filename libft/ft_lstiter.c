@@ -6,7 +6,7 @@
 /*   By: cerebus <cerebus@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/22 15:12:41 by cerebus           #+#    #+#             */
-/*   Updated: 2020/11/22 15:40:41 by cerebus          ###   ########.fr       */
+/*   Updated: 2021/04/27 02:14:59 by cerebus          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 void	ft_lstiter(t_list *lst, void (*f)(void *))
 {
-	t_list *p;
-	t_list *p_next;
+	t_list	*p;
+	t_list	*p_next;
 
 	p = lst;
 	if (!lst || !f)

@@ -6,12 +6,23 @@
 /*   By: cerebus <cerebus@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/15 14:50:09 by cerebus           #+#    #+#             */
-/*   Updated: 2020/11/23 17:19:58 by cerebus          ###   ########.fr       */
+/*   Updated: 2021/04/27 02:08:38 by cerebus          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include <stdlib.h>
+
+static int	calc_sublen(int len, char *s)
+{
+	int	sublen;
+
+	if (len > ft_strlen(s))
+		sublen = ft_strlen(s);
+	else
+		sublen = len;
+	return (sublen);
+}
 
 char	*ft_substr(char const *s, unsigned int start, size_t len)
 {
@@ -27,7 +38,7 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 		substr = malloc(1 * sizeof(char));
 	else
 	{
-		sublen = (len > ft_strlen(&s[start])) ? ft_strlen(&s[start]) : len;
+		sublen = calc_sublen(len, &s[start]);
 		substr = malloc((sublen + 1) * sizeof(char));
 	}
 	if (!substr)

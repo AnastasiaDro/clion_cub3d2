@@ -6,7 +6,7 @@
 /*   By: cerebus <cerebus@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/15 17:09:39 by cerebus           #+#    #+#             */
-/*   Updated: 2020/11/24 16:36:10 by cerebus          ###   ########.fr       */
+/*   Updated: 2021/04/27 02:08:53 by cerebus          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static	int	ft_compare(char check_ch, char const *set)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (set[i])
@@ -26,7 +26,7 @@ static	int	ft_compare(char check_ch, char const *set)
 	return (0);
 }
 
-char		*ft_strtrim(char const *s1, char const *set)
+char	*ft_strtrim(char const *s1, char const *set)
 {
 	size_t	start;
 	size_t	end;

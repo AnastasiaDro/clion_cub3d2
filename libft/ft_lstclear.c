@@ -6,7 +6,7 @@
 /*   By: cerebus <cerebus@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/22 14:18:12 by cerebus           #+#    #+#             */
-/*   Updated: 2020/11/22 16:19:24 by cerebus          ###   ########.fr       */
+/*   Updated: 2021/04/27 02:15:11 by cerebus          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 void	ft_lstclear(t_list **lst, void (*del)(void *))
 {
-	t_list *p;
-	t_list *p_next;
+	t_list	*p;
+	t_list	*p_next;
 
 	p_next = (*lst)->next;
 	p = *lst;

@@ -6,7 +6,7 @@
 /*   By: cerebus <cerebus@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/06 21:58:53 by marvin            #+#    #+#             */
-/*   Updated: 2020/11/22 16:42:43 by cerebus          ###   ########.fr       */
+/*   Updated: 2021/04/27 02:03:29 by cerebus          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,11 @@
 # define LIBFT_H
 # include <string.h>
 
-typedef struct		s_list
+typedef struct s_list
 {
 	void			*content;
 	struct s_list	*next;
-}					t_list;
+}				t_list;
 
 int					ft_atoi(char *str);
 
@@ -46,8 +46,8 @@ char				*ft_strchr(const char *s, int c);
 
 char				*ft_strrchr(const char *s, int c);
 
-char				*ft_strnstr(const char *haystack,
-								const char *needle, size_t len);
+char				*ft_strnstr(const char *haystack, \
+						const char *needle, size_t len);
 
 int					ft_strncmp(const char *s1, const char *s2, size_t n);
 
@@ -105,7 +105,7 @@ void				ft_lstclear(t_list **lst, void (*del)(void*));
 
 void				ft_lstiter(t_list *lst, void (*f)(void *));
 
-t_list				*ft_lstmap(t_list *lst, void *(*f)(void *),
+t_list				*ft_lstmap(t_list *lst, void *(*f)(void *), \
 								void (*del)(void *));
 
 #endif
