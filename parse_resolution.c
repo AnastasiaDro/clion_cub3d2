@@ -25,7 +25,7 @@ int set_max_resolution(t_data *m_struct, char *s, int max_w, int max_h)
 
 void throw_resol_except(char **s, t_data *m_struct)
 {
-    throwException(INVALID_RESOLUTION);
+	throw_exception(INVALID_RESOLUTION);
     free(*s);
     *s = NULL;
     free_all(m_struct);

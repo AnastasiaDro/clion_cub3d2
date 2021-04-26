@@ -14,7 +14,7 @@
 
 void	make_color_exception(char *s, t_data *m_struct)
 {
-	throwException(INVALID_FLOOR_COLOR);
+	throw_exception(INVALID_FLOOR_COLOR);
 	free(s);
 	s = NULL;
 	free_all(m_struct);

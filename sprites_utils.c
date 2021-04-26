@@ -13,7 +13,7 @@ int set_sprite_info(t_spr_info *spr_info, int sprite_h, int sprite_w, char *path
 	(*spr_info).mlx = mlx_init();
 	if(!((*spr_info).img = mlx_xpm_file_to_image((*spr_info).mlx, (*spr_info).sprite_path, &sprite_w, &sprite_h)))
 	{
-		throwException(SPRITE_PATH_ERROR);
+		throw_exception(SPRITE_PATH_ERROR);
 		return -1;
 	}
 	(*spr_info).addr = mlx_get_data_addr((*spr_info).img, &(spr_info->bits_per_pixel), &(spr_info->line_length),

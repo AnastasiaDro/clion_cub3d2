@@ -41,7 +41,7 @@ int init_textu_arr(t_textu *textu, int height, int width)
 		textu[i].mlx = mlx_init();
 		if((textu[i].img = mlx_xpm_file_to_image((textu[i]).mlx, (textu[i]).adress, &width, &height)) == NULL)
 		{
-			throwException(textu->exceptions_arr[i]);
+			throw_exception(textu->exceptions_arr[i]);
 			return (-1);
 		}
 		textu[i].addr = mlx_get_data_addr(textu[i].img, &(textu[i].bits_per_pixel), &(textu[i].line_length),

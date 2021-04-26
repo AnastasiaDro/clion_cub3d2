@@ -83,7 +83,7 @@ int get_n_check_params(char *s, t_data *m_struct, t_parse_flags *parse_f)
 
 void throw_map_except(t_data *m_struct)
 {
-    throwException(INVALID_MAP);
+	throw_exception(INVALID_MAP);
     free_all(m_struct);
     exit(0);
 }

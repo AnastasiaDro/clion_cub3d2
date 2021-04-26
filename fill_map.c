@@ -10,7 +10,7 @@ void check_was_player(int flag_player, t_data *m_struct)
 {
 	if (flag_player == 0)
 	{
-		throwException(NO_PLAYER);
+		throw_exception(NO_PLAYER);
 		free_all(m_struct);
 		exit(0);
 	}

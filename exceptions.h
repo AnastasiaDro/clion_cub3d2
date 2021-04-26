@@ -1,10 +1,17 @@
-//
-// Created by Cesar Erebus on 4/4/21.
-//
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   exceptions.h                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: cerebus <cerebus@student.21-school.ru>     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/04/26 14:14:07 by cerebus           #+#    #+#             */
+/*   Updated: 2021/04/26 14:14:27 by cerebus          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #ifndef EXCEPTIONS_H
 # define EXCEPTIONS_H
-
 # include "cub_utils.h"
 
 # define NORTH_TEX_PATH_ERROR "Invalid North texture path"
@@ -19,7 +26,8 @@
 # define INVALID_FLOOR_COLOR "Invalid floor color"
 # define MALLOC_ERROR "Malloc Error"
 
-void	throwException(char *msg);
+void	throw_exception(char *msg);
+
 int		free_all(t_data *m_struct);
 
 #endif

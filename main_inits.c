@@ -61,7 +61,7 @@ void	init_all(t_data *m_struct)
 		free(textu);
 		free(sprite_info);
 		free(params);
-		throwException(MALLOC_ERROR);
+		throw_exception(MALLOC_ERROR);
 		exit (0);
 	}
     textu_start_init(textu);
