@@ -6,7 +6,7 @@
 /*   By: cerebus <cerebus@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/25 23:53:11 by cerebus           #+#    #+#             */
-/*   Updated: 2021/04/26 13:12:39 by cerebus          ###   ########.fr       */
+/*   Updated: 2021/04/26 13:16:41 by cerebus          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,12 +94,14 @@ void	draw_sprite(t_spr_draw *spr_draw, t_data *m_struct, double *z_buffer)
 	int		line_i;
 	int		tex_x;
 	double	multi;
+	int		sprite_w;
 
 	line_i = spr_draw->start_x;
+	sprite_w = m_struct->sprite_info->w;
 	while (line_i < spr_draw->end_x)
 	{
 		multi = (line_i - (-spr_draw->w / 2 + spr_draw->screen_x));
-		tex_x = (int)(256 * multi * m_struct->sprite_info->w / spr_draw->w) / 256;
+		tex_x = (int)(256 * multi * sprite_w / spr_draw->w) / 256;
 		if (spr_draw->transform_y > 0 && (spr_draw->end_x - line_i) > 0 &&
 			(spr_draw->end_x - line_i) < m_struct->params->screen_width \
 				&& spr_draw->transform_y < z_buffer[line_i])

@@ -24,8 +24,7 @@ typedef struct s_spr_info
 	t_sprite 	**sprite_lst;
 	int			h;
 	int			w;
-	int			code; //код, для идентификации, если будет неколько спрайтов
-	//mlx
+	int			code;
 	void 		*mlx;
 	char 		*sprite_path;
 	void 		*img;
