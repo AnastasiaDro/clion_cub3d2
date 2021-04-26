@@ -6,21 +6,22 @@
 /*   By: cerebus <cerebus@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/21 20:05:36 by cerebus           #+#    #+#             */
-/*   Updated: 2021/04/21 20:10:19 by cerebus          ###   ########.fr       */
+/*   Updated: 2021/04/26 13:53:12 by cerebus          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub_utils.h"
 #include "sprites_utils.h"
 
-void     cerebus_mlx_pixel_put(t_data *data, int x, int y, int color)
+void	cerebus_mlx_pixel_put(t_data *data, int x, int y, int color)
 {
-    char    *dst;
-    dst = data->addr + (y * data->line_length + x * (data->bits_per_pixel / 8));
-    *(unsigned int*)dst = color;
+	char	*dst;
+
+	dst = data->addr + (y * data->line_length + x * (data->bits_per_pixel / 8));
+	*(unsigned int*)dst = color;
 }
 
-int	draw_background(int y, int limit, int color, t_data *m_struct)
+int		draw_background(int y, int limit, int color, t_data *m_struct)
 {
 	int	x;
 
@@ -37,7 +38,7 @@ int	draw_background(int y, int limit, int color, t_data *m_struct)
 	return (y);
 }
 
-int	draw_floor_ceil(t_data *m_struct, int screen_higth)
+int		draw_floor_ceil(t_data *m_struct, int screen_higth)
 {
 	int	half;
 	int	y;
@@ -52,20 +53,24 @@ int	draw_floor_ceil(t_data *m_struct, int screen_higth)
 	return (0);
 }
 
-int sprite_mlx_pixel_get(t_spr_info *spr_info, int x, int y)
+int		sprite_mlx_pixel_get(t_spr_info *spr_info, int x, int y)
 {
-	int color;
-	char *dst;
-	dst = spr_info->addr + (y * spr_info->line_length + x * (spr_info->bits_per_pixel / 8));
+	int		color;
+	char	*dst;
+
+	dst = spr_info->addr + (y * spr_info->line_length + \
+			x * (spr_info->bits_per_pixel / 8));
 	color = *(int*)dst;
 	return (color);
 }
 
-int textu_mlx_pixel_get(t_textu *textu, int x, int y)
+int		textu_mlx_pixel_get(t_textu *textu, int x, int y)
 {
-	int color;
-	char *dst;
-	dst = textu->addr + (y * textu->line_length + x * (textu->bits_per_pixel / 8));
+	int		color;
+	char	*dst;
+
+	dst = textu->addr + (y * textu->line_length + \
+			x * (textu->bits_per_pixel / 8));
 	color = *(int*)dst;
-	return color;
+	return (color);
 }

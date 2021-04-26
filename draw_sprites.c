@@ -6,7 +6,7 @@
 /*   By: cerebus <cerebus@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/25 23:53:11 by cerebus           #+#    #+#             */
-/*   Updated: 2021/04/26 13:45:09 by cerebus          ###   ########.fr       */
+/*   Updated: 2021/04/26 14:10:02 by cerebus          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,8 @@ void	set_sprite_pos(t_spr_draw *spr_drw, t_sprite *spr_lst, t_data *m_struct)
 {
 	double	inv_det;
 	int		screen_w;
-	int		pl_x;
-	int		pl_y;
+	double	pl_x;
+	double	pl_y;
 
 	screen_w = m_struct->params->screen_width;
 	pl_x = m_struct->plane_x;
@@ -48,8 +48,7 @@ void	set_sprite_pos(t_spr_draw *spr_drw, t_sprite *spr_lst, t_data *m_struct)
 	spr_drw->transf_x = inv_det * (m_struct->dir_y * spr_drw->s_x \
 		- m_struct->dir_x * spr_drw->s_y);
 	spr_drw->transf_y = inv_det * (-pl_y * spr_drw->s_x + pl_x * spr_drw->s_y);
-	spr_drw->screen_x = (int)((screen_w * 0.5) * \
-		(1 + spr_drw->transf_x / spr_drw->transf_y));
+	spr_drw->screen_x = (int)((screen_w * 0.5) * (1 + spr_drw->transf_x / spr_drw->transf_y));
 }
 
 void	set_s_draw_limits(t_spr_draw *spr_draw, t_data *m_struct, double coef)

@@ -19,7 +19,7 @@ typedef struct s_textu
 	int         endian;
 	int         height;
 	int         width;
-	char **exceptions_arr;
+	char		**exceptions_arr;
 }				t_textu;
 
 typedef struct s_txdraw
