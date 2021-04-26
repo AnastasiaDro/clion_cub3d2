@@ -19,8 +19,8 @@ void	calc_line_height(t_wall *wall, t_ray *ray, t_data *m_struct)
 	double	h;
 	double	w;
 
-	h = m_struct->params->screen_higth;
-	w = m_struct->params->screen_width;
+	h = m_struct->params->screen_h;
+	w = m_struct->params->screen_w;
 	coef = w / h * 0.77;
 	wall->line_height = (int)(h / ray->perpWallDist * coef);
 }
@@ -29,7 +29,7 @@ void	calc_sart_pixels(t_wall *wall, t_data *m_struct)
 {
 	int	screen_h;
 
-	screen_h = m_struct->params->screen_higth;
+	screen_h = m_struct->params->screen_h;
 	wall->drawStart = -(wall->line_height) / 2 + screen_h / 2;
 	if (wall->drawStart < 0)
 		wall->drawStart = 0;
@@ -55,7 +55,7 @@ void	draw_wall_line(t_wall *wall, t_data *m_struct, t_txdraw *tdraw, int g)
 	int		y;
 	int		color;
 
-	h = m_struct->params->screen_higth;
+	h = m_struct->params->screen_h;
 	step = 1.0 * tdraw->textu->height / wall->line_height;
 	y = wall->drawStart;
 	texPos = (wall->drawStart - h / 2 + (double)wall->line_height / 2) * step;

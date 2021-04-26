@@ -15,8 +15,8 @@
 
 typedef struct s_params
 {
-	int		screen_higth;
-	int		screen_width;
+	int		screen_h;
+	int		screen_w;
 	char	*north_texture_path;
 	char	*south_texture_path;
 	char	*west_texture_path;

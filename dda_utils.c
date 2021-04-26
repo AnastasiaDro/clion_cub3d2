@@ -69,8 +69,8 @@ void	cast_walls(t_data *m_struct, t_ray *ray, t_wall *wall)
 	t_txdraw	txdraw;
 
 	x = 0;
-	gg = m_struct->params->screen_width;
-	while (x < m_struct->params->screen_width)
+	gg = m_struct->params->screen_w;
+	while (x < m_struct->params->screen_w)
 	{
 		set_ray_params(ray, m_struct, x);
 		go_to_the_wall(ray, m_struct);
@@ -96,8 +96,8 @@ void	cast_sprites(t_data *m_struct)
 	t_sprite	*sprite_lst;
 	t_spr_draw	spr_draw;
 
-	h = m_struct->params->screen_higth;
-	w = m_struct->params->screen_width;
+	h = m_struct->params->screen_h;
+	w = m_struct->params->screen_w;
 	coef = w / h * 0.77;
 	set_sprite_data(m_struct);
 	sprite_lst = *(m_struct->sprite_info->sprite_lst);

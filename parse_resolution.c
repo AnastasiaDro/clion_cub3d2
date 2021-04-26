@@ -1,76 +1,84 @@
-//
-// Created by Cesar Erebus on 4/24/21.
-//
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parse_resolution.c                                 :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: cerebus <cerebus@student.21-school.ru>     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/04/26 18:58:22 by cerebus           #+#    #+#             */
+/*   Updated: 2021/04/26 19:01:09 by cerebus          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "parse_resolution.h"
 
-
-int get_num_length(char *str, int *i, int *num_start)
+int	get_num_length(char *str, int *i, int *num_start)
 {
-    while(str[*i] && (str[*i] == ' '))
-        (*i)++;
-    *num_start = *i;
-    while(str[*i] >= '0' && str[*i] <='9')
-        (*i)++;
-    return ((*i) - (*num_start));
+	while (str[*i] && (str[*i] == ' '))
+		(*i)++;
+	*num_start = *i;
+	while (str[*i] >= '0' && str[*i] <='9')
+		(*i)++;
+	return ((*i) - (*num_start));
 }
 
-int set_max_resolution(t_data *m_struct, char *s, int max_w, int max_h)
+int	set_max_resolution(t_data *m_struct, char *s, int max_w, int max_h)
 {
-    m_struct->params->screen_width = max_w;
-    m_struct->params->screen_higth = max_h;
-    free(s);
-    s = NULL;
-    return (1);
+	m_struct->params->screen_w = max_w;
+	m_struct->params->screen_h = max_h;
+    init_z_buffer(m_struct);
+	free(s);
+	s = NULL;
+	return (1);
 }
 
-void throw_resol_except(char **s, t_data *m_struct)
+void	throw_resol_except(char **s, t_data *m_struct)
 {
 	throw_exception(INVALID_RESOLUTION);
-    free(*s);
-    *s = NULL;
-    free_all(m_struct);
-    exit(0);
+	free(*s);
+	*s = NULL;
+	free_all(m_struct);
+	exit(0);
 }
 
-int check_s_end(char *str, int i)
+int	check_s_end(char *str, int i)
 {
-    while (str[i] >= '0' && str[i] <= '9')
-        i++;
-    while (str[i])
-    {
-        if (str[i] != ' ')
-            return (-1);
-        i++;
-    }
-    return (1);
+	while (str[i] >= '0' && str[i] <= '9')
+		i++;
+	while (str[i])
+	{
+		if (str[i] != ' ')
+			return (-1);
+		i++;
+	}
+	return (1);
 }
 
-int parse_resolution(char *s, t_data *m_struct, int *flag)
+int	parse_resolution(char *s, t_data *m_struct, int *flag)
 {
-    int num_start;
-    int num_length;
-    int i;
-    int max_screen_w;
-    int max_screen_h;
+	int	num_start;
+	int	num_length;
+	int	i;
+	int	mx_w;
+	int	mx_h;
 
-    *flag = 1;
-    i = 0;
-    num_start = 0;
-    num_length = get_num_length(s+1, &i, &num_start);
-    mlx_get_screen_size(&max_screen_w, &max_screen_h);
-    if (num_length > MAX_WIDTH_NUM_LENGTH)
-        return (set_max_resolution(m_struct, s, max_screen_w, max_screen_h));
-    m_struct->params->screen_width = ft_atoi(s+1);
-    num_length = get_num_length(s+1, &i, &num_start);
-    if (num_length > MAX_HEIGHT_NUM_LENGTH)
-        return (set_max_resolution(m_struct, s, max_screen_w, max_screen_h));
-    m_struct->params->screen_higth = ft_atoi(&(s+1)[num_start]);
-    if (m_struct->params->screen_width > max_screen_w || m_struct->params->screen_higth > max_screen_h)
-        return (set_max_resolution(m_struct, s, max_screen_w, max_screen_h));
-    if(m_struct->params->screen_width <= 0 ||  m_struct->params->screen_higth <= 0 || check_s_end(s+1, i) == -1)
-        throw_resol_except(&s, m_struct);
-    free(s);
-    s = NULL;
-    init_z_buffer(m_struct);
-    return (1);
+	*flag = 1;
+	i = 0;
+	num_start = 0;
+	num_length = get_num_length(s + 1, &i, &num_start);
+	mlx_get_screen_size(&mx_w, &mx_h);
+	if (num_length > MAX_WIDTH_NUM_LENGTH)
+		return (set_max_resolution(m_struct, s, mx_w, mx_h));
+	m_struct->params->screen_w = ft_atoi(s + 1);
+	num_length = get_num_length(s + 1, &i, &num_start);
+	if (num_length > MAX_HEIGHT_NUM_LENGTH)
+		return (set_max_resolution(m_struct, s, mx_w, mx_h));
+	m_struct->params->screen_h = ft_atoi(&(s + 1)[num_start]);
+	if (m_struct->params->screen_w > mx_w || m_struct->params->screen_h > mx_h)
+		return (set_max_resolution(m_struct, s, mx_w, mx_h));
+	if (m_struct->params->screen_w <= 0 || m_struct->params->screen_h <= 0 || check_s_end(s + 1, i) == -1)
+		throw_resol_except(&s, m_struct);
+	free(s);
+	init_z_buffer(m_struct);
+	return (1);
 }

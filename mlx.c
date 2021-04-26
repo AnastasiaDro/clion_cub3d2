@@ -24,7 +24,7 @@
 
 int	render_next_frame(t_data *m_struct)
 {
-	draw_floor_ceil(m_struct, m_struct->params->screen_higth);
+	draw_floor_ceil(m_struct, m_struct->params->screen_h);
 	draw_lab_dda(m_struct);
 	return (1);
 }
@@ -64,10 +64,10 @@ int	main()
 	if (set_sprite_info(m_struct.sprite_info, 64, 64, \
 						m_struct.params->sprite_texture_path) == -1)
 		free_all(&m_struct);
-	m_struct.img = mlx_new_image(m_struct.mlx, m_struct.params->screen_width, \
-								m_struct.params->screen_higth);
-	m_struct.mlx_win = mlx_new_window(m_struct.mlx, m_struct.params->screen_width, \
-									m_struct.params->screen_higth, PROG_NAME);
+	m_struct.img = mlx_new_image(m_struct.mlx, m_struct.params->screen_w, \
+								m_struct.params->screen_h);
+	m_struct.mlx_win = mlx_new_window(m_struct.mlx, m_struct.params->screen_w, \
+									m_struct.params->screen_h, PROG_NAME);
 	mlx_hook(m_struct.mlx_win, KEY_PRESS, 1L << 0, key_hook, &m_struct);
 	mlx_hook(m_struct.mlx_win, CROSS_PRESS, 1L << 5, cross_hook, &m_struct);
 	m_struct.addr = mlx_get_data_addr(m_struct.img, &m_struct.bits_per_pixel, &m_struct.line_length, \

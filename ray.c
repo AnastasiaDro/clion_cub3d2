@@ -21,7 +21,7 @@ void	calc_ray_length(t_ray *ray)
 
 void	calc_ray_dir(t_ray *ray, t_data *m_struct, int x)
 {
-	ray->cameraX = 2 * x / (double) m_struct->params->screen_width - 1;
+	ray->cameraX = 2 * x / (double) m_struct->params->screen_w - 1;
 	ray->DirX = m_struct->dir_x + m_struct->plane_x * ray->cameraX;
 	ray->DirY = m_struct->dir_y + m_struct->plane_y * ray->cameraX;
 }

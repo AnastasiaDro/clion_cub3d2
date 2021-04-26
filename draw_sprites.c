@@ -39,7 +39,7 @@ void	set_sprite_pos(t_spr_draw *spr_drw, t_sprite *spr_lst, t_data *m_struct)
 	double	pl_x;
 	double	pl_y;
 
-	screen_w = m_struct->params->screen_width;
+	screen_w = m_struct->params->screen_w;
 	pl_x = m_struct->plane_x;
 	pl_y = m_struct->plane_y;
 	spr_drw->s_x = spr_lst->x - m_struct->map_player_x;
@@ -57,8 +57,8 @@ void	set_s_draw_limits(t_spr_draw *spr_draw, t_data *m_struct, double coef)
 	int	screen_h;
 	int	screen_w;
 
-	screen_h = m_struct->params->screen_higth;
-	screen_w = m_struct->params->screen_width;
+	screen_h = m_struct->params->screen_h;
+	screen_w = m_struct->params->screen_w;
 	spr_draw->h = fabs(screen_h / (spr_draw->transf_y) * coef);
 	spr_draw->start_y = (int)round(-spr_draw->h / 2 + (double)screen_h / 2);
 	if (spr_draw->start_y < 0)
@@ -84,10 +84,10 @@ void	draw_s_line(t_spr_draw *spr_draw, t_data *m_struct, int l_i, int tex_x)
 	int	screen_w;
 
 	y = spr_draw->start_y;
-	screen_w = m_struct->params->screen_width;
+	screen_w = m_struct->params->screen_w;
 	while (y < spr_draw->end_y)
 	{
-		d = (y) * 256 - m_struct->params->screen_higth * 128 + \
+		d = (y) * 256 - m_struct->params->screen_h * 128 + \
 			spr_draw->h * 128;
 		tex_y = ((d * m_struct->sprite_info->h) / spr_draw->h) / 256;
 		color = sprite_mlx_pixel_get(m_struct->sprite_info, tex_x, tex_y);
@@ -111,8 +111,8 @@ void	draw_sprite(t_spr_draw *spr_draw, t_data *m_struct)
 		multi = (line_i - (-spr_draw->w / 2 + spr_draw->screen_x));
 		tex_x = (int)(256 * multi * sprite_w / spr_draw->w) / 256;
 		if (spr_draw->transf_y > 0 && (spr_draw->end_x - line_i) > 0 && \
-			(spr_draw->end_x - line_i) < m_struct->params->screen_width \
-				&& spr_draw->transf_y < m_struct->z_buffer[line_i])
+			(spr_draw->end_x - line_i) < m_struct->params->screen_w \
+ && spr_draw->transf_y < m_struct->z_buffer[line_i])
 		{
 			draw_s_line(spr_draw, m_struct, line_i, tex_x);
 		}

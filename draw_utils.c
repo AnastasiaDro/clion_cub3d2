@@ -28,7 +28,7 @@ int	draw_background(int y, int limit, int color, t_data *m_struct)
 	while (y < limit)
 	{
 		x = 0;
-		while (x < m_struct->params->screen_width)
+		while (x < m_struct->params->screen_w)
 		{
 			cerebus_mlx_pixel_put(m_struct, x, y, color);
 			x++;
