@@ -12,6 +12,7 @@
 
 #include "draw_sprites.h"
 #include "draw_utils.h"
+#include "sortSprites.h"
 
 void	set_sprite_data(t_data *m_struct)
 {

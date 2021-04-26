@@ -5,6 +5,11 @@
 #ifndef SORTSPRITES_H
 # define SORTSPRITES_H
 
+
+#include "cub_utils.h"
+#include "sprites_utils.h"
+#include "draw_sprites.h"
+
 typedef struct s_sort_spr {
         int found;
         double sec_distance;
@@ -17,4 +22,9 @@ typedef struct s_sort_spr {
 
 void		sortSprites(t_sprite **sprite_list);
 
+void move(t_sprite **t1, t_sprite **t2, t_sort_spr *t_sort);
+
+void parse_t2_smaller(t_sprite **t1, t_sprite **t2, t_sort_spr *t_sort);
+
+void  parse_t2_biger(t_sprite **t1, t_sprite **t2, t_sort_spr *t_sort);
 #endif
