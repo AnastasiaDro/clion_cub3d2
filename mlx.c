@@ -51,13 +51,6 @@ int	key_hook(int keycode, t_data *m_struct)
 	return (0);
 }
 
-int rotate_hook(int keycode, t_data *m_struct)
-{
-    if (keycode == 123 || keycode == 124)
-        return (rotate(m_struct, 0.0872665, keycode));
-}
-
-
 int	main()
 {
 	t_data	m_struct;
