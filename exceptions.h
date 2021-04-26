@@ -23,7 +23,7 @@
 # define INVALID_RESOLUTION "Invalid resolution"
 # define NO_PLAYER "There is no player at the map!"
 # define MORE_PLAYERS "Too many players at the map!"
-# define INVALID_FLOOR_COLOR "Invalid floor color"
+# define INVALID_COLOR "Invalid color"
 # define MALLOC_ERROR "Malloc Error"
 # define NO_NORTH "There is no north texture"
 # define NO_SOUTH "There is no south texture"

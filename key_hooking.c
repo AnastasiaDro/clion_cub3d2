@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include "key_hooking.h"
-#include "stdio.h"
 
 int	rotate(t_data *m_struct, double rot_speed, int keycode)
 {

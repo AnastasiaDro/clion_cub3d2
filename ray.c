@@ -6,7 +6,7 @@
 /*   By: cerebus <cerebus@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/26 18:41:46 by cerebus           #+#    #+#             */
-/*   Updated: 2021/04/26 18:45:16 by cerebus          ###   ########.fr       */
+/*   Updated: 2021/04/27 00:16:33 by cerebus          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,22 @@
 
 void	calc_ray_length(t_ray *ray)
 {
-	ray->deltaDistX = (ray->DirY == 0) ? 0 : ((ray->DirX == 0) ? 1 : fabs(1 / ray->DirX));
-	ray->deltaDistY = (ray->DirX == 0) ? 0 : ((ray->DirY == 0) ? 1 : fabs(1 / ray->DirY));
+	if (ray->DirY == 0)
+		ray->deltaDistX = 0;
+	else if (ray->DirX == 0)
+	{
+		ray->deltaDistX = 1;
+	}
+	else
+		ray->deltaDistX = fabs(1 / ray->DirX);
+	if (ray->DirX == 0)
+		ray->deltaDistY = 0;
+	else if (ray->DirY == 0)
+	{
+		ray->deltaDistY = 1;
+	}
+	else
+		ray->deltaDistY = fabs(1 / ray->DirY);
 }
 
 void	calc_ray_dir(t_ray *ray, t_data *m_struct, int x)

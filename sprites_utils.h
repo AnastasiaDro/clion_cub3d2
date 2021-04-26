@@ -45,8 +45,6 @@ t_sprite	*sprite_lstnew(double x, double y);
 
 void		sprite_lstadd_front(t_sprite **lst, t_sprite *new);
 
-void		sortSprites(t_sprite **sprite_list);
-
 void		sprite_lstclear(t_sprite **lst);
 
 #endif

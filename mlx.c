@@ -38,11 +38,11 @@ int	cross_hook(t_data *m_struct)
 int	key_hook(int keycode, t_data *m_struct)
 {
 	if (keycode == 13 || keycode == 1)
-		return (step_forw_back(m_struct, 0.0872665, keycode));
+		step_forw_back(m_struct, 0.0872665, keycode);
 	if (keycode == 0 || keycode == 2)
-		return (step_left_rigth(m_struct, 0.0872665, keycode));
+		step_left_rigth(m_struct, 0.0872665, keycode);
 	if (keycode == 123 || keycode == 124)
-		return (rotate(m_struct, 0.0872665, keycode));
+		rotate(m_struct, 0.0872665, keycode);
 	if (keycode == 53)
 	{
 		free_all(m_struct);
@@ -50,6 +50,13 @@ int	key_hook(int keycode, t_data *m_struct)
 	}
 	return (0);
 }
+
+int rotate_hook(int keycode, t_data *m_struct)
+{
+    if (keycode == 123 || keycode == 124)
+        return (rotate(m_struct, 0.0872665, keycode));
+}
+
 
 int	main()
 {
