@@ -52,7 +52,7 @@ void draw_wall_line(t_wall *wall, t_data *m_struct, t_txdraw *txdraw, int gg) {
     texPos = (wall->drawStart - h / 2 + (double)wall->line_height / 2) * step;
     while(y < wall->draw_end)
     {
-        // Cast the texture coordinate to integer, and mask with (texHeight - 1) in case of overflow
+    
         txdraw->texY = (int) texPos;
         texPos += step;
         int color = textu_mlx_pixel_get(txdraw->textu, txdraw->texX, txdraw->texY);

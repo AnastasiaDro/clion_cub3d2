@@ -6,7 +6,7 @@
 /*   By: cerebus <cerebus@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/25 23:53:11 by cerebus           #+#    #+#             */
-/*   Updated: 2021/04/26 12:05:24 by cerebus          ###   ########.fr       */
+/*   Updated: 2021/04/26 12:51:50 by cerebus          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,12 +79,13 @@ void	draw_sprite_line(t_spr_draw *spr_draw, t_data *m_struct, int line_i, int te
 			spr_draw->h * 128;
 		tex_y = ((d * m_struct->sprite_info->h) / spr_draw->h) / 256;
 		color = sprite_mlx_pixel_get(m_struct->sprite_info, tex_x, tex_y);
-		if ((color & 0x00FFFFFF) != 0)
+		if ((color & 0xFFFFFF) != 0)
 		{
 			cerebus_mlx_pixel_put(m_struct, m_struct->params->screen_width - line_i, y, color);
 		}
 		y++;
 	}
+
 }
 
 
@@ -92,7 +93,7 @@ void	draw_sprite(t_spr_draw *spr_draw, t_data *m_struct, double *z_buffer)
 {
 	int		line_i;
 	int		tex_x;
-	int		multi;
+	double	multi;
 
 	line_i = spr_draw->start_x;
 	while (line_i < spr_draw->end_x)
