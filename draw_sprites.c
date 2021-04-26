@@ -6,7 +6,7 @@
 /*   By: cerebus <cerebus@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/25 23:53:11 by cerebus           #+#    #+#             */
-/*   Updated: 2021/04/26 11:48:25 by cerebus          ###   ########.fr       */
+/*   Updated: 2021/04/26 12:05:24 by cerebus          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,17 +16,14 @@
 void	set_sprite_data(t_data *m_struct)
 {
 	t_sprite *sprite_lst;
-	int		m_pl_x;
-	int		m_pl_y;
-	int 	diff_x;
-	int		diff_y;
+	int m_x = m_struct->map_player_x;
+	int m_y = m_struct->map_player_y;
 
-	diff_x = m_struct->map_player_x - sprite_lst->x;
-	diff_y = m_struct->map_player_y - sprite_lst->y;
 	sprite_lst = *(m_struct->sprite_info->sprite_lst);
 	while (sprite_lst != NULL)
 	{
-		sprite_lst->dist = (diff_x * diff_x + diff_y * diff_y);
+		sprite_lst->dist = ((m_x - sprite_lst->x) * (m_x - sprite_lst->x) + (m_y
+				- sprite_lst->y) * (m_y - sprite_lst->y));
 		sprite_lst = sprite_lst->next;
 	}
 	sprite_lst = *(m_struct->sprite_info->sprite_lst);
