@@ -6,7 +6,7 @@
 /*   By: cerebus <cerebus@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/26 14:15:06 by cerebus           #+#    #+#             */
-/*   Updated: 2021/04/26 14:19:55 by cerebus          ###   ########.fr       */
+/*   Updated: 2021/04/27 01:59:13 by cerebus          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,8 @@ void	set_player_coords(t_data *m_struct, \
 
 void	find_player(int *elems_num, t_list **elem, t_data *m_struct, char **map)
 {
-	int is_player;
-	int flag;
+	int	is_player;
+	int	flag;
 
 	flag = 0;
 	while (*elems_num)
@@ -53,7 +53,7 @@ void	find_player(int *elems_num, t_list **elem, t_data *m_struct, char **map)
 	check_was_player(flag, m_struct);
 }
 
-int		fill_map(t_list **last_elem, int elems_num, t_data *m_struct)
+int	fill_map(t_list **last_elem, int elems_num, t_data *m_struct)
 {
 	char	**map;
 	t_list	*elem;
