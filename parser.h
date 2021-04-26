@@ -14,10 +14,10 @@ int		is_map_start(char *line);
 
 int		check_fe_line(char *s);
 
-int		get_n_check_textures(char *s, t_data *m_struct, t_parse_flags *parse_f);
+int		get_check_tex(char *s, t_data *m_struct, t_parse_flags *parse_f);
 
-int		get_n_check_params(char *s, t_data *m_struct, t_parse_flags *parse_f);
+int		get_check_params(char *s, t_data *m_struct, t_parse_flags *parse_f);
 
-int		go_th_params(int fd, t_data *m_struct, t_list **last_elem, char **line);
+int		go_th_params(int fd, t_data *m_s, t_list **last_elem, char **line);
 
 #endif

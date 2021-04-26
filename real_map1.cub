@@ -1,12 +1,14 @@
 R 512 512
+
+
 NO /Users/cerebus/projects/clion_cub3d2/textures/128caves_wall.xpm
 SO /Users/cerebus/projects/clion_cub3d2/textures/128gate.xpm
 WE /Users/cerebus/projects/clion_cub3d2/textures/128hell_nasty03.xpm
 EA /Users/cerebus/projects/clion_cub3d2/textures/128mcity_wall11.xpm
 S /Users/cerebus/projects/clion_cub3d2/sprites/barrel.xpm
 
-F 132  ,132, 130
-C 160,160,160
+F         132,132,150
+C        160,160,160
 
 1111111111111111111111111111
    110000000011000000000001111111
@@ -23,3 +25,7 @@ C 160,160,160
 1111011101110101  1111110100011111
 1111111111111111     11111111111
 111111111111111     111111111111
+
+11111
+100111
+11111

@@ -4,8 +4,6 @@
 #include "cub_utils.h"
 #include "parser_utils.h"
 #include "exceptions.h"
-#include "colors.h"
-#include "parse_resolution.h"
 #include "map_checker.h"
 #include "constants.h"
 #include "parser.h"
@@ -25,68 +23,6 @@ int	check_fe_line(char *s)
 		i++;
 	}
 	return (1);
-}
-
-int	is_map_start(char *line)
-{
-	char	*ptr;
-	int		i;
-
-	ptr = line;
-	i = 0;
-	while (ptr[i])
-	{
-		if (ptr[i] == ' ')
-		{
-			i++;
-			continue ;
-		}
-		if (ptr[i] >= '0' && ptr[i] <= '9')
-			return (MAP_STARTED);
-		else if (ptr[i] == '0')
-			return (ZERO_START_LINE);
-		else
-			return (i);
-	}
-	return (i);
-}
-
-int	get_n_check_textures(char *s, t_data *m_struct, t_parse_flags *parse_f)
-{
-	t_params	*params;
-
-	params = m_struct->params;
-	if (!ft_strncmp(s, "NO", 2) && !(parse_f->north))
-		return (get_tex_path(s, &params->north_tex_path, &(parse_f->north)));
-	if (!ft_strncmp(s, "SO", 2) && !parse_f->south)
-		return (get_tex_path(s, &params->south_tex_path, &(parse_f->south)));
-	if (!ft_strncmp(s, "WE", 2) && !parse_f->west)
-		return (get_tex_path(s, &params->west_tex_path, &(parse_f->west)));
-	if (!ft_strncmp(s, "EA", 2) && !parse_f->east)
-		return (get_tex_path(s, &params->east_tex_path, &(parse_f->east)));
-	if (!ft_strncmp(s, "S", 1) && !parse_f->sprite)
-		return (get_tex_path(s, &params->sprite_tex_path, &(parse_f->sprite)));
-	return (0);
-}
-
-int	get_n_check_params(char *s, t_data *m_struct, t_parse_flags *parse_f)
-{
-	t_params	*params;
-
-	params = m_struct->params;
-	if (*s == 'R' && !parse_f->resol)
-		return (parse_resolution(s, m_struct, &parse_f->resol));
-	if (*s == 'F' && !parse_f->floor_color)
-	{
-		params->floor_color = get_color(s, m_struct, &parse_f->floor_color);
-		return (1);
-	}
-	if (*s == 'C' && !parse_f->ceil_color)
-	{
-		params->ceil_color = get_color(s, m_struct, &parse_f->ceil_color);
-		return (1);
-	}
-	return (0);
 }
 
 void	throw_map_except(t_data *m_struct)

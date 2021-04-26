@@ -10,7 +10,7 @@ add_executable(clion_cub3d2 mlx.c get_next_line/get_next_line.c get_next_line/ge
         sprites_utils.c sprites_utils.h exceptions.h params.h exceptions.c parser_utils.h parser_utils.c colors.h colors.c params.c main_inits.c
         main_inits.h dda_utils.h ray.c dda_utils.c wall_utils.c wall_utils.h draw_sprites.c draw_sprites.h player_params.h player_params.c
         parse_resolution.h parse_resolution.c map_checker.h map_checker.c map_line_checkers.h map_line_checkers.c fill_map.c fill_map.h is_empty.c
-        get_sprites_list.c check_symbols.c go_th_params.c init_z_buffer.c parse_line_sect.c)
+        get_sprites_list.c check_symbols.c go_th_params.c init_z_buffer.c parse_line_sect.c parse_params_except.c parse_params_except.h is_map_start.c get_check_params.c get_check_tex.c)
 
 
 #дом

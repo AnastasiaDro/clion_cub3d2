@@ -25,6 +25,15 @@
 # define MORE_PLAYERS "Too many players at the map!"
 # define INVALID_FLOOR_COLOR "Invalid floor color"
 # define MALLOC_ERROR "Malloc Error"
+# define NO_NORTH "There is no north texture"
+# define NO_SOUTH "There is no south texture"
+# define NO_WEST "There is no west texture"
+# define NO_EAST "There is no east texture"
+# define NO_SPRITE "There is no sprite texture"
+# define NO_CEIL "There is no ceil color"
+# define NO_FLOOR "There is no floor color"
+# define NO_RESOL "There is no resolution"
+# define EMPTY_FILE "Empty file!"
 
 void	throw_exception(char *msg);
 

@@ -58,6 +58,7 @@ int	main()
 	m_struct.mlx = mlx_init();
 	init_all(&m_struct);
 	parse_map(&m_struct, "/Users/cerebus/projects/clion_cub3d2/real_map1.cub");
+
 	get_textures_paths(m_struct.textu, &m_struct);
 	if (init_textu_arr(m_struct.textu, 128, 128) == -1)
 		free_all(&m_struct);

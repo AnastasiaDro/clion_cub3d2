@@ -1,6 +1,15 @@
-//
-// Created by Cesar Erebus on 3/31/21.
-//
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   sprites_utils.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: cerebus <cerebus@student.21-school.ru>     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/04/26 22:32:03 by cerebus           #+#    #+#             */
+/*   Updated: 2021/04/26 22:32:25 by cerebus          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include <expat.h>
 #include "sprites_utils.h"
 #include "exceptions.h"
@@ -57,7 +66,8 @@ void	sortSprites(t_sprite **head)
 {
 	t_sprite	*t1;
 	t_sprite	*t2;
-	t1 =  (*head)->next;
+
+	t1 = (*head)->next;
 	while (t1 !=NULL)
 	{
 		double sec_distance = t1->dist;
