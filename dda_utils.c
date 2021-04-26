@@ -100,7 +100,7 @@ void	cast_sprites(t_data *m_struct, double const *z_buffer)
 	w = m_struct->params->screen_width;
 	coef = w / h * 0.77;
 	set_sprite_data(m_struct);
-	sprite_lst = *(m_struct->sprite_info->sprite_list);
+	sprite_lst = *(m_struct->sprite_info->sprite_lst);
 	while (sprite_lst != NULL)
 	{
 		set_sprite_pos(&spr_draw, sprite_lst, m_struct);

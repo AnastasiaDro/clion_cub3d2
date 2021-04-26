@@ -14,15 +14,14 @@ typedef struct s_sprite
 {
     double 	x;
     double 	y;
-//    int 	code;
-    double distance;
+    double dist;
     struct s_sprite *next;
 }              t_sprite;
 
 typedef struct s_spr_info
 {
 	int 		num_sprites;
-	t_sprite 	**sprite_list;
+	t_sprite 	**sprite_lst;
 	int			h;
 	int			w;
 	int			code; //код, для идентификации, если будет неколько спрайтов

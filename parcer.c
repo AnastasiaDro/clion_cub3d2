@@ -116,8 +116,8 @@ void parse_map(t_data *m_struct, char *map_path)
     elems_num++;
     m_struct->lst = last_elem;
 	line = NULL;
-    m_struct->sprite_info->sprite_list = malloc(1*sizeof (t_sprite *));
-    *(m_struct->sprite_info->sprite_list) = NULL;
+    m_struct->sprite_info->sprite_lst = malloc(1 * sizeof (t_sprite *));
+    *(m_struct->sprite_info->sprite_lst) = NULL;
     elems_num = fill_map(&last_elem, elems_num, m_struct);
 	check_last_line(m_struct, &last_elem, elems_num, fd);
     ft_lstclear(&last_elem, free);

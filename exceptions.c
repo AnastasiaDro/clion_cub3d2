@@ -26,7 +26,7 @@ int	free_params(t_data *m_struct)
 
 int	free_sprite_info(t_data *m_struct)
 {
-	sprite_lstclear(m_struct->sprite_info->sprite_list);
+	sprite_lstclear(m_struct->sprite_info->sprite_lst);
 	free(m_struct->sprite_info->sprite_path);
 	free(m_struct->sprite_info);
 	return (1);
