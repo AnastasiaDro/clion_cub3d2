@@ -6,7 +6,7 @@
 /*   By: cerebus <cerebus@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/15 15:54:45 by cerebus           #+#    #+#             */
-/*   Updated: 2021/04/22 14:51:20 by cerebus          ###   ########.fr       */
+/*   Updated: 2021/04/26 22:37:18 by cerebus          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,6 @@ int	main()
 	m_struct.mlx = mlx_init();
 	init_all(&m_struct);
 	parse_map(&m_struct, "/Users/cerebus/projects/clion_cub3d2/real_map1.cub");
-
 	get_textures_paths(m_struct.textu, &m_struct);
 	if (init_textu_arr(m_struct.textu, 128, 128) == -1)
 		free_all(&m_struct);
