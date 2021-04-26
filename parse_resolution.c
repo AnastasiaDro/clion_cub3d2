@@ -6,7 +6,7 @@
 /*   By: cerebus <cerebus@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/26 18:58:22 by cerebus           #+#    #+#             */
-/*   Updated: 2021/04/26 19:01:09 by cerebus          ###   ########.fr       */
+/*   Updated: 2021/04/26 19:11:13 by cerebus          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int	set_max_resolution(t_data *m_struct, char *s, int max_w, int max_h)
 {
 	m_struct->params->screen_w = max_w;
 	m_struct->params->screen_h = max_h;
-    init_z_buffer(m_struct);
+	init_z_buffer(m_struct);
 	free(s);
 	s = NULL;
 	return (1);
@@ -76,9 +76,9 @@ int	parse_resolution(char *s, t_data *m_struct, int *flag)
 	m_struct->params->screen_h = ft_atoi(&(s + 1)[num_start]);
 	if (m_struct->params->screen_w > mx_w || m_struct->params->screen_h > mx_h)
 		return (set_max_resolution(m_struct, s, mx_w, mx_h));
-	if (m_struct->params->screen_w <= 0 || m_struct->params->screen_h <= 0 || check_s_end(s + 1, i) == -1)
+	if (m_struct->params->screen_w <= 0 || m_struct->params->screen_h <= 0 \
+		|| check_s_end(s + 1, i) == -1)
 		throw_resol_except(&s, m_struct);
 	free(s);
-	init_z_buffer(m_struct);
-	return (1);
+	return (init_z_buffer(m_struct));
 }
