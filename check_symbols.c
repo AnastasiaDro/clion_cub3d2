@@ -6,7 +6,7 @@
 /*   By: cerebus <cerebus@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/25 22:53:57 by cerebus           #+#    #+#             */
-/*   Updated: 2021/04/26 22:47:46 by cerebus          ###   ########.fr       */
+/*   Updated: 2021/04/27 04:27:41 by cerebus          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,23 +43,22 @@ int	check_symbols(char *s, t_data *m_struct, int *flag_player)
 	return (0);
 }
 
- int cmp_space_str(char *line)
- {
-     int slen;
-     char *cmp_str;
-     int res;
+int	cmp_space_str(char *line)
+{
+	int		slen;
+	char	*cmp_str;
+	int		res;
 
-     if (*line == '\0')
-         return (0);
-     slen = (int)ft_strlen(line);
-     cmp_str = malloc((slen + 1) * sizeof(char));
-     while(slen >= 0)
-     {
-         cmp_str[slen-1] = ' ';
-         slen--;
-     }
-     res = ft_strncmp(line, cmp_str, slen);
-     free(cmp_str);
-     return (res);
- }
-
+	if (*line == '\0')
+		 return (0);
+	slen = (int)ft_strlen(line);
+	cmp_str = malloc((slen + 1) * sizeof(char));
+	while (slen >= 0)
+	{
+		cmp_str[slen - 1] = ' ';
+		slen--;
+	}
+	res = ft_strncmp(line, cmp_str, slen);
+	free(cmp_str);
+	return (res);
+}

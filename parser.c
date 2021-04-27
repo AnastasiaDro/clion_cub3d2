@@ -42,7 +42,7 @@ void	check_last_line(t_data *m_struct, \
 	}
 }
 
-void    check_file_end(char *line, t_data *m_struct)
+void	check_file_end(char *line, t_data *m_struct)
 {
 	if (!cmp_space_str(line))
 	{
@@ -52,35 +52,11 @@ void    check_file_end(char *line, t_data *m_struct)
 	}
 }
 
-// int cmp_space_str(char *line)
-// {
-//     int slen;
-//     char *cmp_str;
-//     int res;
-
-//     if (*line == '\0')
-//         return (0);
-//     slen = (int)ft_strlen(line);
-//     cmp_str = malloc((slen + 1) * sizeof(char));
-//     while(slen >= 0)
-//     {
-//         cmp_str[slen-1] = ' ';
-//         slen--;
-//     }
-//     res = ft_strncmp(line, cmp_str, slen);
-//     free(cmp_str);
-//     return (res);
-// }
-
-// void check_file_end(char *line, t_data *m_struct)
-// {
-//     if (!cmp_space_str(line))
-//     {
-//         free(line);
-//         throw_map_except(m_struct);
-//         exit(0);
-//     }
-// }
+//void	increase_lst(t_list **last_elem, int *elems_num, char *line)
+//{
+//	ft_lstadd_front(last_elem, ft_lstnew(line));
+//	(*elems_num)++;
+//}
 
 void	parse_map(t_data *m_struct, char *map_path)
 {
@@ -93,13 +69,9 @@ void	parse_map(t_data *m_struct, char *map_path)
 	last_elem = NULL;
 	elems_num = go_th_params(fd, m_struct, &last_elem, &line);
 	while (get_next_line(fd, &line))
-	{
-		ft_lstadd_front(&last_elem, ft_lstnew(line));
-		elems_num++;
-	}
-    check_file_end(line, m_struct);
-	ft_lstadd_front(&last_elem, ft_lstnew(line));
-	elems_num++;
+		increase_lst(&last_elem, &elems_num, line);
+	check_file_end(line, m_struct);
+	increase_lst(&last_elem, &elems_num, line);
 	m_struct->lst = last_elem;
 	line = NULL;
 	m_struct->sprite_info->sprite_lst = malloc(1 * sizeof (t_sprite *));
