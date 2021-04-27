@@ -20,21 +20,27 @@ SRC		=	mlx.c get_next_line/get_next_line.c get_next_line/get_next_line_utils.c \
             parse_params_except.c is_map_start.c get_check_params.c get_check_tex.c sortSprites.c \
             parse_args.c increase_lst.c get_next_line/gnl_wrap_utils.c turn_on_off_flags.c make_move.c \
             do_screenshot.c throw_file_except.c key_press_release.c
-
+CFLAGS	= 	-Wall -Wextra -Werror
 LIBFT	= 	libft.a
 LIBMX   =   minilibx_opengl_20191021/libmlx.a
+OBJS	= 	$(SRC:.c=.o)
 
-$(NAME):	
+$(NAME):	$(OBJS)
+			@make -C libft
+			@make -C minilibx_opengl_20191021
 			gcc $(SRC) -L . $(LIBFT) $(LIBMX) -framework OpenGL -framework AppKit -o $(NAME)
 
 all:		$(NAME)
 
+
 clean:
 			rm -f $(OBJS)
+			@make clean -C libft
+			@make clean -C minilibx_opengl_20191021
 
 fclean:		clean
 			rm -f $(NAME)
 
 re:			fclean all
 
-.PHONY:		all clean fclean re bonus bclean
+.PHONY:		all clean fclean re

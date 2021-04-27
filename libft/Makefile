@@ -27,12 +27,12 @@ OBJS	=	$(SRC:.c=.o)
 BOBJS	=	$(BONUS:.c=.o)
 
 $(NAME):	$(OBJS)
-			ar rc libft.a $(OBJS)
+			ar rc libft.a $(OBJS) $(BOBJS)
 
 all:		$(NAME)
 
 clean:
-			rm -f $(OBJS)
+			rm -f $(OBJS) $(BOBJS)
 
 fclean:		clean
 			rm -f $(NAME)
