@@ -38,7 +38,7 @@ void	check_last_line(t_data *m_struct, \
 	if (check_fe_line(m_struct->map[elems_num - 1]) == MAP_ERROR)
 	{
 		close(fd);
-		throw_map_except(m_struct);
+        throw_map_except(m_struct);
 	}
 }
 
@@ -47,16 +47,10 @@ void	check_file_end(char *line, t_data *m_struct)
 	if (!cmp_space_str(line))
 	{
 		free(line);
-		throw_map_except(m_struct);
+        throw_map_except(m_struct);
 		exit(0);
 	}
 }
-
-//void	increase_lst(t_list **last_elem, int *elems_num, char *line)
-//{
-//	ft_lstadd_front(last_elem, ft_lstnew(line));
-//	(*elems_num)++;
-//}
 
 void	parse_map(t_data *m_struct, char *map_path)
 {
@@ -66,6 +60,8 @@ void	parse_map(t_data *m_struct, char *map_path)
 	int		elems_num;
 
 	fd = open(map_path, O_RDONLY);
+    if (fd == -1)
+        throw_file_except(m_struct);
 	last_elem = NULL;
 	elems_num = go_th_params(fd, m_struct, &last_elem, &line);
 	while (get_next_line(fd, &line))
@@ -81,5 +77,5 @@ void	parse_map(t_data *m_struct, char *map_path)
 	ft_lstclear(&last_elem, free);
 	close (fd);
 	if (check_map(m_struct->map, elems_num) == MAP_ERROR)
-		throw_map_except(m_struct);
+        throw_map_except(m_struct);
 }

@@ -10,9 +10,12 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-typedef struct s_screenshot {
+typedef struct s_scr_shot {
 
-    int cor;
+    int fd; //pad
+    char *header;
+    int size;
+    int pad;
+}               t_scr_shot;
 
-
-}               t_screenchot;
+void save(t_data *m_struct);

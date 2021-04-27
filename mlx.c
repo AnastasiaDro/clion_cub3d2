@@ -22,6 +22,7 @@
 #include "draw_utils.h"
 #include "main_inits.h"
 #include "parse_args.h"
+#include "do_screenshot.h"
 
 int	render_next_frame(t_data *m_struct)
 {
@@ -84,6 +85,13 @@ int	main(int argc, char *argv[])
 	m_struct.addr = mlx_get_data_addr(m_struct.img, &m_struct.bits_per_pixel, &m_struct.line_length, \
 										&m_struct.endian);
 	mlx_loop_hook(m_struct.mlx, render_next_frame, &m_struct);
+
+    if (argc == 3)
+    {
+        check_save(argv[2]);
+        save(&m_struct);
+    }
+
 	mlx_loop(m_struct.mlx);
 	exit(0);
 }

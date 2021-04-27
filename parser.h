@@ -26,4 +26,6 @@ int		cmp_space_str(char *line);
 
 void	increase_lst(t_list **last_elem, int *elems_num, char *line);
 
+void	throw_file_except(t_data *m_struct);
+
 #endif

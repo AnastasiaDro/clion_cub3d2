@@ -12,6 +12,6 @@
 
 void	check_args_num(int argc);
 
-void	parse_args(int argc, char *argv, t_data *m_struct);
+void	check_save(char *save);
 
 void	check_map_arg(int argc, char *argv[]);

@@ -23,7 +23,7 @@ int	check_symbols(char *s, t_data *m_struct, int *flag_player)
 	if (player_i != -1)
 	{
 		if (ft_strchr(PLAYER_SYMBOLS, s[player_i]) == NULL)
-			throw_map_except(m_struct);
+            throw_map_except(m_struct);
 		else
 		{
 			if (*flag_player == 1)

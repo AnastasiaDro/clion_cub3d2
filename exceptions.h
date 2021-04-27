@@ -37,6 +37,7 @@
 # define NO_FLOOR "There is no floor color"
 # define NO_RESOL "There is no resolution"
 # define EMPTY_FILE "Empty file!"
+# define INVALID_FILE "File can't be opened"
 
 void	throw_exception(char *msg);
 

@@ -25,7 +25,7 @@ void	check_args_num(int argc)
 
 void	check_save(char *save)
 {
-	if (!ft_strncmp("--save", save, 7))
+	if (ft_strncmp(save, "--save", ft_strlen(save)))
 	{
 		throw_exception(INVALID_THIRD_ARGUMENT);
 		exit(0);
@@ -43,6 +43,5 @@ void	check_map_arg(int argc, char *argv[])
 		throw_exception(INVALID_FORMAT);
 		exit(0);
 	}
-	if (argc == 3)
-		check_save(argv[2]);
+
 }
