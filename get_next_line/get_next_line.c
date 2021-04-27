@@ -86,3 +86,8 @@ int		get_next_line(int fd, char **line)
 	else
 		return (ft_get_from_tail(line, &tail));
 }
+//int obertka(char**pn){
+//*pn = ft_strchr(&tail[start]
+//return (*pn);
+//}
+
