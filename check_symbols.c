@@ -42,3 +42,24 @@ int	check_symbols(char *s, t_data *m_struct, int *flag_player)
 	}
 	return (0);
 }
+
+ int cmp_space_str(char *line)
+ {
+     int slen;
+     char *cmp_str;
+     int res;
+
+     if (*line == '\0')
+         return (0);
+     slen = (int)ft_strlen(line);
+     cmp_str = malloc((slen + 1) * sizeof(char));
+     while(slen >= 0)
+     {
+         cmp_str[slen-1] = ' ';
+         slen--;
+     }
+     res = ft_strncmp(line, cmp_str, slen);
+     free(cmp_str);
+     return (res);
+ }
+

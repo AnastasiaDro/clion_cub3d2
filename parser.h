@@ -20,4 +20,8 @@ int		get_check_params(char *s, t_data *m_struct, t_parse_flags *parse_f);
 
 int		go_th_params(int fd, t_data *m_s, t_list **last_elem, char **line);
 
+void    check_file_end(char *line, t_data *m_struct);
+
+int     cmp_space_str(char *line);
+
 #endif
