@@ -33,6 +33,8 @@ int	step_forw_back(t_data *m_struct, double move_speed, int keycode);
 
 int	step_left_rigth(t_data *m_struct, double move_speed, int keycode);
 
-int switch_flags(t_press_flgs *press_flgs, int key_code, t_data *m_struct, int n);
+int turn_on_flags(t_press_flgs *press_flgs, int key_code, t_data *m_struct);
+
+int turn_off_flags(t_press_flgs *press_flgs, int key_code, t_data *m_struct);
 
 #endif
