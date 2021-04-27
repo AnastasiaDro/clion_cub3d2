@@ -69,7 +69,7 @@ void	cast_walls(t_data *m_struct, t_ray *ray, t_wall *wall)
 	t_txdraw	txdraw;
 
 	x = 0;
-	gg = m_struct->params->screen_w;
+	gg = m_struct->params->screen_w - 1;
 	while (x < m_struct->params->screen_w)
 	{
 		set_ray_params(ray, m_struct, x);

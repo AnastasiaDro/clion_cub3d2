@@ -85,7 +85,6 @@ int	main(int argc, char *argv[])
 	m_struct.addr = mlx_get_data_addr(m_struct.img, &m_struct.bits_per_pixel, &m_struct.line_length, \
 										&m_struct.endian);
 	mlx_loop_hook(m_struct.mlx, render_next_frame, &m_struct);
-
     if (argc == 3)
     {
         render_next_frame(&m_struct);
