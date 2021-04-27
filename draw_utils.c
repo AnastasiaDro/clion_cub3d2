@@ -10,6 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <printf.h>
 #include "cub_utils.h"
 #include "sprites_utils.h"
 
@@ -47,7 +48,9 @@ int	draw_floor_ceil(t_data *m_struct, int screen_higth)
 
 	half = screen_higth / 2;
 	floor_color = m_struct->params->floor_color;
+	printf("floor color = %x\n", floor_color);
 	ceiling_color = m_struct->params->ceil_color;
+    printf("ceil color = %x\n", ceiling_color);
 	y = draw_background(y, half, ceiling_color, m_struct);
 	draw_background(y, screen_higth, floor_color, m_struct);
 	return (0);

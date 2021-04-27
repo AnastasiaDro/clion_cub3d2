@@ -64,4 +64,5 @@ void	init_all(t_data *m_struct)
 	init_sprite_info(sprite_info);
 	init_params(params);
 	set_data(m_struct, params, textu, sprite_info);
+    m_struct->press_flgs = ft_calloc(1, sizeof (t_press_flgs));
 }

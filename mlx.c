@@ -25,8 +25,14 @@
 
 int	render_next_frame(t_data *m_struct)
 {
-	draw_floor_ceil(m_struct, m_struct->params->screen_h);
+	//draw_floor_ceil(m_struct, m_struct->params->screen_h);
+    make_move(m_struct);
+// /   draw_floor_ceil(m_struct, m_struct->params->screen_h);
+   // make_move(m_struct);
+    draw_floor_ceil(m_struct, m_struct->params->screen_h);
 	draw_lab_dda(m_struct);
+   // make_move(m_struct);
+   // make_move(m_struct);
 	return (1);
 }
 
@@ -36,21 +42,44 @@ int	cross_hook(t_data *m_struct)
 	exit (0);
 }
 
-int	key_hook(int keycode, t_data *m_struct)
+//int	key_press(int keycode, t_data *m_struct)
+//{
+//	if (keycode == 13 || keycode == 1)
+//		step_forw_back(m_struct, 0.0872665, keycode);
+//	if (keycode == 0 || keycode == 2)
+//		step_left_rigth(m_struct, 0.0872665, keycode);
+//	if (keycode == 123 || keycode == 124)
+//		rotate(m_struct, 0.0872665, keycode);
+//	if (keycode == 53)
+//	{
+//		free_all(m_struct);
+//		exit(0);
+//	}
+//	return (0);
+//}
+int     key_press(int keycode, t_data *m_struct)
 {
-	if (keycode == 13 || keycode == 1)
-		step_forw_back(m_struct, 0.0872665, keycode);
-	if (keycode == 0 || keycode == 2)
-		step_left_rigth(m_struct, 0.0872665, keycode);
-	if (keycode == 123 || keycode == 124)
-		rotate(m_struct, 0.0872665, keycode);
-	if (keycode == 53)
+
+    if (keycode == 53)
 	{
 		free_all(m_struct);
 		exit(0);
 	}
+    turn_on_flags(keycode, m_struct);
 	return (0);
 }
+
+int     key_release(int keycode, t_data *m_struct)
+{
+    if (keycode == 53)
+    {
+        free_all(m_struct);
+        exit(0);
+    }
+    turn_off_flags(keycode, m_struct);
+    return (0);
+}
+
 
 int	main(int argc, char *argv[])
 {
@@ -70,7 +99,8 @@ int	main(int argc, char *argv[])
 								m_struct.params->screen_h);
 	m_struct.mlx_win = mlx_new_window(m_struct.mlx, m_struct.params->screen_w, \
 									m_struct.params->screen_h, PROG_NAME);
-	mlx_hook(m_struct.mlx_win, KEY_PRESS, 1L << 0, key_hook, &m_struct);
+    mlx_hook(m_struct.mlx_win, KEY_PRESS, 1L << 0, key_press, &m_struct);
+    mlx_hook(m_struct.mlx_win, KEY_RELEASE, 1L<<1, key_release, &m_struct);
 	mlx_hook(m_struct.mlx_win, CROSS_PRESS, 1L << 5, cross_hook, &m_struct);
 	m_struct.addr = mlx_get_data_addr(m_struct.img, &m_struct.bits_per_pixel, &m_struct.line_length, \
 										&m_struct.endian);

@@ -18,7 +18,7 @@ SRC		=	mlx.c get_next_line/get_next_line.c get_next_line/get_next_line_utils.c \
             parse_resolution.c map_checker.c map_line_checkers.c fill_map.c is_empty.c \
             get_sprites_list.c check_symbols.c go_th_params.c init_z_buffer.c parse_line_sect.c \
             parse_params_except.c is_map_start.c get_check_params.c get_check_tex.c sortSprites.c \
-            parse_args.c increase_lst.c get_next_line/gnl_wrap_utils.c
+            parse_args.c increase_lst.c get_next_line/gnl_wrap_utils.c turn_on_off_flags.c make_move.c
 
 
 LIBFT	= 	libft.a

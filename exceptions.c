@@ -69,6 +69,7 @@ int	free_all(t_data *m_struct)
 		mlx_destroy_window(m_struct->mlx, m_struct->mlx_win);
 		mlx_destroy_image(m_struct->mlx, m_struct->img);
 	}
+    free(m_struct->press_flgs);
 	exit(0);
 }
 

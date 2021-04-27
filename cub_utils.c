@@ -15,6 +15,7 @@
 #include "ray.h"
 #include "dda_utils.h"
 #include "wall_utils.h"
+#include "draw_utils.h"
 
 t_textu	set_texture(t_data *m_struct, double ray_dir_x, double ray_dir_y)
 {
@@ -40,6 +41,7 @@ int	draw_lab_dda(t_data *m_struct)
 	t_ray	ray;
 	t_wall	wall;
 
+ //   draw_floor_ceil(m_struct, m_struct->params->screen_h);
 	cast_walls(m_struct, &ray, &wall);
 	cast_sprites(m_struct);
 	mlx_put_image_to_window(m_struct->mlx, \

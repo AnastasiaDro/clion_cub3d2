@@ -17,6 +17,7 @@
 # include "libft/libft.h"
 # include "sprites_utils.h"
 # include "params.h"
+# include "press_fgs_struct.h"
 
 typedef struct s_data {
 	void		*img;
@@ -39,6 +40,7 @@ typedef struct s_data {
 	t_spr_info	*sprite_info;
 	t_list		*lst;
 	double		*z_buffer;
+	t_press_flgs    *press_flgs;
 }				t_data;
 
 t_textu			set_texture(t_data *m_struct, \

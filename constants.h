@@ -14,6 +14,7 @@
 # define CONSTANTS_H
 # define KEY_PRESS 02
 # define CROSS_PRESS 17
+# define KEY_RELEASE 03
 # define PROG_NAME "cub3d"
 # define MAP_STARTED (-1)
 # define ZERO_START_LINE (-3)
