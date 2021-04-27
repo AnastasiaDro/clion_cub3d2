@@ -32,8 +32,7 @@ void	throw_map_except(t_data *m_struct)
 	exit(0);
 }
 
-void	check_last_line(t_data *m_struct, \
-			t_list **last_elem, int elems_num, int fd)
+void	check_last_line(t_data *m_struct, int elems_num, int fd)
 {
 	if (check_fe_line(m_struct->map[elems_num - 1]) == MAP_ERROR)
 	{
@@ -73,7 +72,7 @@ void	parse_map(t_data *m_struct, char *map_path)
 	m_struct->sprite_info->sprite_lst = malloc(1 * sizeof (t_sprite *));
 	*(m_struct->sprite_info->sprite_lst) = NULL;
 	elems_num = fill_map(&last_elem, elems_num, m_struct);
-	check_last_line(m_struct, &last_elem, elems_num, fd);
+	check_last_line(m_struct, elems_num, fd);
 	ft_lstclear(&last_elem, free);
 	close (fd);
 	if (check_map(m_struct->map, elems_num) == MAP_ERROR)

@@ -32,6 +32,6 @@ void	move(t_sprite **t1, t_sprite **t2, t_sort_spr *t_sort);
 
 void	parse_t2_smaller(t_sprite **t1, t_sprite **t2, t_sort_spr *t_sort);
 
-void	parse_t2_biger(t_sprite **t1, t_sprite **t2, t_sort_spr *t_sort);
+void	parse_t2_biger(t_sprite **t2, t_sort_spr *t_sort);
 
 #endif

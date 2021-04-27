@@ -25,7 +25,7 @@ void	parse_t2_smaller(t_sprite **t1, t_sprite **t2, t_sort_spr *t_sort)
 	(*t2) = (*t2)->next;
 }
 
-void	parse_t2_biger(t_sprite **t1, t_sprite **t2, t_sort_spr *t_sort)
+void	parse_t2_biger(t_sprite **t2, t_sort_spr *t_sort)
 {
 	t_sort->tmp_distance = t_sort->sec_distance;
 	t_sort->sec_distance = (*t2)->dist;
@@ -67,7 +67,7 @@ void	sortSprites(t_sprite **head)
 			else
 			{
 				if (t_sort.found == 1)
-					parse_t2_biger(&t1, &t2, &t_sort);
+					parse_t2_biger(&t2, &t_sort);
 				t2 = t2->next;
 			}
 		}

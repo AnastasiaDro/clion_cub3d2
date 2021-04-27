@@ -6,7 +6,7 @@
 /*   By: cerebus <cerebus@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/21 20:05:36 by cerebus           #+#    #+#             */
-/*   Updated: 2021/04/27 17:53:30 by cerebus          ###   ########.fr       */
+/*   Updated: 2021/04/28 00:14:56 by cerebus          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ int	draw_floor_ceil(t_data *m_struct, int screen_higth)
 	int	floor_color;
 	int	ceiling_color;
 
+	y = 0;
 	half = screen_higth / 2;
 	floor_color = m_struct->params->floor_color;
 	ceiling_color = m_struct->params->ceil_color;
