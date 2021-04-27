@@ -16,56 +16,63 @@
 #include "do_screenshot.h"
 #include "exceptions.h"
 
-int fill_shot(t_data *m_struct, int fd)
+int	fill_shot(t_data *m_struct, int fd)
 {
-    write(fd, m_struct->addr, m_struct->line_length * m_struct->params->screen_h);
-    return (1);
+	int	h;
+
+	h = m_struct->params->screen_h;
+	write(fd, m_struct->addr, m_struct->line_length * h);
+	return (1);
 }
 
-static void fill_header(t_data *m_struct,  t_scr_shot *shot, int *fd)
+void	fill_header(t_data *m_struct, t_scr_shot *shot, int *fd)
 {
-    *fd = open("cub3D.bmp", O_CREAT | O_RDWR | O_TRUNC, 0777);
-    shot->header[0] = 'B';
-    shot->header[1] = 'M';
-    shot->header[2] = (unsigned char)shot->size;
-    shot->header[3] = (unsigned char)(shot->size >> 8);
-    shot->header[4] = (unsigned char)(shot->size >> 16);
-    shot->header[5] = (unsigned char)(shot->size >> 24);
-    shot->header[10] = 54;
-    shot->header[14] = 40;
-    shot->header[18] = (unsigned char)(m_struct->params->screen_w);
-    shot->header[19] = (unsigned char)(m_struct->params->screen_w >> 8);
-    shot->header[20] = (unsigned char)(m_struct->params->screen_w >> 16);
-    shot->header[21] = (unsigned char)(m_struct->params->screen_w >> 24);
-    m_struct->params->screen_h *= -1;
-    shot->header[22] = (unsigned char)m_struct->params->screen_h;
-    shot->header[23] = (unsigned char)(m_struct->params->screen_h >> 8);
-    shot->header[24] = (unsigned char)(m_struct->params->screen_h >> 16);
-    shot->header[25] = (unsigned char)(m_struct->params->screen_h >> 24);
-    m_struct->params->screen_h *= -1;
-    shot->header[26] = 1;
-    shot->header[28] = 32;
-    write(*fd, shot->header, 54);
+	*fd = open("cub3D.bmp", O_CREAT | O_RDWR | O_TRUNC, 0777);
+	shot->header[0] = 'B';
+	shot->header[1] = 'M';
+	shot->header[2] = (unsigned char)shot->size;
+	shot->header[3] = (unsigned char)(shot->size >> 8);
+	shot->header[4] = (unsigned char)(shot->size >> 16);
+	shot->header[5] = (unsigned char)(shot->size >> 24);
+	shot->header[10] = 54;
+	shot->header[14] = 40;
+	shot->header[18] = (unsigned char)(m_struct->params->screen_w);
+	shot->header[19] = (unsigned char)(m_struct->params->screen_w >> 8);
+	shot->header[20] = (unsigned char)(m_struct->params->screen_w >> 16);
+	shot->header[21] = (unsigned char)(m_struct->params->screen_w >> 24);
+	m_struct->params->screen_h *= -1;
+	shot->header[22] = (unsigned char)m_struct->params->screen_h;
+	shot->header[23] = (unsigned char)(m_struct->params->screen_h >> 8);
+	shot->header[24] = (unsigned char)(m_struct->params->screen_h >> 16);
+	shot->header[25] = (unsigned char)(m_struct->params->screen_h >> 24);
+	m_struct->params->screen_h *= -1;
+	shot->header[26] = 1;
+	shot->header[28] = 32;
+	write(*fd, shot->header, 54);
 }
 
-void save(t_data *m_struct)
+void	save(t_data *m_struct)
 {
-    t_scr_shot shot;
-    t_scr_shot *p_shot;
-    int fd;
+	t_scr_shot	shot;
+	t_scr_shot	*p_shot;
+	int			fd;
+	int			w;
+	int			h;
 
-    fd = 0;
-    p_shot = &shot;
-    shot.size = 54 + (m_struct->bits_per_pixel / 8 * m_struct->params->screen_w * m_struct->params->screen_h);
-    shot.header = ft_calloc(54, sizeof (unsigned char));
-     if (!shot.header)
-     {
-         throw_exception(MALLOC_ERROR);
-         free_all(m_struct);
-     }
-    fill_header(m_struct, p_shot, &fd);
-    fill_shot(m_struct, fd);
-    free_all(m_struct);
-    free(shot.header);
-    exit(0);
+	fd = 0;
+	p_shot = &shot;
+	w = m_struct->params->screen_w;
+	h = m_struct->params->screen_h;
+	shot.size = 54 + (m_struct->bits_per_pixel / 8 * w * h);
+	shot.header = ft_calloc(54, sizeof (unsigned char));
+	if (!shot.header)
+	{
+		throw_exception(MALLOC_ERROR);
+		free_all(m_struct);
+	}
+	fill_header(m_struct, p_shot, &fd);
+	fill_shot(m_struct, fd);
+	free_all(m_struct);
+	free(shot.header);
+	exit(0);
 }

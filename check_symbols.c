@@ -6,7 +6,7 @@
 /*   By: cerebus <cerebus@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/25 22:53:57 by cerebus           #+#    #+#             */
-/*   Updated: 2021/04/27 04:27:41 by cerebus          ###   ########.fr       */
+/*   Updated: 2021/04/27 22:33:14 by cerebus          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	check_symbols(char *s, t_data *m_struct, int *flag_player)
 	if (player_i != -1)
 	{
 		if (ft_strchr(PLAYER_SYMBOLS, s[player_i]) == NULL)
-            throw_map_except(m_struct);
+			throw_map_except(m_struct);
 		else
 		{
 			if (*flag_player == 1)

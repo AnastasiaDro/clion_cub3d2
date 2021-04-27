@@ -6,7 +6,7 @@
 /*   By: cerebus <cerebus@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/26 14:24:42 by cerebus           #+#    #+#             */
-/*   Updated: 2021/04/26 22:27:34 by cerebus          ###   ########.fr       */
+/*   Updated: 2021/04/27 22:27:59 by cerebus          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	add_to_list(char **line, t_data *m_struct, \
 			t_list **last_elem, int *elems_num)
 {
 	if (check_fe_line(*line) == MAP_ERROR)
-        throw_map_except(m_struct);
+		throw_map_except(m_struct);
 	(*elems_num)++;
 	ft_lstadd_front(last_elem, ft_lstnew(*line));
 }
@@ -46,8 +46,8 @@ int	go_th_params(int fd, t_data *m_s, t_list **last_elem, char **line)
 			if (is_empty(line))
 				continue ;
 			if (!(get_check_tex(line[i], m_s, &parse_f)) \
-			        && !(get_check_params(line[i], m_s, &parse_f)))
-                throw_map_except(m_s);
+					&& !(get_check_params(line[i], m_s, &parse_f)))
+				throw_map_except(m_s);
 		}
 	}
 	was_params(parse_f, m_s);

@@ -6,7 +6,7 @@
 /*   By: cerebus <cerebus@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/27 04:40:59 by cerebus           #+#    #+#             */
-/*   Updated: 2021/04/27 05:19:35 by cerebus          ###   ########.fr       */
+/*   Updated: 2021/04/27 22:13:37 by cerebus          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,13 +35,11 @@ void	check_save(char *save)
 void	check_map_arg(int argc, char *argv[])
 {
 	int	s_len;
-	
+
 	s_len = (int)ft_strlen(argv[1]);
-	
 	if (ft_strncmp(".cub", &(argv[1][s_len - 4]), 4))
 	{
 		throw_exception(INVALID_FORMAT);
 		exit(0);
 	}
-
 }

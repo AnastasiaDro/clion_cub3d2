@@ -6,7 +6,7 @@
 /*   By: cerebus <cerebus@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/15 15:54:45 by cerebus           #+#    #+#             */
-/*   Updated: 2021/04/27 17:51:40 by cerebus          ###   ########.fr       */
+/*   Updated: 2021/04/27 22:24:20 by cerebus          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,26 +38,14 @@ int	cross_hook(t_data *m_struct)
 	exit (0);
 }
 
-int	key_press(int keycode, t_data *m_struct)
+void	check_print_screen(t_data *m_struct, char *s, int argc)
 {
-	if (keycode == 53)
+	if (argc == 3)
 	{
-		free_all(m_struct);
-		exit(0);
+		render_next_frame(m_struct);
+		check_save(s);
+		save(m_struct);
 	}
-	turn_on_flags(keycode, m_struct);
-	return (0);
-}
-
-int	key_release(int keycode, t_data *m_struct)
-{
-	if (keycode == 53)
-	{
-		free_all(m_struct);
-		exit(0);
-	}
-	turn_off_flags(keycode, m_struct);
-	return (0);
 }
 
 int	main(int argc, char *argv[])
@@ -85,12 +73,6 @@ int	main(int argc, char *argv[])
 	m_struct.addr = mlx_get_data_addr(m_struct.img, &m_struct.bits_per_pixel, &m_struct.line_length, \
 										&m_struct.endian);
 	mlx_loop_hook(m_struct.mlx, render_next_frame, &m_struct);
-    if (argc == 3)
-    {
-        render_next_frame(&m_struct);
-        check_save(argv[2]);
-        save(&m_struct);
-    }
+	check_print_screen(&m_struct, argv[2], argc);
 	mlx_loop(m_struct.mlx);
-	exit(0);
 }

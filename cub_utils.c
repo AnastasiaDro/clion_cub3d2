@@ -6,7 +6,7 @@
 /*   By: cerebus <cerebus@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/25 23:22:41 by cerebus           #+#    #+#             */
-/*   Updated: 2021/04/26 17:36:07 by cerebus          ###   ########.fr       */
+/*   Updated: 2021/04/27 22:31:54 by cerebus          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int	draw_lab_dda(t_data *m_struct)
 {
 	t_ray	ray;
 	t_wall	wall;
-	
+
 	cast_walls(m_struct, &ray, &wall);
 	cast_sprites(m_struct);
 	mlx_put_image_to_window(m_struct->mlx, \
