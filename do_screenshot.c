@@ -23,7 +23,6 @@ int fill_shot(t_data *m_struct, int fd)
     int color;
     y = m_struct->params->screen_h;
 
-    t_data m_s = *m_struct;
     while (y > 0)
     {
         x = 0;

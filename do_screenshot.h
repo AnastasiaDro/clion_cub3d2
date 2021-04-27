@@ -13,7 +13,7 @@
 typedef struct s_scr_shot {
 
     int fd; //pad
-    char *header;
+    unsigned char *header;
     int size;
     int pad;
 }               t_scr_shot;
