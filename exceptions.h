@@ -6,7 +6,7 @@
 /*   By: cerebus <cerebus@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/26 14:14:07 by cerebus           #+#    #+#             */
-/*   Updated: 2021/04/26 14:14:27 by cerebus          ###   ########.fr       */
+/*   Updated: 2021/04/27 05:00:37 by cerebus          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,9 @@
 # define EXCEPTIONS_H
 # include "cub_utils.h"
 
+# define INVALID_ARGS_NUM "Invalid arguments number"
+# define INVALID_FORMAT "Invalid file format"
+# define INVALID_THIRD_ARGUMENT "Invalid 3rd argument"
 # define NORTH_TEX_PATH_ERROR "Invalid North texture path"
 # define SOUTH_TEX_PATH_ERROR "Invalid South texture path"
 # define WEST_TEX_PATH_ERROR "Invalid West texture path"

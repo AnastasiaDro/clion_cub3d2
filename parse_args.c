@@ -6,18 +6,43 @@
 /*   By: cerebus <cerebus@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/27 04:40:59 by cerebus           #+#    #+#             */
-/*   Updated: 2021/04/27 04:43:11 by cerebus          ###   ########.fr       */
+/*   Updated: 2021/04/27 05:19:35 by cerebus          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub_utils.h"
 #include "exceptions.h"
+#include <stdio.h>
 
-void	*parse_args(int argc, char *argv, t_data *m_struct)
+void	check_args_num(int argc)
 {
-	if (argc == 1 || argc > 3)
+	if (argc < 2 || argc > 3)
 	{
-		throw_exception()
+		throw_exception(INVALID_ARGS_NUM);
+		exit(0);
 	}
+}
+
+void	check_save(char *save)
+{
+	if (!ft_strncmp("--save", save, 7))
+	{
+		throw_exception(INVALID_THIRD_ARGUMENT);
+		exit(0);
+	}
+}
+
+void	check_map_arg(int argc, char *argv[])
+{
+	int	s_len;
 	
+	s_len = (int)ft_strlen(argv[1]);
+	
+	if (ft_strncmp(".cub", &(argv[1][s_len - 4]), 4))
+	{
+		throw_exception(INVALID_FORMAT);
+		exit(0);
+	}
+	if (argc == 3)
+		check_save(argv[2]);
 }

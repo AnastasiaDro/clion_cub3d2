@@ -6,7 +6,7 @@
 /*   By: cerebus <cerebus@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/15 15:54:45 by cerebus           #+#    #+#             */
-/*   Updated: 2021/04/26 22:37:18 by cerebus          ###   ########.fr       */
+/*   Updated: 2021/04/27 05:25:39 by cerebus          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 #include "exceptions.h"
 #include "draw_utils.h"
 #include "main_inits.h"
+#include "parse_args.h"
 
 int	render_next_frame(t_data *m_struct)
 {
@@ -51,13 +52,14 @@ int	key_hook(int keycode, t_data *m_struct)
 	return (0);
 }
 
-int	main()
+int	main(int argc, char *argv[])
 {
 	t_data	m_struct;
-
+    check_args_num(argc);
+	check_map_arg(argc, argv);
 	m_struct.mlx = mlx_init();
 	init_all(&m_struct);
-	parse_map(&m_struct, "/Users/cerebus/projects/clion_cub3d2/real_map1.cub");
+	parse_map(&m_struct, argv[1]);
 	get_textures_paths(m_struct.textu, &m_struct);
 	if (init_textu_arr(m_struct.textu, 128, 128) == -1)
 		free_all(&m_struct);

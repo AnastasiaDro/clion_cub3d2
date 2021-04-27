@@ -6,7 +6,7 @@
 /*   By: cerebus <cerebus@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/26 22:33:09 by cerebus           #+#    #+#             */
-/*   Updated: 2021/04/26 22:36:48 by cerebus          ###   ########.fr       */
+/*   Updated: 2021/04/27 05:23:50 by cerebus          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ void	throw_empty_file(t_data *m_struct)
 {
 	throw_exception(EMPTY_FILE);
 	free_all(m_struct);
+	exit(0);
 }
 
 void	was_params(t_parse_flags parseFlags, t_data *m_struct)
