@@ -26,7 +26,7 @@ CC		=	cc $(FLAGS) -c -I
 OBJS	=	$(SRC:.c=.o)
 BOBJS	=	$(BONUS:.c=.o)
 
-$(NAME):	$(OBJS)
+$(NAME):	$(OBJS) $(BOBJS)
 			ar rc libft.a $(OBJS) $(BOBJS)
 
 all:		$(NAME)

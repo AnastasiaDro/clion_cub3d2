@@ -17,7 +17,7 @@ static int	calc_sublen(int len, char *s)
 {
 	int	sublen;
 
-	if (len > ft_strlen(s))
+	if (len > (int)ft_strlen(s))
 		sublen = ft_strlen(s);
 	else
 		sublen = len;
@@ -38,7 +38,7 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 		substr = malloc(1 * sizeof(char));
 	else
 	{
-		sublen = calc_sublen(len, &s[start]);
+		sublen = calc_sublen(len, (char *)&s[start]);
 		substr = malloc((sublen + 1) * sizeof(char));
 	}
 	if (!substr)

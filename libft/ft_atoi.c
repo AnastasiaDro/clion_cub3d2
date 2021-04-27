@@ -30,7 +30,7 @@ int	ft_atoi(char *str)
 	i = 0;
 	coef = 1;
 	result = 0;
-	while (str[i] != '\0' && (str[i] >= '\t' && str[i] <= '\r') || str[i] == ' ')
+	while ((str[i] != '\0' && (str[i] >= '\t' && str[i] <= '\r')) || str[i] == ' ')
 		i++;
 	if (str[i] == '-' || str[i] == '+')
 	{

@@ -17,6 +17,6 @@ void	check_args_num(int argc);
 
 void	check_save(char *save);
 
-void	check_map_arg(int argc, char *argv[]);
+void	check_map_arg(char *argv[]);
 
 #endif

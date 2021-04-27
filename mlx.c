@@ -53,7 +53,7 @@ int	main(int argc, char *argv[])
 	t_data	m_struct;
 
 	check_args_num(argc);
-	check_map_arg(argc, argv);
+	check_map_arg(argv);
 	m_struct.mlx = mlx_init();
 	init_all(&m_struct);
 	parse_map(&m_struct, argv[1]);
