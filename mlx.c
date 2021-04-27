@@ -88,10 +88,10 @@ int	main(int argc, char *argv[])
 
     if (argc == 3)
     {
+        render_next_frame(&m_struct);
         check_save(argv[2]);
         save(&m_struct);
     }
-
 	mlx_loop(m_struct.mlx);
 	exit(0);
 }

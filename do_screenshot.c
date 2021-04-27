@@ -18,23 +18,25 @@
 
 int fill_shot(t_data *m_struct, int fd)
 {
-    int x;
-    int y;
-    int color;
-    y = m_struct->params->screen_h;
+//    int x;
+//    int y;
+//    int color;
+//    y = m_struct->params->screen_h;
 
-    while (y > 0)
-    {
-        x = 0;
-        while (x < m_struct->params->screen_h)
-         {
-            color = *(int *)(m_struct->addr + (m_struct->line_length * y + \
-            x * (m_struct->bits_per_pixel / 8)));
-             write(fd, &color, 4);
-            x++;
-        }
-    y--;
-    }
+    write(fd, m_struct->addr, m_struct->line_length * m_struct->params->screen_h);
+
+//    while (y > 0)
+//    {
+//        x = 0;
+//        while (x < m_struct->params->screen_h)
+//         {
+//            color = *(int *)(m_struct->addr + (m_struct->line_length * y + \
+//            x * (m_struct->bits_per_pixel / 8)));
+//             write(fd, &color, 4);
+//            x++;
+//        }
+//        y--;
+//    }
     return (1);
 }
 
@@ -53,10 +55,12 @@ static void fill_header(t_data *m_struct,  t_scr_shot *shot, int *fd)
     shot->header[19] = (unsigned char)(m_struct->params->screen_w >> 8);
     shot->header[20] = (unsigned char)(m_struct->params->screen_w >> 16);
     shot->header[21] = (unsigned char)(m_struct->params->screen_w >> 24);
+    m_struct->params->screen_h *= -1;
     shot->header[22] = (unsigned char)m_struct->params->screen_h;
     shot->header[23] = (unsigned char)(m_struct->params->screen_h >> 8);
     shot->header[24] = (unsigned char)(m_struct->params->screen_h >> 16);
     shot->header[25] = (unsigned char)(m_struct->params->screen_h >> 24);
+    m_struct->params->screen_h *= -1;
     shot->header[26] = 1;
     shot->header[28] = 32;
     write(*fd, shot->header, 54);
@@ -75,13 +79,14 @@ void save(t_data *m_struct)
     shot.size = 54 + (m_struct->bits_per_pixel / 8 * m_struct->params->screen_w * m_struct->params->screen_h);
 //    all->save.size = 54 + (all->ptr.bits_per_pixel / 8 * \
 //    all->map.r_width * all->map.r_height);
-    shot.header  = malloc(54 * sizeof(unsigned char));
+    shot.header = malloc(54 * sizeof(unsigned char));
     //all->save.header = ft_calloc(54, sizeof(char));
      if (!shot.header)
      {
          throw_exception(MALLOC_ERROR);
          free_all(m_struct);
      }
+     //?
      while (i < 54)
     {
          p_shot->header[i] = (unsigned char)(0);
