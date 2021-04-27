@@ -6,7 +6,7 @@
 /*   By: cerebus <cerebus@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/22 14:51:14 by cerebus           #+#    #+#             */
-/*   Updated: 2021/04/26 23:08:15 by cerebus          ###   ########.fr       */
+/*   Updated: 2021/04/27 17:52:21 by cerebus          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,5 +64,5 @@ void	init_all(t_data *m_struct)
 	init_sprite_info(sprite_info);
 	init_params(params);
 	set_data(m_struct, params, textu, sprite_info);
-    m_struct->press_flgs = ft_calloc(1, sizeof (t_press_flgs));
+	m_struct->press_flgs = ft_calloc(1, sizeof (t_press_flgs));
 }

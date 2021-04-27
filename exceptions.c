@@ -6,7 +6,7 @@
 /*   By: cerebus <cerebus@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/21 20:54:21 by cerebus           #+#    #+#             */
-/*   Updated: 2021/04/26 17:03:21 by cerebus          ###   ########.fr       */
+/*   Updated: 2021/04/27 17:54:11 by cerebus          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ int	free_all(t_data *m_struct)
 		mlx_destroy_window(m_struct->mlx, m_struct->mlx_win);
 		mlx_destroy_image(m_struct->mlx, m_struct->img);
 	}
-    free(m_struct->press_flgs);
+	free(m_struct->press_flgs);
 	exit(0);
 }
 

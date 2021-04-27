@@ -40,8 +40,7 @@ int	draw_lab_dda(t_data *m_struct)
 {
 	t_ray	ray;
 	t_wall	wall;
-
- //   draw_floor_ceil(m_struct, m_struct->params->screen_h);
+	
 	cast_walls(m_struct, &ray, &wall);
 	cast_sprites(m_struct);
 	mlx_put_image_to_window(m_struct->mlx, \
